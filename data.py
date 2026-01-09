@@ -1,9 +1,11 @@
+import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
 # Add a function to update CSVs with recent games
 
+@st.cache_data
 def load_process_pbs():
     # Load in player data
     pbs = pd.read_csv("player_boxscores_2025_26.csv")
@@ -44,6 +46,7 @@ def load_process_pbs():
 
     return pbs
 
+@st.cache_data
 def load_process_tbs():
     # Load in team data
     tbs = pd.read_csv("league_gamelog_2025_26.csv")
@@ -76,6 +79,7 @@ def load_process_tbs():
 
     return tbs
 
+@st.cache_data
 def build_ranks(tbs):
     # Get all unique game dates in order
     season_start = tbs["GAME_DATE"].min()

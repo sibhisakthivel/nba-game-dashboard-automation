@@ -5,7 +5,7 @@ import numpy as np
 
 from data import load_process_pbs, load_process_tbs, build_ranks
 from plots.player import plot_player_scoring
-from plots.opp import plot_team_points_allowed
+from plots.team import plot_team_points_scored, plot_team_points_allowed
 
 st.set_page_config(
     page_title="NBA Player Prop Dashboard",
@@ -26,3 +26,6 @@ st.pyplot(player_scoring[0])
 
 opp_pts_allowed = plot_team_points_allowed("NOP", tbs, daily_ranks)
 st.pyplot(opp_pts_allowed[0])
+
+team_pts = plot_team_points_scored("LAL", tbs, daily_ranks)
+st.pyplot(team_pts[0])

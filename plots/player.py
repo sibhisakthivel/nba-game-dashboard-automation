@@ -97,12 +97,14 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
 
     fig, ax = plt.subplots(figsize=(15, 6))
 
+    # Create bars with increased width
+    bar_width = 0.8
     ax.bar(
         x,
         plot_df["points"],
+        width=bar_width,
         color=bar_colors,
-        alpha=0.75,
-        label="Game Points"
+        alpha=0.75
     )
 
     ax.plot(
@@ -224,7 +226,7 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
                 f'{row["OPP_TEAM"]}',
                 ha="center",
                 va="bottom",
-                fontsize=8,
+                fontsize=16,
                 alpha=0.85
             )
             ax.text(
@@ -233,7 +235,7 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
                 f'#{int(row["opp_def_rank"])}',
                 ha="center",
                 va="bottom",
-                fontsize=9,
+                fontsize=18,
                 fontweight="bold",
                 alpha=0.9
             )
@@ -252,20 +254,68 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
     player_name = f"{player_name_row['firstName']} {player_name_row['familyName']}"
 
     ax.set_ylim(10, plot_df["points"].max() + 5)
-    ax.set_ylabel("Points")
-    ax.set_xlabel("Game Number")
-    ax.set_title(f"{player_name} — Scoring Outcomes vs Baselines")
+    ax.set_ylabel("Points", fontsize=22, fontweight="bold")
+    ax.set_xlabel("Game Number", fontsize=22, fontweight="bold")
+    ax.set_title(f"{player_name} — Scoring Outcomes vs Baselines", fontsize=24, fontweight="bold", pad=25)
 
     ax.set_xticks(x[::5])
-    ax.set_xticklabels(plot_df["game_number"][::5])
+    ax.set_xticklabels(plot_df["game_number"][::5], fontsize=16)
+    ax.tick_params(axis="y", labelsize=16)
 
     ax.grid(axis="y", alpha=0.25)
+    
+    # Create custom legend entries for prop line hits/misses
+    from matplotlib.patches import Patch
+    from matplotlib.lines import Line2D
+    legend_elements = [
+        Line2D([0], [0], linestyle=':', linewidth=3, color='gray', label="Rolling 10 Avg PPG"),
+        Line2D([0], [0], linestyle='--', linewidth=1.8, alpha=0.7, color='orange', label="Season Avg PPG"),
+        Line2D([0], [0], linestyle=':', linewidth=2, color="black", alpha=0.8, label=f"Prop Line ({prop_line})"),
+        Patch(facecolor='tab:green', alpha=0.75, label="Over prop line"),
+        Patch(facecolor='tab:red', alpha=0.75, label="Under prop line"),
+        Line2D([0], [0], marker='x', color='black', linestyle='None', markersize=8, markeredgewidth=2, label="≤30 Minutes")
+    ]
+    
+    # Add teammate markers if applicable
+    if teammate_ids is not None and len(teammate_ids) > 0:
+        pbs_names = pbs.copy()
+        pbs_names["firstName"] = pbs_names["firstName"].str.lower()
+        pbs_names["familyName"] = pbs_names["familyName"].str.lower()
+        player_game_ids = set(plot_df["game_id"])
+        
+        markers = ["^", "s"]
+        colors = ["tab:blue", "tab:purple"]
+        
+        for i, teammate_id in enumerate(teammate_ids):
+            if isinstance(teammate_id, str):
+                name_row = (
+                    pbs_names[pbs_names["familyName"] == teammate_id.lower()]
+                    [["firstName", "familyName"]]
+                    .drop_duplicates()
+                    .iloc[0]
+                )
+                teammate_name = f"{name_row['familyName'].title()}"
+            else:
+                name_row = (
+                    pbs_names[pbs_names["personId"] == teammate_id]
+                    [["firstName", "familyName"]]
+                    .drop_duplicates()
+                    .iloc[0]
+                )
+                teammate_name = f"{name_row['firstName'].title()} {name_row['familyName'].title()}"
+            
+            legend_elements.append(
+                Line2D([0], [0], marker=markers[i], color=colors[i], linestyle='None', 
+                      markersize=10 if i == 0 else 9, label=f"{teammate_name} OUT")
+            )
+    
     ax.legend(
-        fontsize=9,
+        handles=legend_elements,
+        fontsize=18,
         frameon=False,
-        labelspacing=0.4,
-        handlelength=1.5,
-        handletextpad=0.6
+        labelspacing=0.6,
+        handlelength=2.0,
+        handletextpad=1.0
     )
 
     plt.tight_layout()

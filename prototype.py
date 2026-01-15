@@ -6,7 +6,7 @@ import numpy as np
 # Commented out old CSV-based imports
 # from data import load_process_pbs, load_process_tbs, build_ranks
 from plots.player import plot_player_scoring  # , plot_player_scoring_by_def_bucket
-# from tables import player_hit_rate_summary
+from tables import player_hit_rate_summary
 
 # New database query imports
 from db_queries import (
@@ -344,10 +344,11 @@ if st.session_state.selected_team is not None:
                     tbs = load_process_tbs_from_db(engine)
                     daily_ranks = build_ranks(tbs)
                     
-                    # Render player scoring plot
+                    # Render player scoring plot and hit rate table
                     st.markdown("---")
-                    st.markdown("## Player Scoring Plot")
+                    st.markdown("## Player Scoring Analysis")
                     
+                    # Render player scoring plot (full width)
                     player_scoring_fig, _ = plot_player_scoring(
                         st.session_state.selected_player_id,
                         st.session_state.prop_line,
@@ -357,10 +358,29 @@ if st.session_state.selected_team is not None:
                         teammate_ids=None  # Can add teammate selection later
                     )
                     
-                    # Use large size for the plot
-                    player_scoring_fig.set_size_inches(28, 13)
+                    # Use larger size for the plot
+                    player_scoring_fig.set_size_inches(32, 15)
                     player_scoring_fig.tight_layout()
                     st.pyplot(player_scoring_fig, use_container_width=True)
                     plt.close(player_scoring_fig)
+                    
+                    # Render hit rate summary table below the plot
+                    st.markdown("### Hit Rate Summary")
+                    summary_table = player_hit_rate_summary(
+                        st.session_state.selected_player_id,
+                        st.session_state.prop_line,
+                        pbs,
+                        tbs,
+                        daily_ranks,
+                        teammates=None  # Can add teammate selection later
+                    )
+                    
+                    # Display table with proper height
+                    st.dataframe(
+                        summary_table,
+                        use_container_width=True,
+                        hide_index=True,
+                        height=(len(summary_table) + 1) * 42 + 3  # Larger row height to fill space
+                    )
     else:
         st.warning(f"No players found for team {st.session_state.selected_team}")

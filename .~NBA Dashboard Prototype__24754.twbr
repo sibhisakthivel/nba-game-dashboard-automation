@@ -1,0 +1,3008 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 20253.25.1210.1815                               -->
+<workbook original-version='18.1' source-build='2025.3.1 (20253.25.1210.1815)' source-platform='mac' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <AccessibleZoneTabOrder />
+    <AnimationOnByDefault />
+    <AutoCreateAndUpdateDSDPhoneLayouts />
+    <MarkAnimation />
+    <ObjectModelEncapsulateLegacy />
+    <ObjectModelExtractV2 />
+    <ObjectModelTableType />
+    <SchemaViewerObjectModel />
+    <SetMembershipControl />
+    <SheetIdentifierTracking />
+    <SortTagCleanup />
+    <_.fcp.VConnDownstreamExtractsWithWarnings.true...VConnDownstreamExtractsWithWarnings />
+    <WindowsPersistSimpleIdentifiers />
+  </document-format-change-manifest>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <datasources>
+    <datasource hasconnection='false' inline='true' name='Parameters' version='18.1'>
+      <aliases enabled='yes' />
+      <column caption='Prop Line (Const) Parameter' datatype='real' name='[Prop Line (Const) Parameter]' param-domain-type='range' role='measure' type='quantitative' value='29.5'>
+        <calculation class='tableau' formula='29.5' />
+        <range max='29.5' min='29.5' />
+      </column>
+      <column caption='Szn Avg Ppg Parameter' datatype='real' name='[Szn Avg Ppg Parameter]' param-domain-type='range' role='measure' type='quantitative' value='19.333333333333332'>
+        <calculation class='tableau' formula='19.333333333333332' />
+        <range max='33.479999999999997' min='19.333333333333332' />
+      </column>
+    </datasource>
+    <datasource caption='player_1629029_hrs' inline='true' name='federated.049w09d0j4c2591h37ag4150yi27' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='player_1629029_hrs' name='textscan.0anj6di11zj2vx185l1y818d671k'>
+            <connection class='textscan' directory='/Users/sibhisak/Downloads/nba-game-dashboard-automation' filename='player_1629029_hrs.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <relation connection='textscan.0anj6di11zj2vx185l1y818d671k' name='player_1629029_hrs.csv' table='[player_1629029_hrs#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+            <column datatype='string' name='Category' ordinal='0' />
+            <column datatype='integer' name='Games' ordinal='1' />
+            <column datatype='real' name='Hit Rate (%)' ordinal='2' />
+          </columns>
+        </relation>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[player_1629029_hrs.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Category</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Category]</local-name>
+            <parent-name>[player_1629029_hrs.csv]</parent-name>
+            <remote-alias>Category</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[player_1629029_hrs.csv_9193C90BD86F4187A12F1AE035A6BD0D]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Games</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Games]</local-name>
+            <parent-name>[player_1629029_hrs.csv]</parent-name>
+            <remote-alias>Games</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_hrs.csv_9193C90BD86F4187A12F1AE035A6BD0D]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Hit Rate (%)</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Hit Rate (%)]</local-name>
+            <parent-name>[player_1629029_hrs.csv]</parent-name>
+            <remote-alias>Hit Rate (%)</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_hrs.csv_9193C90BD86F4187A12F1AE035A6BD0D]</object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column datatype='string' name='[:Measure Names]' role='dimension' type='nominal'>
+        <aliases>
+          <alias key='&quot;[federated.049w09d0j4c2591h37ag4150yi27].[sum:Hit Rate (\%):qk]&quot;' value='Hit Rate %' />
+        </aliases>
+      </column>
+      <column datatype='real' name='[Hit Rate (%)]' role='measure' type='quantitative' />
+      <column caption='player_1629029_hrs.csv' datatype='table' name='[__tableau_internal_object_id__].[player_1629029_hrs.csv_9193C90BD86F4187A12F1AE035A6BD0D]' role='measure' type='quantitative' />
+      <column-instance column='[Hit Rate (%)]' derivation='Sum' name='[sum:Hit Rate (%):qk]' pivot='key' type='quantitative' />
+      <extract _.fcp.VConnDownstreamExtractsWithWarnings.true...user-specific='false' count='-1' enabled='true' object-id='' units='records'>
+        <connection access_mode='readonly' author-locale='en_US' class='hyper' dbname='Data/tableau-temp/#TableauTemp_1w8n0sd1gnn5rr0zzmomd0t8x71v.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='01/13/2026 09:17:29 PM' username='tableau_internal_user'>
+          <relation name='Extract' table='[Extract].[Extract]' type='table' />
+          <metadata-records>
+            <metadata-record class='column'>
+              <remote-name>Category</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[Category]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>Category</remote-alias>
+              <ordinal>0</ordinal>
+              <family>player_1629029_hrs.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>19</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[player_1629029_hrs.csv_9193C90BD86F4187A12F1AE035A6BD0D]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Games</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[Games]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>Games</remote-alias>
+              <ordinal>1</ordinal>
+              <family>player_1629029_hrs.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>12</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_hrs.csv_9193C90BD86F4187A12F1AE035A6BD0D]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Hit Rate (%)</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[Hit Rate (%)]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>Hit Rate (%)</remote-alias>
+              <ordinal>2</ordinal>
+              <family>player_1629029_hrs.csv</family>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>16</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_hrs.csv_9193C90BD86F4187A12F1AE035A6BD0D]</object-id>
+            </metadata-record>
+          </metadata-records>
+        </connection>
+      </extract>
+      <layout dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+      <object-graph>
+        <objects>
+          <object caption='player_1629029_hrs.csv' id='player_1629029_hrs.csv_9193C90BD86F4187A12F1AE035A6BD0D'>
+            <properties context=''>
+              <relation connection='textscan.0anj6di11zj2vx185l1y818d671k' name='player_1629029_hrs.csv' table='[player_1629029_hrs#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='string' name='Category' ordinal='0' />
+                  <column datatype='integer' name='Games' ordinal='1' />
+                  <column datatype='real' name='Hit Rate (%)' ordinal='2' />
+                </columns>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='Extract' table='[Extract].[Extract]' type='table' />
+            </properties>
+          </object>
+        </objects>
+      </object-graph>
+    </datasource>
+    <datasource caption='player_1629029_scoring_plot' inline='true' name='federated.1rbuunv1x1kc0b13dfx881r4knu8' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='player_1629029_scoring_plot' name='textscan.0g1bcdy1tw0qvw130rhm80s5wkc8'>
+            <connection class='textscan' directory='/Users/sibhisak/Downloads/nba-game-dashboard-automation' filename='player_1629029_scoring_plot.csv' password='' server='' />
+          </named-connection>
+          <named-connection caption='LAL@NOP_matchup_comparison' name='textscan.1af1j2x00t2wmn16uxk5n18vdqwy'>
+            <connection class='textscan' directory='/Users/sibhisak/Downloads/nba-game-dashboard-automation' filename='LAL@NOP_matchup_comparison.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <relation connection='textscan.0g1bcdy1tw0qvw130rhm80s5wkc8' name='player_1629029_scoring_plot.csv' table='[player_1629029_scoring_plot#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+            <column datatype='integer' name='game_id' ordinal='0' />
+            <column datatype='date' name='game_date_dt' ordinal='1' />
+            <column datatype='integer' name='game_number' ordinal='2' />
+            <column datatype='string' name='OPP_TEAM' ordinal='3' />
+            <column datatype='real' name='opp_def_rank' ordinal='4' />
+            <column datatype='integer' name='points' ordinal='5' />
+            <column datatype='real' name='minutes' ordinal='6' />
+            <column datatype='real' name='r10_avg_ppg' ordinal='7' />
+            <column datatype='real' name='szn_avg_ppg' ordinal='8' />
+            <column datatype='real' name='prop_line' ordinal='9' />
+            <column datatype='boolean' name='over_prop' ordinal='10' />
+            <column datatype='boolean' name='low_minutes' ordinal='11' />
+            <column datatype='boolean' name='teammate_0_out' ordinal='12' />
+            <column datatype='boolean' name='teammate_1_out' ordinal='13' />
+          </columns>
+        </relation>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[player_1629029_scoring_plot.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>game_id</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[game_id]</local-name>
+            <parent-name>[player_1629029_scoring_plot.csv]</parent-name>
+            <remote-alias>game_id</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>game_date_dt</remote-name>
+            <remote-type>133</remote-type>
+            <local-name>[game_date_dt]</local-name>
+            <parent-name>[player_1629029_scoring_plot.csv]</parent-name>
+            <remote-alias>game_date_dt</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>game_number</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[game_number]</local-name>
+            <parent-name>[player_1629029_scoring_plot.csv]</parent-name>
+            <remote-alias>game_number</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>OPP_TEAM</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[OPP_TEAM]</local-name>
+            <parent-name>[player_1629029_scoring_plot.csv]</parent-name>
+            <remote-alias>OPP_TEAM</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>opp_def_rank</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[opp_def_rank]</local-name>
+            <parent-name>[player_1629029_scoring_plot.csv]</parent-name>
+            <remote-alias>opp_def_rank</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>points</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[points]</local-name>
+            <parent-name>[player_1629029_scoring_plot.csv]</parent-name>
+            <remote-alias>points</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>minutes</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[minutes]</local-name>
+            <parent-name>[player_1629029_scoring_plot.csv]</parent-name>
+            <remote-alias>minutes</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>r10_avg_ppg</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[r10_avg_ppg]</local-name>
+            <parent-name>[player_1629029_scoring_plot.csv]</parent-name>
+            <remote-alias>r10_avg_ppg</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>szn_avg_ppg</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[szn_avg_ppg]</local-name>
+            <parent-name>[player_1629029_scoring_plot.csv]</parent-name>
+            <remote-alias>szn_avg_ppg</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>prop_line</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[prop_line]</local-name>
+            <parent-name>[player_1629029_scoring_plot.csv]</parent-name>
+            <remote-alias>prop_line</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>over_prop</remote-name>
+            <remote-type>11</remote-type>
+            <local-name>[over_prop]</local-name>
+            <parent-name>[player_1629029_scoring_plot.csv]</parent-name>
+            <remote-alias>over_prop</remote-alias>
+            <ordinal>10</ordinal>
+            <local-type>boolean</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>low_minutes</remote-name>
+            <remote-type>11</remote-type>
+            <local-name>[low_minutes]</local-name>
+            <parent-name>[player_1629029_scoring_plot.csv]</parent-name>
+            <remote-alias>low_minutes</remote-alias>
+            <ordinal>11</ordinal>
+            <local-type>boolean</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>teammate_0_out</remote-name>
+            <remote-type>11</remote-type>
+            <local-name>[teammate_0_out]</local-name>
+            <parent-name>[player_1629029_scoring_plot.csv]</parent-name>
+            <remote-alias>teammate_0_out</remote-alias>
+            <ordinal>12</ordinal>
+            <local-type>boolean</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>teammate_1_out</remote-name>
+            <remote-type>11</remote-type>
+            <local-name>[teammate_1_out]</local-name>
+            <parent-name>[player_1629029_scoring_plot.csv]</parent-name>
+            <remote-alias>teammate_1_out</remote-alias>
+            <ordinal>13</ordinal>
+            <local-type>boolean</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='Prop Line (Const)' datatype='real' name='[Calculation_1701109139488768]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='MIN([prop_line])' />
+      </column>
+      <column caption='Over Props' datatype='boolean' name='[Calculation_1701109140836354]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='[points] &gt;= [prop_line]' />
+      </column>
+      <column caption='Opp + Def Rank' datatype='string' name='[Calculation_1701109155184644]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='IF ISNULL([opp_def_rank]) THEN&#10;    [OPP_TEAM]&#10;ELSE&#10;    [OPP_TEAM]&#10;    + CHAR(10)&#10;    + &quot;#&quot;&#10;    + STR(INT([opp_def_rank]))&#10;END' />
+      </column>
+      <column caption='Opp Team' datatype='string' name='[OPP_TEAM]' role='dimension' type='nominal' />
+      <column caption='player_1629029_scoring_plot.csv' datatype='table' name='[__tableau_internal_object_id__].[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]' role='measure' type='quantitative' />
+      <column caption='Game Date Dt' datatype='date' name='[game_date_dt]' role='dimension' type='ordinal' />
+      <column caption='Game Id' datatype='integer' name='[game_id]' role='dimension' type='ordinal' />
+      <column caption='Game Number' datatype='integer' name='[game_number]' role='dimension' type='ordinal' />
+      <column caption='Low Minutes' datatype='boolean' name='[low_minutes]' role='dimension' type='nominal' />
+      <column caption='Minutes' datatype='real' name='[minutes]' role='measure' type='quantitative' />
+      <column caption='Opp Def Rank' datatype='real' name='[opp_def_rank]' role='measure' type='quantitative' />
+      <column caption='Over Prop' datatype='boolean' name='[over_prop]' role='dimension' type='nominal' />
+      <column caption='Points' datatype='integer' name='[points]' role='measure' type='quantitative' />
+      <column caption='Prop Line' datatype='real' name='[prop_line]' role='measure' type='quantitative' />
+      <column caption='R10 Avg Ppg' datatype='real' name='[r10_avg_ppg]' role='measure' type='quantitative' />
+      <column caption='Szn Avg Ppg' datatype='real' name='[szn_avg_ppg]' role='measure' type='quantitative' />
+      <column caption='Teammate 0 Out' datatype='boolean' name='[teammate_0_out]' role='dimension' type='nominal' />
+      <column caption='Teammate 1 Out' datatype='boolean' name='[teammate_1_out]' role='dimension' type='nominal' />
+      <column-instance column='[Calculation_1701109140836354]' derivation='None' name='[none:Calculation_1701109140836354:nk]' pivot='key' type='nominal' />
+      <column-instance column='[minutes]' derivation='Sum' name='[sum:minutes:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[opp_def_rank]' derivation='Sum' name='[sum:opp_def_rank:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[r10_avg_ppg]' derivation='Sum' name='[sum:r10_avg_ppg:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[szn_avg_ppg]' derivation='Sum' name='[sum:szn_avg_ppg:qk]' pivot='key' type='quantitative' />
+      <extract _.fcp.VConnDownstreamExtractsWithWarnings.true...user-specific='false' count='-1' enabled='true' object-id='' units='records'>
+        <connection access_mode='readonly' author-locale='en_US' class='hyper' dbname='Data/tableau-temp/#TableauTemp_12lunvs0koptih1b31svn0vfvp4j.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='01/14/2026 12:06:25 AM' username='tableau_internal_user'>
+          <relation name='Extract' table='[Extract].[Extract]' type='table' />
+          <metadata-records>
+            <metadata-record class='column'>
+              <remote-name>game_id</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[game_id]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>game_id</remote-alias>
+              <ordinal>0</ordinal>
+              <family>player_1629029_scoring_plot.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>26</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>game_date_dt</remote-name>
+              <remote-type>133</remote-type>
+              <local-name>[game_date_dt]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>game_date_dt</remote-alias>
+              <ordinal>1</ordinal>
+              <family>player_1629029_scoring_plot.csv</family>
+              <local-type>date</local-type>
+              <aggregation>Year</aggregation>
+              <approx-count>26</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>game_number</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[game_number]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>game_number</remote-alias>
+              <ordinal>2</ordinal>
+              <family>player_1629029_scoring_plot.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>26</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>OPP_TEAM</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[OPP_TEAM]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>OPP_TEAM</remote-alias>
+              <ordinal>3</ordinal>
+              <family>player_1629029_scoring_plot.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>18</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>opp_def_rank</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[opp_def_rank]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>opp_def_rank</remote-alias>
+              <ordinal>4</ordinal>
+              <family>player_1629029_scoring_plot.csv</family>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>17</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>points</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[points]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>points</remote-alias>
+              <ordinal>5</ordinal>
+              <family>player_1629029_scoring_plot.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>19</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>minutes</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[minutes]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>minutes</remote-alias>
+              <ordinal>6</ordinal>
+              <family>player_1629029_scoring_plot.csv</family>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>26</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>r10_avg_ppg</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[r10_avg_ppg]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>r10_avg_ppg</remote-alias>
+              <ordinal>7</ordinal>
+              <family>player_1629029_scoring_plot.csv</family>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>23</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>szn_avg_ppg</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[szn_avg_ppg]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>szn_avg_ppg</remote-alias>
+              <ordinal>8</ordinal>
+              <family>player_1629029_scoring_plot.csv</family>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>25</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>prop_line</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[prop_line]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>prop_line</remote-alias>
+              <ordinal>9</ordinal>
+              <family>player_1629029_scoring_plot.csv</family>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>1</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>over_prop</remote-name>
+              <remote-type>11</remote-type>
+              <local-name>[over_prop]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>over_prop</remote-alias>
+              <ordinal>10</ordinal>
+              <family>player_1629029_scoring_plot.csv</family>
+              <local-type>boolean</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>2</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>low_minutes</remote-name>
+              <remote-type>11</remote-type>
+              <local-name>[low_minutes]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>low_minutes</remote-alias>
+              <ordinal>11</ordinal>
+              <family>player_1629029_scoring_plot.csv</family>
+              <local-type>boolean</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>2</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>teammate_0_out</remote-name>
+              <remote-type>11</remote-type>
+              <local-name>[teammate_0_out]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>teammate_0_out</remote-alias>
+              <ordinal>12</ordinal>
+              <family>player_1629029_scoring_plot.csv</family>
+              <local-type>boolean</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>2</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>teammate_1_out</remote-name>
+              <remote-type>11</remote-type>
+              <local-name>[teammate_1_out]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>teammate_1_out</remote-alias>
+              <ordinal>13</ordinal>
+              <family>player_1629029_scoring_plot.csv</family>
+              <local-type>boolean</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>2</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183]</object-id>
+            </metadata-record>
+          </metadata-records>
+        </connection>
+      </extract>
+      <layout dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <style>
+        <style-rule element='mark'>
+          <encoding attr='color' field='[none:Calculation_1701109140836354:nk]' type='palette'>
+            <map to='#09ea04'>
+              <bucket>true</bucket>
+            </map>
+            <map to='#ff2800'>
+              <bucket>false</bucket>
+            </map>
+          </encoding>
+          <encoding attr='color' field='[:Measure Names]' type='palette'>
+            <map to='#300561'>
+              <bucket>&quot;[federated.1rbuunv1x1kc0b13dfx881r4knu8].[sum:opp_def_rank:qk]&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;[federated.1rbuunv1x1kc0b13dfx881r4knu8].[sum:r10_avg_ppg:qk]&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;[federated.1rbuunv1x1kc0b13dfx881r4knu8].[sum:minutes:qk]&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;[federated.1rbuunv1x1kc0b13dfx881r4knu8].[sum:szn_avg_ppg:qk]&quot;</bucket>
+            </map>
+          </encoding>
+        </style-rule>
+      </style>
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+      <object-graph>
+        <objects>
+          <object caption='player_1629029_scoring_plot.csv' id='player_1629029_scoring_plot.csv_38F96DF8E53D4A31AF56DCBA34E83183'>
+            <properties context=''>
+              <relation connection='textscan.0g1bcdy1tw0qvw130rhm80s5wkc8' name='player_1629029_scoring_plot.csv' table='[player_1629029_scoring_plot#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='integer' name='game_id' ordinal='0' />
+                  <column datatype='date' name='game_date_dt' ordinal='1' />
+                  <column datatype='integer' name='game_number' ordinal='2' />
+                  <column datatype='string' name='OPP_TEAM' ordinal='3' />
+                  <column datatype='real' name='opp_def_rank' ordinal='4' />
+                  <column datatype='integer' name='points' ordinal='5' />
+                  <column datatype='real' name='minutes' ordinal='6' />
+                  <column datatype='real' name='r10_avg_ppg' ordinal='7' />
+                  <column datatype='real' name='szn_avg_ppg' ordinal='8' />
+                  <column datatype='real' name='prop_line' ordinal='9' />
+                  <column datatype='boolean' name='over_prop' ordinal='10' />
+                  <column datatype='boolean' name='low_minutes' ordinal='11' />
+                  <column datatype='boolean' name='teammate_0_out' ordinal='12' />
+                  <column datatype='boolean' name='teammate_1_out' ordinal='13' />
+                </columns>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='Extract' table='[Extract].[Extract]' type='table' />
+            </properties>
+          </object>
+        </objects>
+      </object-graph>
+    </datasource>
+    <datasource caption='LAL@NOP_matchup_comparison' inline='true' name='federated.1jzz6ea0ypdqfd1ds6xfe1fju2o8' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='LAL@NOP_matchup_comparison' name='textscan.0gr1tsg11x6s1x1bd7pyw1y26suy'>
+            <connection class='textscan' directory='/Users/sibhisak/Downloads/nba-game-dashboard-automation' filename='LAL@NOP_matchup_comparison.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <relation connection='textscan.0gr1tsg11x6s1x1bd7pyw1y26suy' name='LAL@NOP_matchup_comparison.csv' table='[LAL@NOP_matchup_comparison#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+            <column datatype='string' name='condition' ordinal='0' />
+            <column datatype='real' name='off_team_pts_scored' ordinal='1' />
+            <column datatype='real' name='def_team_pts_allowed' ordinal='2' />
+          </columns>
+        </relation>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[LAL@NOP_matchup_comparison.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>condition</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[condition]</local-name>
+            <parent-name>[LAL@NOP_matchup_comparison.csv]</parent-name>
+            <remote-alias>condition</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[LAL@NOP_matchup_comparison.csv_81B6D9ADCAA64A96BDF002CE053AD284]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>off_team_pts_scored</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[off_team_pts_scored]</local-name>
+            <parent-name>[LAL@NOP_matchup_comparison.csv]</parent-name>
+            <remote-alias>off_team_pts_scored</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[LAL@NOP_matchup_comparison.csv_81B6D9ADCAA64A96BDF002CE053AD284]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>def_team_pts_allowed</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[def_team_pts_allowed]</local-name>
+            <parent-name>[LAL@NOP_matchup_comparison.csv]</parent-name>
+            <remote-alias>def_team_pts_allowed</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[LAL@NOP_matchup_comparison.csv_81B6D9ADCAA64A96BDF002CE053AD284]</object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='LAL@NOP_matchup_comparison.csv' datatype='table' name='[__tableau_internal_object_id__].[LAL@NOP_matchup_comparison.csv_81B6D9ADCAA64A96BDF002CE053AD284]' role='measure' type='quantitative' />
+      <column caption='Condition' datatype='string' name='[condition]' role='dimension' type='nominal'>
+        <aliases>
+          <alias key='&quot;Bucket Averages (LAL vs Bottom 10 Defense, NOP vs Middle 10 Offense)&quot;' value='NOP vs Middle 10 Offense LAL vs Bottom 10 Defense' />
+          <alias key='&quot;LAL in Losses / NOP in Wins&quot;' value='NOP PTS Allowed WINS      LAL PTS Scored LOSSES' />
+          <alias key='&quot;LAL in Wins / NOP in Losses&quot;' value='NOP PTS Allowed LOSSES LAL PTS Scored WINS' />
+          <alias key='&quot;LAL on Road / NOP @ Home&quot;' value='NOP PTS Allowed @ HOME LAL PTS SCORED AWAY' />
+          <alias key='&quot;Season Averages&quot;' value='NOP SZN AVG PTS Allowed LAL SZN AVG PTS Scored' />
+        </aliases>
+      </column>
+      <column caption='Def Team Pts Allowed' datatype='real' name='[def_team_pts_allowed]' role='measure' type='quantitative' />
+      <column caption='Off Team Pts Scored' datatype='real' name='[off_team_pts_scored]' role='measure' type='quantitative' />
+      <column-instance column='[def_team_pts_allowed]' derivation='Sum' name='[sum:def_team_pts_allowed:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[off_team_pts_scored]' derivation='Sum' name='[sum:off_team_pts_scored:qk]' pivot='key' type='quantitative' />
+      <extract _.fcp.VConnDownstreamExtractsWithWarnings.true...user-specific='false' count='-1' enabled='true' object-id='' units='records'>
+        <connection access_mode='readonly' author-locale='en_US' class='hyper' dbname='Data/tableau-temp/#TableauTemp_1ifnmfh0lm2sjp1758ykw0t08wx0.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='01/14/2026 12:06:44 AM' username='tableau_internal_user'>
+          <relation name='Extract' table='[Extract].[Extract]' type='table' />
+          <metadata-records>
+            <metadata-record class='column'>
+              <remote-name>condition</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[condition]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>condition</remote-alias>
+              <ordinal>0</ordinal>
+              <family>LAL@NOP_matchup_comparison.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>5</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[LAL@NOP_matchup_comparison.csv_81B6D9ADCAA64A96BDF002CE053AD284]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>off_team_pts_scored</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[off_team_pts_scored]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>off_team_pts_scored</remote-alias>
+              <ordinal>1</ordinal>
+              <family>LAL@NOP_matchup_comparison.csv</family>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>5</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[LAL@NOP_matchup_comparison.csv_81B6D9ADCAA64A96BDF002CE053AD284]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>def_team_pts_allowed</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[def_team_pts_allowed]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>def_team_pts_allowed</remote-alias>
+              <ordinal>2</ordinal>
+              <family>LAL@NOP_matchup_comparison.csv</family>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>5</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[LAL@NOP_matchup_comparison.csv_81B6D9ADCAA64A96BDF002CE053AD284]</object-id>
+            </metadata-record>
+          </metadata-records>
+        </connection>
+      </extract>
+      <layout dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <style>
+        <style-rule element='mark'>
+          <encoding attr='color' field='[:Measure Names]' type='palette'>
+            <map to='#4e79a7'>
+              <bucket>&quot;[federated.1jzz6ea0ypdqfd1ds6xfe1fju2o8].[sum:def_team_pts_allowed:qk]&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;[federated.1jzz6ea0ypdqfd1ds6xfe1fju2o8].[sum:off_team_pts_scored:qk]&quot;</bucket>
+            </map>
+          </encoding>
+        </style-rule>
+      </style>
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+      <object-graph>
+        <objects>
+          <object caption='LAL@NOP_matchup_comparison.csv' id='LAL@NOP_matchup_comparison.csv_81B6D9ADCAA64A96BDF002CE053AD284'>
+            <properties context=''>
+              <relation connection='textscan.0gr1tsg11x6s1x1bd7pyw1y26suy' name='LAL@NOP_matchup_comparison.csv' table='[LAL@NOP_matchup_comparison#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='string' name='condition' ordinal='0' />
+                  <column datatype='real' name='off_team_pts_scored' ordinal='1' />
+                  <column datatype='real' name='def_team_pts_allowed' ordinal='2' />
+                </columns>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='Extract' table='[Extract].[Extract]' type='table' />
+            </properties>
+          </object>
+        </objects>
+      </object-graph>
+    </datasource>
+    <datasource caption='player_1629029_last_5_games' inline='true' name='federated.13cn8251jiqb2n1ce7cee0rlta83' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='player_1629029_last_5_games' name='textscan.1eqw1wl0en86kw1due6761cuzkh5'>
+            <connection class='textscan' directory='/Users/sibhisak/Downloads/nba-game-dashboard-automation' filename='player_1629029_last_5_games.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <relation connection='textscan.1eqw1wl0en86kw1due6761cuzkh5' name='player_1629029_last_5_games.csv' table='[player_1629029_last_5_games#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+            <column datatype='integer' name='game_id' ordinal='0' />
+            <column datatype='date' name='game_date' ordinal='1' />
+            <column datatype='integer' name='points' ordinal='2' />
+            <column datatype='integer' name='fieldGoalsMade' ordinal='3' />
+            <column datatype='integer' name='fieldGoalsAttempted' ordinal='4' />
+            <column datatype='integer' name='threePointersMade' ordinal='5' />
+            <column datatype='integer' name='threePointersAttempted' ordinal='6' />
+            <column datatype='integer' name='freeThrowsMade' ordinal='7' />
+            <column datatype='integer' name='freeThrowsAttempted' ordinal='8' />
+          </columns>
+        </relation>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[player_1629029_last_5_games.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>game_id</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[game_id]</local-name>
+            <parent-name>[player_1629029_last_5_games.csv]</parent-name>
+            <remote-alias>game_id</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_last_5_games.csv_64AED3E625DC4ACFB5900EEB1E9493D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>game_date</remote-name>
+            <remote-type>133</remote-type>
+            <local-name>[game_date]</local-name>
+            <parent-name>[player_1629029_last_5_games.csv]</parent-name>
+            <remote-alias>game_date</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_last_5_games.csv_64AED3E625DC4ACFB5900EEB1E9493D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>points</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[points]</local-name>
+            <parent-name>[player_1629029_last_5_games.csv]</parent-name>
+            <remote-alias>points</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_last_5_games.csv_64AED3E625DC4ACFB5900EEB1E9493D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>fieldGoalsMade</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[fieldGoalsMade]</local-name>
+            <parent-name>[player_1629029_last_5_games.csv]</parent-name>
+            <remote-alias>fieldGoalsMade</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_last_5_games.csv_64AED3E625DC4ACFB5900EEB1E9493D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>fieldGoalsAttempted</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[fieldGoalsAttempted]</local-name>
+            <parent-name>[player_1629029_last_5_games.csv]</parent-name>
+            <remote-alias>fieldGoalsAttempted</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_last_5_games.csv_64AED3E625DC4ACFB5900EEB1E9493D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>threePointersMade</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[threePointersMade]</local-name>
+            <parent-name>[player_1629029_last_5_games.csv]</parent-name>
+            <remote-alias>threePointersMade</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_last_5_games.csv_64AED3E625DC4ACFB5900EEB1E9493D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>threePointersAttempted</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[threePointersAttempted]</local-name>
+            <parent-name>[player_1629029_last_5_games.csv]</parent-name>
+            <remote-alias>threePointersAttempted</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_last_5_games.csv_64AED3E625DC4ACFB5900EEB1E9493D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>freeThrowsMade</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[freeThrowsMade]</local-name>
+            <parent-name>[player_1629029_last_5_games.csv]</parent-name>
+            <remote-alias>freeThrowsMade</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_last_5_games.csv_64AED3E625DC4ACFB5900EEB1E9493D4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>freeThrowsAttempted</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[freeThrowsAttempted]</local-name>
+            <parent-name>[player_1629029_last_5_games.csv]</parent-name>
+            <remote-alias>freeThrowsAttempted</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_last_5_games.csv_64AED3E625DC4ACFB5900EEB1E9493D4]</object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='player_1629029_last_5_games.csv' datatype='table' name='[__tableau_internal_object_id__].[player_1629029_last_5_games.csv_64AED3E625DC4ACFB5900EEB1E9493D4]' role='measure' type='quantitative' />
+      <column caption='Field Goals Attempted' datatype='integer' name='[fieldGoalsAttempted]' role='measure' type='quantitative' />
+      <column caption='Field Goals Made' datatype='integer' name='[fieldGoalsMade]' role='measure' type='quantitative' />
+      <column caption='Free Throws Attempted' datatype='integer' name='[freeThrowsAttempted]' role='measure' type='quantitative' />
+      <column caption='Free Throws Made' datatype='integer' name='[freeThrowsMade]' role='measure' type='quantitative' />
+      <column caption='Game Date' datatype='date' name='[game_date]' role='dimension' type='ordinal' />
+      <column caption='Game Id' datatype='integer' name='[game_id]' role='dimension' type='ordinal' />
+      <column caption='Points' datatype='integer' name='[points]' role='measure' type='quantitative' />
+      <column caption='Three Pointers Attempted' datatype='integer' name='[threePointersAttempted]' role='measure' type='quantitative' />
+      <column caption='Three Pointers Made' datatype='integer' name='[threePointersMade]' role='measure' type='quantitative' />
+      <extract _.fcp.VConnDownstreamExtractsWithWarnings.true...user-specific='false' count='-1' enabled='true' object-id='' units='records'>
+        <connection access_mode='readonly' author-locale='en_US' class='hyper' dbname='Data/tableau-temp/#TableauTemp_17dcxew1jw8crr1ezgoox1cvp0k6.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='01/14/2026 03:45:26 AM' username='tableau_internal_user'>
+          <relation name='Extract' table='[Extract].[Extract]' type='table' />
+          <metadata-records>
+            <metadata-record class='column'>
+              <remote-name>game_id</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[game_id]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>game_id</remote-alias>
+              <ordinal>0</ordinal>
+              <family>player_1629029_last_5_games.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>5</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_last_5_games.csv_64AED3E625DC4ACFB5900EEB1E9493D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>game_date</remote-name>
+              <remote-type>133</remote-type>
+              <local-name>[game_date]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>game_date</remote-alias>
+              <ordinal>1</ordinal>
+              <family>player_1629029_last_5_games.csv</family>
+              <local-type>date</local-type>
+              <aggregation>Year</aggregation>
+              <approx-count>5</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_last_5_games.csv_64AED3E625DC4ACFB5900EEB1E9493D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>points</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[points]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>points</remote-alias>
+              <ordinal>2</ordinal>
+              <family>player_1629029_last_5_games.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>4</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_last_5_games.csv_64AED3E625DC4ACFB5900EEB1E9493D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>fieldGoalsMade</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[fieldGoalsMade]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>fieldGoalsMade</remote-alias>
+              <ordinal>3</ordinal>
+              <family>player_1629029_last_5_games.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>4</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_last_5_games.csv_64AED3E625DC4ACFB5900EEB1E9493D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>fieldGoalsAttempted</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[fieldGoalsAttempted]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>fieldGoalsAttempted</remote-alias>
+              <ordinal>4</ordinal>
+              <family>player_1629029_last_5_games.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>5</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_last_5_games.csv_64AED3E625DC4ACFB5900EEB1E9493D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>threePointersMade</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[threePointersMade]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>threePointersMade</remote-alias>
+              <ordinal>5</ordinal>
+              <family>player_1629029_last_5_games.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>4</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_last_5_games.csv_64AED3E625DC4ACFB5900EEB1E9493D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>threePointersAttempted</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[threePointersAttempted]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>threePointersAttempted</remote-alias>
+              <ordinal>6</ordinal>
+              <family>player_1629029_last_5_games.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>5</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_last_5_games.csv_64AED3E625DC4ACFB5900EEB1E9493D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>freeThrowsMade</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[freeThrowsMade]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>freeThrowsMade</remote-alias>
+              <ordinal>7</ordinal>
+              <family>player_1629029_last_5_games.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>5</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_last_5_games.csv_64AED3E625DC4ACFB5900EEB1E9493D4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>freeThrowsAttempted</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[freeThrowsAttempted]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>freeThrowsAttempted</remote-alias>
+              <ordinal>8</ordinal>
+              <family>player_1629029_last_5_games.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>4</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_last_5_games.csv_64AED3E625DC4ACFB5900EEB1E9493D4]</object-id>
+            </metadata-record>
+          </metadata-records>
+        </connection>
+      </extract>
+      <layout dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+      <object-graph>
+        <objects>
+          <object caption='player_1629029_last_5_games.csv' id='player_1629029_last_5_games.csv_64AED3E625DC4ACFB5900EEB1E9493D4'>
+            <properties context=''>
+              <relation connection='textscan.1eqw1wl0en86kw1due6761cuzkh5' name='player_1629029_last_5_games.csv' table='[player_1629029_last_5_games#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='integer' name='game_id' ordinal='0' />
+                  <column datatype='date' name='game_date' ordinal='1' />
+                  <column datatype='integer' name='points' ordinal='2' />
+                  <column datatype='integer' name='fieldGoalsMade' ordinal='3' />
+                  <column datatype='integer' name='fieldGoalsAttempted' ordinal='4' />
+                  <column datatype='integer' name='threePointersMade' ordinal='5' />
+                  <column datatype='integer' name='threePointersAttempted' ordinal='6' />
+                  <column datatype='integer' name='freeThrowsMade' ordinal='7' />
+                  <column datatype='integer' name='freeThrowsAttempted' ordinal='8' />
+                </columns>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='Extract' table='[Extract].[Extract]' type='table' />
+            </properties>
+          </object>
+        </objects>
+      </object-graph>
+    </datasource>
+    <datasource caption='player_1629029_last_5_games_formatted' inline='true' name='federated.1x64r0515hprvz10jbe6p07l5u4v' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='player_1629029_last_5_games_formatted' name='textscan.1vzg6qb1s1ueca1e2s5rn15ak95c'>
+            <connection class='textscan' directory='/Users/sibhisak/Downloads/nba-game-dashboard-automation' filename='player_1629029_last_5_games_formatted.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <relation connection='textscan.1vzg6qb1s1ueca1e2s5rn15ak95c' name='player_1629029_last_5_games_formatted.csv' table='[player_1629029_last_5_games_formatted#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+            <column datatype='integer' name='game_id' ordinal='0' />
+            <column datatype='date' name='game_date' ordinal='1' />
+            <column datatype='integer' name='points' ordinal='2' />
+            <column datatype='string' name='FG' ordinal='3' />
+            <column datatype='string' name='3P' ordinal='4' />
+            <column datatype='string' name='FT' ordinal='5' />
+          </columns>
+        </relation>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[player_1629029_last_5_games_formatted.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>game_id</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[game_id]</local-name>
+            <parent-name>[player_1629029_last_5_games_formatted.csv]</parent-name>
+            <remote-alias>game_id</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_last_5_games_formatted.csv_1FF77EE08C7D4A1A97E16C8361474B40]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>game_date</remote-name>
+            <remote-type>133</remote-type>
+            <local-name>[game_date]</local-name>
+            <parent-name>[player_1629029_last_5_games_formatted.csv]</parent-name>
+            <remote-alias>game_date</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_last_5_games_formatted.csv_1FF77EE08C7D4A1A97E16C8361474B40]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>points</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[points]</local-name>
+            <parent-name>[player_1629029_last_5_games_formatted.csv]</parent-name>
+            <remote-alias>points</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[player_1629029_last_5_games_formatted.csv_1FF77EE08C7D4A1A97E16C8361474B40]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>FG</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[FG]</local-name>
+            <parent-name>[player_1629029_last_5_games_formatted.csv]</parent-name>
+            <remote-alias>FG</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[player_1629029_last_5_games_formatted.csv_1FF77EE08C7D4A1A97E16C8361474B40]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>3P</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[3P]</local-name>
+            <parent-name>[player_1629029_last_5_games_formatted.csv]</parent-name>
+            <remote-alias>3P</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[player_1629029_last_5_games_formatted.csv_1FF77EE08C7D4A1A97E16C8361474B40]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>FT</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[FT]</local-name>
+            <parent-name>[player_1629029_last_5_games_formatted.csv]</parent-name>
+            <remote-alias>FT</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[player_1629029_last_5_games_formatted.csv_1FF77EE08C7D4A1A97E16C8361474B40]</object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='player_1629029_last_5_games_formatted.csv' datatype='table' name='[__tableau_internal_object_id__].[player_1629029_last_5_games_formatted.csv_1FF77EE08C7D4A1A97E16C8361474B40]' role='measure' type='quantitative' />
+      <column caption='Game Date' datatype='date' name='[game_date]' role='dimension' type='ordinal' />
+      <column caption='Game Id' datatype='integer' name='[game_id]' role='dimension' type='ordinal' />
+      <column caption='Points' datatype='integer' name='[points]' role='measure' type='quantitative' />
+      <extract _.fcp.VConnDownstreamExtractsWithWarnings.true...user-specific='false' count='-1' enabled='true' object-id='' units='records'>
+        <connection access_mode='readonly' author-locale='en_US' class='hyper' dbname='Data/tableau-temp/#TableauTemp_0ik9cte1qrzxvi1fvu74f1hkvtql.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='01/14/2026 03:49:27 AM' username='tableau_internal_user'>
+          <relation name='Extract' table='[Extract].[Extract]' type='table' />
+          <metadata-records>
+            <metadata-record class='column'>
+              <remote-name>game_id</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[game_id]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>game_id</remote-alias>
+              <ordinal>0</ordinal>
+              <family>player_1629029_last_5_games_formatted.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>5</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_last_5_games_formatted.csv_1FF77EE08C7D4A1A97E16C8361474B40]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>game_date</remote-name>
+              <remote-type>133</remote-type>
+              <local-name>[game_date]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>game_date</remote-alias>
+              <ordinal>1</ordinal>
+              <family>player_1629029_last_5_games_formatted.csv</family>
+              <local-type>date</local-type>
+              <aggregation>Year</aggregation>
+              <approx-count>5</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_last_5_games_formatted.csv_1FF77EE08C7D4A1A97E16C8361474B40]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>points</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[points]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>points</remote-alias>
+              <ordinal>2</ordinal>
+              <family>player_1629029_last_5_games_formatted.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>4</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[player_1629029_last_5_games_formatted.csv_1FF77EE08C7D4A1A97E16C8361474B40]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>FG</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[FG]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>FG</remote-alias>
+              <ordinal>3</ordinal>
+              <family>player_1629029_last_5_games_formatted.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>5</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[player_1629029_last_5_games_formatted.csv_1FF77EE08C7D4A1A97E16C8361474B40]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>3P</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[3P]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>3P</remote-alias>
+              <ordinal>4</ordinal>
+              <family>player_1629029_last_5_games_formatted.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>5</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[player_1629029_last_5_games_formatted.csv_1FF77EE08C7D4A1A97E16C8361474B40]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>FT</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[FT]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>FT</remote-alias>
+              <ordinal>5</ordinal>
+              <family>player_1629029_last_5_games_formatted.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>5</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[player_1629029_last_5_games_formatted.csv_1FF77EE08C7D4A1A97E16C8361474B40]</object-id>
+            </metadata-record>
+          </metadata-records>
+        </connection>
+      </extract>
+      <layout dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+      <object-graph>
+        <objects>
+          <object caption='player_1629029_last_5_games_formatted.csv' id='player_1629029_last_5_games_formatted.csv_1FF77EE08C7D4A1A97E16C8361474B40'>
+            <properties context=''>
+              <relation connection='textscan.1vzg6qb1s1ueca1e2s5rn15ak95c' name='player_1629029_last_5_games_formatted.csv' table='[player_1629029_last_5_games_formatted#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='integer' name='game_id' ordinal='0' />
+                  <column datatype='date' name='game_date' ordinal='1' />
+                  <column datatype='integer' name='points' ordinal='2' />
+                  <column datatype='string' name='FG' ordinal='3' />
+                  <column datatype='string' name='3P' ordinal='4' />
+                  <column datatype='string' name='FT' ordinal='5' />
+                </columns>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='Extract' table='[Extract].[Extract]' type='table' />
+            </properties>
+          </object>
+        </objects>
+      </object-graph>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Game Scoring Environment'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='LAL@NOP_matchup_comparison' name='federated.1jzz6ea0ypdqfd1ds6xfe1fju2o8' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1jzz6ea0ypdqfd1ds6xfe1fju2o8'>
+            <column caption='Condition' datatype='string' name='[condition]' role='dimension' type='nominal'>
+              <aliases>
+                <alias key='&quot;Bucket Averages (LAL vs Bottom 10 Defense, NOP vs Middle 10 Offense)&quot;' value='NOP vs Middle 10 Offense LAL vs Bottom 10 Defense' />
+                <alias key='&quot;LAL in Losses / NOP in Wins&quot;' value='NOP PTS Allowed WINS      LAL PTS Scored LOSSES' />
+                <alias key='&quot;LAL in Wins / NOP in Losses&quot;' value='NOP PTS Allowed LOSSES LAL PTS Scored WINS' />
+                <alias key='&quot;LAL on Road / NOP @ Home&quot;' value='NOP PTS Allowed @ HOME LAL PTS SCORED AWAY' />
+                <alias key='&quot;Season Averages&quot;' value='NOP SZN AVG PTS Allowed LAL SZN AVG PTS Scored' />
+              </aliases>
+            </column>
+            <column caption='Def Team Pts Allowed' datatype='real' name='[def_team_pts_allowed]' role='measure' type='quantitative' />
+            <column-instance column='[condition]' derivation='None' name='[none:condition:nk]' pivot='key' type='nominal' />
+            <column caption='Off Team Pts Scored' datatype='real' name='[off_team_pts_scored]' role='measure' type='quantitative' />
+            <column-instance column='[def_team_pts_allowed]' derivation='Sum' name='[sum:def_team_pts_allowed:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[off_team_pts_scored]' derivation='Sum' name='[sum:off_team_pts_scored:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1jzz6ea0ypdqfd1ds6xfe1fju2o8].[:Measure Names]'>
+            <groupfilter function='union' user:op='manual'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1jzz6ea0ypdqfd1ds6xfe1fju2o8].[sum:def_team_pts_allowed:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1jzz6ea0ypdqfd1ds6xfe1fju2o8].[sum:off_team_pts_scored:qk]&quot;' />
+            </groupfilter>
+          </filter>
+          <manual-sort column='[federated.1jzz6ea0ypdqfd1ds6xfe1fju2o8].[none:condition:nk]' direction='ASC'>
+            <dictionary>
+              <bucket>&quot;Season Averages&quot;</bucket>
+              <bucket>&quot;Bucket Averages (LAL vs Bottom 10 Defense, NOP vs Middle 10 Offense)&quot;</bucket>
+              <bucket>&quot;LAL on Road / NOP @ Home&quot;</bucket>
+              <bucket>&quot;LAL in Wins / NOP in Losses&quot;</bucket>
+              <bucket>&quot;LAL in Losses / NOP in Wins&quot;</bucket>
+            </dictionary>
+          </manual-sort>
+          <slices>
+            <column>[federated.1jzz6ea0ypdqfd1ds6xfe1fju2o8].[:Measure Names]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.1jzz6ea0ypdqfd1ds6xfe1fju2o8].[Multiple Values]' scope='cols' value='Points' />
+          </style-rule>
+          <style-rule element='header'>
+            <format attr='width' field='[federated.1jzz6ea0ypdqfd1ds6xfe1fju2o8].[none:condition:nk]' value='168' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='display' field='[federated.1jzz6ea0ypdqfd1ds6xfe1fju2o8].[:Measure Names]' value='false' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='rows' value='false' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='off' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1jzz6ea0ypdqfd1ds6xfe1fju2o8].[:Measure Names]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>([federated.1jzz6ea0ypdqfd1ds6xfe1fju2o8].[none:condition:nk] / [federated.1jzz6ea0ypdqfd1ds6xfe1fju2o8].[:Measure Names])</rows>
+        <cols>[federated.1jzz6ea0ypdqfd1ds6xfe1fju2o8].[Multiple Values]</cols>
+      </table>
+      <simple-id uuid='{43A3C9A2-E799-45BE-8C8F-FC309DFB4076}' />
+    </worksheet>
+    <worksheet name='Hit Rate Summary'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='player_1629029_hrs' name='federated.049w09d0j4c2591h37ag4150yi27' />
+          </datasources>
+          <datasource-dependencies datasource='federated.049w09d0j4c2591h37ag4150yi27'>
+            <column datatype='string' name='[Category]' role='dimension' type='nominal' />
+            <column datatype='integer' name='[Games]' role='measure' type='quantitative' />
+            <column datatype='real' name='[Hit Rate (%)]' role='measure' type='quantitative' />
+            <column-instance column='[Category]' derivation='None' name='[none:Category:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Games]' derivation='Sum' name='[sum:Games:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Hit Rate (%)]' derivation='Sum' name='[sum:Hit Rate (%):qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.049w09d0j4c2591h37ag4150yi27].[:Measure Names]'>
+            <groupfilter function='union' user:op='manual'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.049w09d0j4c2591h37ag4150yi27].[sum:Games:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.049w09d0j4c2591h37ag4150yi27].[sum:Hit Rate (\%):qk]&quot;' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[federated.049w09d0j4c2591h37ag4150yi27].[none:Category:nk]'>
+            <groupfilter function='except' user:ui-domain='database' user:ui-enumeration='exclusive' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[none:Category:nk]' />
+              <groupfilter function='member' level='[none:Category:nk]' member='&quot;Team PTS &gt;= 130&quot;' />
+            </groupfilter>
+          </filter>
+          <manual-sort column='[federated.049w09d0j4c2591h37ag4150yi27].[none:Category:nk]' direction='ASC'>
+            <dictionary>
+              <bucket>&quot;Season (All Games)&quot;</bucket>
+              <bucket>&quot;Last 10 Games&quot;</bucket>
+              <bucket>&quot;Wins&quot;</bucket>
+              <bucket>&quot;Losses&quot;</bucket>
+              <bucket>&quot;Home&quot;</bucket>
+              <bucket>&quot;Away&quot;</bucket>
+              <bucket>&quot;Top 10 Defense&quot;</bucket>
+              <bucket>&quot;Middle 10 Defense&quot;</bucket>
+              <bucket>&quot;Bottom 10 Defense&quot;</bucket>
+              <bucket>&quot;Team PTS &gt;= 100&quot;</bucket>
+              <bucket>&quot;Team PTS &gt;= 105&quot;</bucket>
+              <bucket>&quot;Team PTS &gt;= 110&quot;</bucket>
+              <bucket>&quot;Team PTS &gt;= 115&quot;</bucket>
+              <bucket>&quot;Team PTS &gt;= 120&quot;</bucket>
+              <bucket>&quot;Team PTS &gt;= 125&quot;</bucket>
+              <bucket>&quot;Team PTS &gt;= 130&quot;</bucket>
+              <bucket>&quot;Austin Reaves OUT&quot;</bucket>
+              <bucket>&quot;Lebron James OUT&quot;</bucket>
+              <bucket>&quot;Austin Reaves + Lebron James OUT&quot;</bucket>
+            </dictionary>
+          </manual-sort>
+          <slices>
+            <column>[federated.049w09d0j4c2591h37ag4150yi27].[:Measure Names]</column>
+            <column>[federated.049w09d0j4c2591h37ag4150yi27].[none:Category:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='width' field='[federated.049w09d0j4c2591h37ag4150yi27].[:Measure Names]' value='82' />
+            <format attr='height' field='[federated.049w09d0j4c2591h37ag4150yi27].[none:Category:nk]' value='34' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <text column='[federated.049w09d0j4c2591h37ag4150yi27].[Multiple Values]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+              <style-rule element='pane'>
+                <format attr='minwidth' value='-1' />
+                <format attr='maxwidth' value='-1' />
+                <format attr='minheight' value='-1' />
+                <format attr='maxheight' value='-1' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.049w09d0j4c2591h37ag4150yi27].[none:Category:nk]</rows>
+        <cols>[federated.049w09d0j4c2591h37ag4150yi27].[:Measure Names]</cols>
+      </table>
+      <simple-id uuid='{07209DDE-FA16-498F-8475-DE40085726AD}' />
+    </worksheet>
+    <worksheet name='Hit Rate Summary (2)'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='player_1629029_hrs' name='federated.049w09d0j4c2591h37ag4150yi27' />
+          </datasources>
+          <datasource-dependencies datasource='federated.049w09d0j4c2591h37ag4150yi27'>
+            <column datatype='string' name='[Category]' role='dimension' type='nominal' />
+            <column datatype='integer' name='[Games]' role='measure' type='quantitative' />
+            <column datatype='real' name='[Hit Rate (%)]' role='measure' type='quantitative' />
+            <column-instance column='[Category]' derivation='None' name='[none:Category:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Games]' derivation='Sum' name='[sum:Games:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Hit Rate (%)]' derivation='Sum' name='[sum:Hit Rate (%):qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.049w09d0j4c2591h37ag4150yi27].[:Measure Names]'>
+            <groupfilter function='union' user:op='manual'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.049w09d0j4c2591h37ag4150yi27].[sum:Games:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.049w09d0j4c2591h37ag4150yi27].[sum:Hit Rate (\%):qk]&quot;' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[federated.049w09d0j4c2591h37ag4150yi27].[none:Category:nk]'>
+            <groupfilter function='except' user:ui-domain='database' user:ui-enumeration='exclusive' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[none:Category:nk]' />
+              <groupfilter function='union'>
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Austin Reaves + Lebron James OUT&quot;' />
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Bottom 10 Defense&quot;' />
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Last 10 Games&quot;' />
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Middle 10 Defense&quot;' />
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Team PTS &gt;= 100&quot;' />
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Team PTS &gt;= 105&quot;' />
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Team PTS &gt;= 110&quot;' />
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Team PTS &gt;= 115&quot;' />
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Team PTS &gt;= 120&quot;' />
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Team PTS &gt;= 125&quot;' />
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Team PTS &gt;= 130&quot;' />
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Top 10 Defense&quot;' />
+              </groupfilter>
+            </groupfilter>
+          </filter>
+          <manual-sort column='[federated.049w09d0j4c2591h37ag4150yi27].[none:Category:nk]' direction='ASC'>
+            <dictionary>
+              <bucket>&quot;Season (All Games)&quot;</bucket>
+              <bucket>&quot;Last 10 Games&quot;</bucket>
+              <bucket>&quot;Wins&quot;</bucket>
+              <bucket>&quot;Losses&quot;</bucket>
+              <bucket>&quot;Home&quot;</bucket>
+              <bucket>&quot;Away&quot;</bucket>
+              <bucket>&quot;Top 10 Defense&quot;</bucket>
+              <bucket>&quot;Middle 10 Defense&quot;</bucket>
+              <bucket>&quot;Bottom 10 Defense&quot;</bucket>
+              <bucket>&quot;Team PTS &gt;= 100&quot;</bucket>
+              <bucket>&quot;Team PTS &gt;= 105&quot;</bucket>
+              <bucket>&quot;Team PTS &gt;= 110&quot;</bucket>
+              <bucket>&quot;Team PTS &gt;= 115&quot;</bucket>
+              <bucket>&quot;Team PTS &gt;= 120&quot;</bucket>
+              <bucket>&quot;Team PTS &gt;= 125&quot;</bucket>
+              <bucket>&quot;Team PTS &gt;= 130&quot;</bucket>
+              <bucket>&quot;Austin Reaves OUT&quot;</bucket>
+              <bucket>&quot;Lebron James OUT&quot;</bucket>
+              <bucket>&quot;Austin Reaves + Lebron James OUT&quot;</bucket>
+            </dictionary>
+          </manual-sort>
+          <slices>
+            <column>[federated.049w09d0j4c2591h37ag4150yi27].[:Measure Names]</column>
+            <column>[federated.049w09d0j4c2591h37ag4150yi27].[none:Category:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='width' field='[federated.049w09d0j4c2591h37ag4150yi27].[:Measure Names]' value='73' />
+            <format attr='height' field='[federated.049w09d0j4c2591h37ag4150yi27].[none:Category:nk]' value='34' />
+          </style-rule>
+          <style-rule element='header'>
+            <format attr='width' field='[federated.049w09d0j4c2591h37ag4150yi27].[none:Category:nk]' value='92' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <text column='[federated.049w09d0j4c2591h37ag4150yi27].[Multiple Values]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+              <style-rule element='pane'>
+                <format attr='minwidth' value='-1' />
+                <format attr='maxwidth' value='-1' />
+                <format attr='minheight' value='-1' />
+                <format attr='maxheight' value='-1' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.049w09d0j4c2591h37ag4150yi27].[none:Category:nk]</rows>
+        <cols>[federated.049w09d0j4c2591h37ag4150yi27].[:Measure Names]</cols>
+      </table>
+      <simple-id uuid='{FF16E7FF-3899-4433-998D-8EFEA7320237}' />
+    </worksheet>
+    <worksheet name='Hit Rate Summary (3)'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='player_1629029_hrs' name='federated.049w09d0j4c2591h37ag4150yi27' />
+          </datasources>
+          <datasource-dependencies datasource='federated.049w09d0j4c2591h37ag4150yi27'>
+            <column datatype='string' name='[Category]' role='dimension' type='nominal' />
+            <column datatype='integer' name='[Games]' role='measure' type='quantitative' />
+            <column datatype='real' name='[Hit Rate (%)]' role='measure' type='quantitative' />
+            <column-instance column='[Category]' derivation='None' name='[none:Category:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Games]' derivation='Sum' name='[sum:Games:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Hit Rate (%)]' derivation='Sum' name='[sum:Hit Rate (%):qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.049w09d0j4c2591h37ag4150yi27].[:Measure Names]'>
+            <groupfilter function='union' user:op='manual'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.049w09d0j4c2591h37ag4150yi27].[sum:Games:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.049w09d0j4c2591h37ag4150yi27].[sum:Hit Rate (\%):qk]&quot;' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[federated.049w09d0j4c2591h37ag4150yi27].[none:Category:nk]'>
+            <groupfilter function='except' user:ui-domain='database' user:ui-enumeration='exclusive' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[none:Category:nk]' />
+              <groupfilter function='union'>
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Austin Reaves + Lebron James OUT&quot;' />
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Austin Reaves OUT&quot;' />
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Away&quot;' />
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Home&quot;' />
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Last 10 Games&quot;' />
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Lebron James OUT&quot;' />
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Losses&quot;' />
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Season (All Games)&quot;' />
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Team PTS &gt;= 115&quot;' />
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Team PTS &gt;= 120&quot;' />
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Team PTS &gt;= 130&quot;' />
+                <groupfilter function='member' level='[none:Category:nk]' member='&quot;Wins&quot;' />
+              </groupfilter>
+            </groupfilter>
+          </filter>
+          <manual-sort column='[federated.049w09d0j4c2591h37ag4150yi27].[none:Category:nk]' direction='ASC'>
+            <dictionary>
+              <bucket>&quot;Season (All Games)&quot;</bucket>
+              <bucket>&quot;Last 10 Games&quot;</bucket>
+              <bucket>&quot;Wins&quot;</bucket>
+              <bucket>&quot;Losses&quot;</bucket>
+              <bucket>&quot;Home&quot;</bucket>
+              <bucket>&quot;Away&quot;</bucket>
+              <bucket>&quot;Top 10 Defense&quot;</bucket>
+              <bucket>&quot;Middle 10 Defense&quot;</bucket>
+              <bucket>&quot;Bottom 10 Defense&quot;</bucket>
+              <bucket>&quot;Team PTS &gt;= 100&quot;</bucket>
+              <bucket>&quot;Team PTS &gt;= 105&quot;</bucket>
+              <bucket>&quot;Team PTS &gt;= 110&quot;</bucket>
+              <bucket>&quot;Team PTS &gt;= 115&quot;</bucket>
+              <bucket>&quot;Team PTS &gt;= 120&quot;</bucket>
+              <bucket>&quot;Team PTS &gt;= 125&quot;</bucket>
+              <bucket>&quot;Team PTS &gt;= 130&quot;</bucket>
+              <bucket>&quot;Austin Reaves OUT&quot;</bucket>
+              <bucket>&quot;Lebron James OUT&quot;</bucket>
+              <bucket>&quot;Austin Reaves + Lebron James OUT&quot;</bucket>
+            </dictionary>
+          </manual-sort>
+          <slices>
+            <column>[federated.049w09d0j4c2591h37ag4150yi27].[:Measure Names]</column>
+            <column>[federated.049w09d0j4c2591h37ag4150yi27].[none:Category:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='width' field='[federated.049w09d0j4c2591h37ag4150yi27].[:Measure Names]' value='82' />
+            <format attr='height' field='[federated.049w09d0j4c2591h37ag4150yi27].[none:Category:nk]' value='34' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <text column='[federated.049w09d0j4c2591h37ag4150yi27].[Multiple Values]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+              <style-rule element='pane'>
+                <format attr='minwidth' value='-1' />
+                <format attr='maxwidth' value='-1' />
+                <format attr='minheight' value='-1' />
+                <format attr='maxheight' value='-1' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.049w09d0j4c2591h37ag4150yi27].[none:Category:nk]</rows>
+        <cols>[federated.049w09d0j4c2591h37ag4150yi27].[:Measure Names]</cols>
+      </table>
+      <simple-id uuid='{1AF1F155-BB42-4D92-80E0-6E48ECD522CE}' />
+    </worksheet>
+    <worksheet name='Last 5 Scoring Performances'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='player_1629029_last_5_games_formatted' name='federated.1x64r0515hprvz10jbe6p07l5u4v' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1x64r0515hprvz10jbe6p07l5u4v'>
+            <column datatype='string' name='[3P]' role='dimension' type='nominal' />
+            <column datatype='string' name='[FG]' role='dimension' type='nominal' />
+            <column datatype='string' name='[FT]' role='dimension' type='nominal' />
+            <column caption='Game Date' datatype='date' name='[game_date]' role='dimension' type='ordinal' />
+            <column-instance column='[3P]' derivation='None' name='[none:3P:nk]' pivot='key' type='nominal' />
+            <column-instance column='[FG]' derivation='None' name='[none:FG:nk]' pivot='key' type='nominal' />
+            <column-instance column='[FT]' derivation='None' name='[none:FT:nk]' pivot='key' type='nominal' />
+            <column-instance column='[game_date]' derivation='None' name='[none:game_date:ok]' pivot='key' type='ordinal' />
+            <column caption='Points' datatype='integer' name='[points]' role='measure' type='quantitative' />
+            <column-instance column='[points]' derivation='Sum' name='[sum:points:ok]' pivot='key' type='ordinal' />
+          </datasource-dependencies>
+          <natural-sort column='[federated.1x64r0515hprvz10jbe6p07l5u4v].[none:game_date:ok]' direction='DESC' />
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='header'>
+            <format attr='width' field='[federated.1x64r0515hprvz10jbe6p07l5u4v].[sum:points:ok]' value='60' />
+            <format attr='width' field='[federated.1x64r0515hprvz10jbe6p07l5u4v].[none:FG:nk]' value='56' />
+            <format attr='width' field='[federated.1x64r0515hprvz10jbe6p07l5u4v].[none:3P:nk]' value='52' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='1' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-show' value='false' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>([federated.1x64r0515hprvz10jbe6p07l5u4v].[none:game_date:ok] / ([federated.1x64r0515hprvz10jbe6p07l5u4v].[sum:points:ok] / ([federated.1x64r0515hprvz10jbe6p07l5u4v].[none:FG:nk] / ([federated.1x64r0515hprvz10jbe6p07l5u4v].[none:3P:nk] / [federated.1x64r0515hprvz10jbe6p07l5u4v].[none:FT:nk]))))</rows>
+        <cols />
+      </table>
+      <simple-id uuid='{C0B0A58F-CDA8-4D60-A334-D5F2C1322E07}' />
+    </worksheet>
+    <worksheet name='Player Scoring'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run bold='true' fontcolor='#000000'>LUKA DONCIC (LAL) O 29.5 PTS</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='player_1629029_scoring_plot' name='federated.1rbuunv1x1kc0b13dfx881r4knu8' />
+            <datasource name='Parameters' />
+          </datasources>
+          <datasource-dependencies datasource='Parameters'>
+            <column caption='Prop Line (Const) Parameter' datatype='real' name='[Prop Line (Const) Parameter]' param-domain-type='range' role='measure' type='quantitative' value='29.5'>
+              <calculation class='tableau' formula='29.5' />
+              <range max='29.5' min='29.5' />
+            </column>
+          </datasource-dependencies>
+          <datasource-dependencies datasource='federated.1rbuunv1x1kc0b13dfx881r4knu8'>
+            <column caption='Over Props' datatype='boolean' name='[Calculation_1701109140836354]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='[points] &gt;= [prop_line]' />
+            </column>
+            <column caption='Opp + Def Rank' datatype='string' name='[Calculation_1701109155184644]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='IF ISNULL([opp_def_rank]) THEN&#10;    [OPP_TEAM]&#10;ELSE&#10;    [OPP_TEAM]&#10;    + CHAR(10)&#10;    + &quot;#&quot;&#10;    + STR(INT([opp_def_rank]))&#10;END' />
+            </column>
+            <column caption='Opp Team' datatype='string' name='[OPP_TEAM]' role='dimension' type='nominal' />
+            <column caption='Game Number' datatype='integer' name='[game_number]' role='dimension' type='ordinal' />
+            <column-instance column='[Calculation_1701109140836354]' derivation='None' name='[none:Calculation_1701109140836354:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Calculation_1701109155184644]' derivation='None' name='[none:Calculation_1701109155184644:nk]' pivot='key' type='nominal' />
+            <column-instance column='[game_number]' derivation='None' name='[none:game_number:ok]' pivot='key' type='ordinal' />
+            <column caption='Opp Def Rank' datatype='real' name='[opp_def_rank]' role='measure' type='quantitative' />
+            <column caption='Points' datatype='integer' name='[points]' role='measure' type='quantitative' />
+            <column caption='Prop Line' datatype='real' name='[prop_line]' role='measure' type='quantitative' />
+            <column caption='R10 Avg Ppg' datatype='real' name='[r10_avg_ppg]' role='measure' type='quantitative' />
+            <column-instance column='[points]' derivation='Sum' name='[sum:points:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[r10_avg_ppg]' derivation='Sum' name='[sum:r10_avg_ppg:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[szn_avg_ppg]' derivation='Sum' name='[sum:szn_avg_ppg:qk]' pivot='key' type='quantitative' />
+            <column caption='Szn Avg Ppg' datatype='real' name='[szn_avg_ppg]' role='measure' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[:Measure Names]'>
+            <groupfilter function='union' user:op='manual'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1rbuunv1x1kc0b13dfx881r4knu8].[sum:r10_avg_ppg:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1rbuunv1x1kc0b13dfx881r4knu8].[sum:szn_avg_ppg:qk]&quot;' />
+            </groupfilter>
+          </filter>
+          <slices>
+            <column>[federated.1rbuunv1x1kc0b13dfx881r4knu8].[:Measure Names]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <encoding attr='space' class='0' field='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[Multiple Values]' field-type='quantitative' fold='true' scope='rows' type='space' />
+            <format attr='display' class='0' field='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[Multiple Values]' scope='rows' value='false' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='display' field='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[none:game_number:ok]' value='false' />
+          </style-rule>
+          <style-rule element='refline'>
+            <format attr='fill-above' id='refline0' value='#00000000' />
+            <format attr='fill-below' id='refline0' value='#00000000' />
+            <format attr='line-visibility' id='refline0' value='on' />
+            <format attr='line-pattern-only' id='refline0' value='dashed' />
+            <format attr='stroke-size' id='refline0' value='5' />
+            <format attr='fill-above' id='refline1' value='#00000000' />
+            <format attr='fill-below' id='refline1' value='#00000000' />
+            <format attr='line-visibility' id='refline1' value='on' />
+            <format attr='line-pattern-only' id='refline1' value='dashed' />
+            <format attr='stroke-color' id='refline1' value='#000000' />
+            <format attr='stroke-size' id='refline1' value='5' />
+            <format attr='stroke-color' id='refline0' value='#000000' />
+          </style-rule>
+          <style-rule element='legend-title-text'>
+            <format attr='color' field='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[none:Calculation_1701109140836354:nk]' value='Over Prop Line'>
+              <formatted-text>
+                <run>Over Prop Line</run>
+              </formatted-text>
+            </format>
+            <format attr='color' field='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[:Measure Names]' value='Trend Lines'>
+              <formatted-text>
+                <run>Trend Lines</run>
+              </formatted-text>
+            </format>
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='3' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+            <reference-line axis-column='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[sum:points:qk]' enable-instant-analytics='true' formula='average' id='refline0' label='Prop Line: 29.5' label-type='custom' probability='95' scope='per-pane' value-column='[Parameters].[Prop Line (Const) Parameter]' z-order='1' />
+            <customized-label>
+              <formatted-text>
+                <run>&lt;</run>
+                <run>[federated.1rbuunv1x1kc0b13dfx881r4knu8].[none:Calculation_1701109155184644:nk]</run>
+                <run>&gt;</run>
+              </formatted-text>
+            </customized-label>
+            <style>
+              <style-rule element='cell'>
+                <format attr='vertical-align' value='bottom' />
+              </style-rule>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+          <pane id='4' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[sum:points:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+            <encodings>
+              <color column='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[none:Calculation_1701109140836354:nk]' />
+              <text column='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[none:Calculation_1701109155184644:nk]' />
+            </encodings>
+            <customized-label>
+              <formatted-text>
+                <run>&lt;</run>
+                <run>[federated.1rbuunv1x1kc0b13dfx881r4knu8].[none:Calculation_1701109155184644:nk]</run>
+                <run>&gt;</run>
+              </formatted-text>
+            </customized-label>
+            <style>
+              <style-rule element='cell'>
+                <format attr='vertical-align' value='bottom' />
+              </style-rule>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+          <pane id='5' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[Multiple Values]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Line' />
+            <encodings>
+              <color column='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[:Measure Names]' />
+            </encodings>
+            <style>
+              <style-rule element='cell'>
+                <format attr='vertical-align' value='bottom' />
+              </style-rule>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-show' value='false' />
+                <format attr='mark-color' value='#4e79a7' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>([federated.1rbuunv1x1kc0b13dfx881r4knu8].[sum:points:qk] + [federated.1rbuunv1x1kc0b13dfx881r4knu8].[Multiple Values])</rows>
+        <cols>[federated.1rbuunv1x1kc0b13dfx881r4knu8].[none:game_number:ok]</cols>
+      </table>
+      <simple-id uuid='{E8F0BB5B-18B6-46E8-BD02-A41DDDC11679}' />
+    </worksheet>
+    <worksheet name='Player Scoring w/ Def Rank Line'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='player_1629029_scoring_plot' name='federated.1rbuunv1x1kc0b13dfx881r4knu8' />
+            <datasource name='Parameters' />
+          </datasources>
+          <datasource-dependencies datasource='Parameters'>
+            <column caption='Prop Line (Const) Parameter' datatype='real' name='[Prop Line (Const) Parameter]' param-domain-type='range' role='measure' type='quantitative' value='29.5'>
+              <calculation class='tableau' formula='29.5' />
+              <range max='29.5' min='29.5' />
+            </column>
+          </datasource-dependencies>
+          <datasource-dependencies datasource='federated.1rbuunv1x1kc0b13dfx881r4knu8'>
+            <column caption='Over Props' datatype='boolean' name='[Calculation_1701109140836354]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='[points] &gt;= [prop_line]' />
+            </column>
+            <column caption='Opp + Def Rank' datatype='string' name='[Calculation_1701109155184644]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='IF ISNULL([opp_def_rank]) THEN&#10;    [OPP_TEAM]&#10;ELSE&#10;    [OPP_TEAM]&#10;    + CHAR(10)&#10;    + &quot;#&quot;&#10;    + STR(INT([opp_def_rank]))&#10;END' />
+            </column>
+            <column caption='Opp Team' datatype='string' name='[OPP_TEAM]' role='dimension' type='nominal' />
+            <column caption='Game Number' datatype='integer' name='[game_number]' role='dimension' type='ordinal' />
+            <column caption='Minutes' datatype='real' name='[minutes]' role='measure' type='quantitative' />
+            <column-instance column='[Calculation_1701109140836354]' derivation='None' name='[none:Calculation_1701109140836354:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Calculation_1701109155184644]' derivation='None' name='[none:Calculation_1701109155184644:nk]' pivot='key' type='nominal' />
+            <column-instance column='[game_number]' derivation='None' name='[none:game_number:ok]' pivot='key' type='ordinal' />
+            <column caption='Opp Def Rank' datatype='real' name='[opp_def_rank]' role='measure' type='quantitative' />
+            <column caption='Points' datatype='integer' name='[points]' role='measure' type='quantitative' />
+            <column caption='Prop Line' datatype='real' name='[prop_line]' role='measure' type='quantitative' />
+            <column caption='R10 Avg Ppg' datatype='real' name='[r10_avg_ppg]' role='measure' type='quantitative' />
+            <column-instance column='[minutes]' derivation='Sum' name='[sum:minutes:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[opp_def_rank]' derivation='Sum' name='[sum:opp_def_rank:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[points]' derivation='Sum' name='[sum:points:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[r10_avg_ppg]' derivation='Sum' name='[sum:r10_avg_ppg:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[szn_avg_ppg]' derivation='Sum' name='[sum:szn_avg_ppg:qk]' pivot='key' type='quantitative' />
+            <column caption='Szn Avg Ppg' datatype='real' name='[szn_avg_ppg]' role='measure' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[:Measure Names]'>
+            <groupfilter function='union' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1rbuunv1x1kc0b13dfx881r4knu8].[sum:r10_avg_ppg:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1rbuunv1x1kc0b13dfx881r4knu8].[sum:szn_avg_ppg:qk]&quot;' />
+            </groupfilter>
+          </filter>
+          <manual-sort column='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[:Measure Names]' direction='ASC'>
+            <dictionary>
+              <bucket>&quot;[federated.1rbuunv1x1kc0b13dfx881r4knu8].[sum:r10_avg_ppg:qk]&quot;</bucket>
+              <bucket>&quot;[federated.1rbuunv1x1kc0b13dfx881r4knu8].[sum:szn_avg_ppg:qk]&quot;</bucket>
+              <bucket>&quot;[federated.1rbuunv1x1kc0b13dfx881r4knu8].[sum:opp_def_rank:qk]&quot;</bucket>
+            </dictionary>
+          </manual-sort>
+          <slices>
+            <column>[federated.1rbuunv1x1kc0b13dfx881r4knu8].[:Measure Names]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <encoding attr='space' class='0' field='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[Multiple Values]' field-type='quantitative' fold='true' scope='rows' synchronized='true' type='space' />
+            <format attr='display' class='0' field='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[Multiple Values]' scope='rows' value='false' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='display' field='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[none:game_number:ok]' value='false' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='cols' value='false' />
+          </style-rule>
+          <style-rule element='refline'>
+            <format attr='fill-above' id='refline0' value='#00000000' />
+            <format attr='fill-below' id='refline0' value='#00000000' />
+            <format attr='line-visibility' id='refline0' value='on' />
+            <format attr='line-pattern-only' id='refline0' value='dashed' />
+            <format attr='stroke-size' id='refline0' value='5' />
+            <format attr='fill-above' id='refline1' value='#00000000' />
+            <format attr='fill-below' id='refline1' value='#00000000' />
+            <format attr='line-visibility' id='refline1' value='on' />
+            <format attr='line-pattern-only' id='refline1' value='dashed' />
+            <format attr='stroke-color' id='refline1' value='#000000' />
+            <format attr='stroke-size' id='refline1' value='5' />
+            <format attr='stroke-color' id='refline0' value='#000000' />
+          </style-rule>
+          <style-rule element='legend-title-text'>
+            <format attr='color' field='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[:Measure Names]' value='Trend Lines'>
+              <formatted-text>
+                <run>Trend Lines</run>
+              </formatted-text>
+            </format>
+            <format attr='color' field='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[none:Calculation_1701109140836354:nk]' value='Over Prop Line'>
+              <formatted-text>
+                <run>Over Prop Line</run>
+              </formatted-text>
+            </format>
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='2' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+            <reference-line axis-column='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[sum:points:qk]' enable-instant-analytics='true' formula='average' id='refline0' label='Prop Line: 29.5' label-type='custom' probability='95' scope='per-pane' value-column='[Parameters].[Prop Line (Const) Parameter]' z-order='1' />
+          </pane>
+          <pane id='3' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[sum:points:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+            <encodings>
+              <color column='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[none:Calculation_1701109140836354:nk]' />
+              <lod column='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[sum:minutes:qk]' />
+              <text column='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[none:Calculation_1701109155184644:nk]' />
+            </encodings>
+            <customized-label>
+              <formatted-text>
+                <run>&lt;</run>
+                <run>[federated.1rbuunv1x1kc0b13dfx881r4knu8].[none:Calculation_1701109155184644:nk]</run>
+                <run>&gt;</run>
+              </formatted-text>
+            </customized-label>
+            <style>
+              <style-rule element='cell'>
+                <format attr='vertical-align' value='bottom' />
+                <format attr='wrap' value='auto' />
+                <format attr='text-align' value='center' />
+                <format attr='text-orientation' value='0' />
+              </style-rule>
+              <style-rule element='datalabel'>
+                <format attr='color-mode' value='user' />
+                <format attr='color' value='#000000' />
+                <format attr='font-weight' value='bold' />
+              </style-rule>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-show' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+          <pane id='4' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[Multiple Values]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Line' />
+            <encodings>
+              <color column='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[:Measure Names]' />
+              <path column='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[none:game_number:ok]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>([federated.1rbuunv1x1kc0b13dfx881r4knu8].[sum:points:qk] + [federated.1rbuunv1x1kc0b13dfx881r4knu8].[Multiple Values])</rows>
+        <cols>[federated.1rbuunv1x1kc0b13dfx881r4knu8].[none:game_number:ok]</cols>
+      </table>
+      <simple-id uuid='{4EBAC2CA-ABD9-4879-B8B4-75AC15F8463A}' />
+    </worksheet>
+  </worksheets>
+  <dashboards>
+    <dashboard enable-sort-zone-taborder='true' name='Dashboard 1'>
+      <style />
+      <size maxheight='900' maxwidth='1400' minheight='900' minwidth='1400' sizing-mode='fixed' />
+      <zones>
+        <zone h='100000' id='4' type-v2='layout-basic' w='100000' x='0' y='0'>
+          <zone h='30111' id='11' param='horz' type-v2='layout-flow' w='62358' x='37071' y='889'>
+            <zone h='30111' id='36' name='Game Scoring Environment' show-title='false' w='62358' x='37071' y='889'>
+              <layout-cache minwidth='269' type-h='fixed' type-w='scalable' />
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+          </zone>
+          <zone h='60556' id='17' param='horz' type-v2='layout-flow' w='62715' x='571' y='31000'>
+            <zone h='60556' id='19' name='Player Scoring w/ Def Rank Line' show-title='false' w='62715' x='571' y='31000'>
+              <layout-cache cell-count-w='26' minheight='101' non-cell-size-w='52' type-h='scalable' type-w='cell' />
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+          </zone>
+          <zone h='7555' id='22' name='Player Scoring w/ Def Rank Line' pane-specification-id='3' param='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[none:Calculation_1701109140836354:nk]' type-v2='color' w='7858' x='20071' y='91556'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone h='7555' id='21' name='Player Scoring w/ Def Rank Line' pane-specification-id='4' param='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[:Measure Names]' type-v2='color' w='19142' x='27929' y='91556'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone h='22000' id='23' param='horz' type-v2='layout-flow' w='13286' x='12714' y='9000'>
+            <zone h='22000' id='28' param='horz' type-v2='layout-flow' w='13286' x='12714' y='9000'>
+              <zone forceUpdate='true' h='22000' id='31' type-v2='text' w='13286' x='12714' y='9000'>
+                <formatted-text>
+                  <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>January 6, 2026</run>
+                  <run fontalignment='1'>Æ&#10;&#10;</run>
+                  <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>POINT TOTAL: 238.5</run>
+                  <run fontalignment='1'>Æ&#10;</run>
+                  <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>GAME SPREAD: 5.5</run>
+                  <run fontalignment='1'>Æ&#10;&#10;</run>
+                  <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>PROP: LUKA DONCIC (LAL) 29.5 PTS</run>
+                  <run fontalignment='1'>Æ&#10;&#10;&#10;&#10;</run>
+                </formatted-text>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+            </zone>
+          </zone>
+          <zone h='7555' id='25' param='vert' type-v2='layout-flow' w='19500' x='571' y='91556' />
+          <zone h='4555' id='26' param='vert' type-v2='layout-flow' w='36500' x='571' y='889'>
+            <zone forceUpdate='true' h='4111' id='27' type-v2='text' w='36500' x='571' y='889'>
+              <formatted-text>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='16'>LOS ANGELES LAKERS @ NEW ORLEANS PELICANS</run>
+              </formatted-text>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+          </zone>
+          <zone h='22000' id='29' param='horz' type-v2='layout-flow' w='11071' x='26000' y='9000'>
+            <zone forceUpdate='true' h='22000' id='33' type-v2='text' w='11071' x='26000' y='9000'>
+              <formatted-text>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>Jose Alvarado</run>
+                <run fontalignment='1'>Æ&#10;</run>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>Jeramiah Fears</run>
+                <run fontalignment='1'>Æ&#10;</run>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>Trey Murphy III</run>
+                <run fontalignment='1'>Æ&#10;</run>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>Zion Williamson</run>
+                <run fontalignment='1'>Æ&#10;</run>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>Derick Queen</run>
+                <run fontalignment='1'>Æ&#10;&#10;</run>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>OUT: </run>
+                <run fontalignment='1'>Æ&#10;</run>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>HERB JONES*</run>
+              </formatted-text>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+          </zone>
+          <zone h='22000' id='30' param='horz' type-v2='layout-flow' w='12143' x='571' y='9000'>
+            <zone forceUpdate='true' h='22000' id='32' type-v2='text' w='12143' x='571' y='9000'>
+              <formatted-text>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>Luka Doncic</run>
+                <run fontalignment='1'>Æ&#10;</run>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>Marcus Smart</run>
+                <run fontalignment='1'>Æ&#10;</run>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>Jake LaRavia</run>
+                <run fontalignment='1'>Æ&#10;</run>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>LeBron James</run>
+                <run fontalignment='1'>Æ&#10;</run>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>DeAndre Ayton</run>
+                <run fontalignment='1'>Æ&#10;&#10;</run>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>OUT: </run>
+                <run fontalignment='1'>Æ&#10;</run>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>AUSTIN REAVES*</run>
+              </formatted-text>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+          </zone>
+          <zone h='32444' id='34' param='horz' type-v2='layout-flow' w='18000' x='63286' y='66667'>
+            <zone h='29667' id='40' param='horz' type-v2='layout-flow' w='18000' x='63286' y='66667'>
+              <zone h='29667' id='42' name='Hit Rate Summary (2)' show-title='false' w='18000' x='63286' y='66667'>
+                <layout-cache fixed-size-h='259' fixed-size-w='239' type-h='fixed' type-w='fixed' />
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+            </zone>
+          </zone>
+          <zone h='7556' id='37' name='Game Scoring Environment' pane-specification-id='0' param='[federated.1jzz6ea0ypdqfd1ds6xfe1fju2o8].[:Measure Names]' type-v2='color' w='19143' x='63286' y='31000'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone h='7556' id='39' param='horz' type-v2='layout-flow' w='17000' x='82429' y='31000' />
+          <zone h='32444' id='41' param='horz' type-v2='layout-flow' w='18143' x='81286' y='66667'>
+            <zone h='29667' id='43' name='Hit Rate Summary (3)' show-title='false' w='18143' x='81286' y='66667'>
+              <layout-cache fixed-size-h='259' fixed-size-w='245' type-h='fixed' type-w='fixed' />
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+          </zone>
+          <zone h='7111' id='44' param='horz' type-v2='layout-flow' w='14357' x='63286' y='38556'>
+            <zone fixed-size='166' forceUpdate='true' h='5778' id='47' is-fixed='true' type-v2='text' w='14357' x='63286' y='38556'>
+              <formatted-text>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>SEASON AVERAGE PPG VS BOTTOM 10 DEFENSE</run>
+              </formatted-text>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+          </zone>
+          <zone h='6666' id='49' param='horz' type-v2='layout-flow' w='21786' x='77643' y='38556'>
+            <zone forceUpdate='true' h='6666' id='59' type-v2='text' w='21786' x='77643' y='38556'>
+              <formatted-text>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='14'>LAST 5 SCORING PERFORMANCES</run>
+              </formatted-text>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+          </zone>
+          <zone h='7555' id='50' param='horz' type-v2='layout-flow' w='16215' x='47071' y='91556' />
+          <zone h='17222' id='51' param='vert' type-v2='layout-flow' w='14357' x='63286' y='45667'>
+            <zone fixed-size='115' forceUpdate='true' h='13667' id='53' is-fixed='true' type-v2='text' w='14357' x='63286' y='45667'>
+              <formatted-text>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='44'>36.4</run>
+              </formatted-text>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+          </zone>
+          <zone h='17667' id='52' layout-strategy-id='distribute-evenly' param='vert' type-v2='layout-flow' w='21786' x='77643' y='45222'>
+            <zone fixed-size='119' h='17667' id='62' is-fixed='true' name='Last 5 Scoring Performances' show-title='false' w='21786' x='77643' y='45222'>
+              <layout-cache type-h='fixed' type-w='fixed' />
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+          </zone>
+          <zone forceUpdate='true' h='3556' id='57' type-v2='text' w='16858' x='571' y='5444'>
+            <formatted-text>
+              <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>#14 Ranked Offense</run>
+            </formatted-text>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone forceUpdate='true' h='3556' id='58' type-v2='text' w='19642' x='17429' y='5444'>
+            <formatted-text>
+              <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>#26 Ranked Defense</run>
+            </formatted-text>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone forceUpdate='true' h='3778' id='61' type-v2='text' w='36143' x='63286' y='62889'>
+            <formatted-text>
+              <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='16'>CONDITIONAL HIT RATES</run>
+            </formatted-text>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='8' />
+            <format attr='background-color' value='#aabcef' />
+          </zone-style>
+        </zone>
+      </zones>
+      <devicelayouts>
+        <devicelayout auto-generated='true' name='Phone'>
+          <size maxheight='2150' minheight='2150' sizing-mode='vscroll' />
+          <zones>
+            <zone h='100000' id='64' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98222' id='63' param='vert' type-v2='layout-flow' w='98858' x='571' y='889'>
+                <zone forceUpdate='true' h='4111' id='27' type-v2='text' w='36500' x='571' y='889'>
+                  <formatted-text>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='16'>LOS ANGELES LAKERS @ NEW ORLEANS PELICANS</run>
+                  </formatted-text>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='263' h='30111' id='36' is-fixed='true' name='Game Scoring Environment' show-title='false' w='62358' x='37071' y='889'>
+                  <layout-cache minwidth='269' type-h='fixed' type-w='scalable' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone h='7556' id='37' name='Game Scoring Environment' pane-specification-id='0' param='[federated.1jzz6ea0ypdqfd1ds6xfe1fju2o8].[:Measure Names]' type-v2='color' w='19143' x='63286' y='31000'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone forceUpdate='true' h='3556' id='57' type-v2='text' w='16858' x='571' y='5444'>
+                  <formatted-text>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>#14 Ranked Offense</run>
+                  </formatted-text>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone forceUpdate='true' h='3556' id='58' type-v2='text' w='19642' x='17429' y='5444'>
+                  <formatted-text>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>#26 Ranked Defense</run>
+                  </formatted-text>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone forceUpdate='true' h='22000' id='32' type-v2='text' w='12143' x='571' y='9000'>
+                  <formatted-text>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>Luka Doncic</run>
+                    <run fontalignment='1'>Æ&#10;</run>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>Marcus Smart</run>
+                    <run fontalignment='1'>Æ&#10;</run>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>Jake LaRavia</run>
+                    <run fontalignment='1'>Æ&#10;</run>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>LeBron James</run>
+                    <run fontalignment='1'>Æ&#10;</run>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>DeAndre Ayton</run>
+                    <run fontalignment='1'>Æ&#10;&#10;</run>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>OUT: </run>
+                    <run fontalignment='1'>Æ&#10;</run>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>AUSTIN REAVES*</run>
+                  </formatted-text>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone forceUpdate='true' h='22000' id='31' type-v2='text' w='13286' x='12714' y='9000'>
+                  <formatted-text>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>January 6, 2026</run>
+                    <run fontalignment='1'>Æ&#10;&#10;</run>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>POINT TOTAL: 238.5</run>
+                    <run fontalignment='1'>Æ&#10;</run>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>GAME SPREAD: 5.5</run>
+                    <run fontalignment='1'>Æ&#10;&#10;</run>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>PROP: LUKA DONCIC (LAL) 29.5 PTS</run>
+                    <run fontalignment='1'>Æ&#10;&#10;&#10;&#10;</run>
+                  </formatted-text>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone forceUpdate='true' h='22000' id='33' type-v2='text' w='11071' x='26000' y='9000'>
+                  <formatted-text>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>Jose Alvarado</run>
+                    <run fontalignment='1'>Æ&#10;</run>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>Jeramiah Fears</run>
+                    <run fontalignment='1'>Æ&#10;</run>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>Trey Murphy III</run>
+                    <run fontalignment='1'>Æ&#10;</run>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>Zion Williamson</run>
+                    <run fontalignment='1'>Æ&#10;</run>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>Derick Queen</run>
+                    <run fontalignment='1'>Æ&#10;&#10;</run>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>OUT: </run>
+                    <run fontalignment='1'>Æ&#10;</run>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>HERB JONES*</run>
+                  </formatted-text>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='280' h='60556' id='19' is-fixed='true' name='Player Scoring w/ Def Rank Line' show-title='false' w='62715' x='571' y='31000'>
+                  <layout-cache cell-count-w='26' minheight='101' non-cell-size-w='52' type-h='scalable' type-w='cell' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone h='7555' id='22' name='Player Scoring w/ Def Rank Line' pane-specification-id='3' param='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[none:Calculation_1701109140836354:nk]' type-v2='color' w='7858' x='20071' y='91556'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone h='7555' id='21' name='Player Scoring w/ Def Rank Line' pane-specification-id='4' param='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[:Measure Names]' type-v2='color' w='19142' x='27929' y='91556'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='166' forceUpdate='true' h='5778' id='47' type-v2='text' w='14357' x='63286' y='38556'>
+                  <formatted-text>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>SEASON AVERAGE PPG VS BOTTOM 10 DEFENSE</run>
+                  </formatted-text>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone forceUpdate='true' h='6666' id='59' type-v2='text' w='21786' x='77643' y='38556'>
+                  <formatted-text>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='14'>LAST 5 SCORING PERFORMANCES</run>
+                  </formatted-text>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='151' h='17667' id='62' is-fixed='true' name='Last 5 Scoring Performances' show-title='false' w='21786' x='77643' y='45222'>
+                  <layout-cache type-h='fixed' type-w='fixed' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='115' forceUpdate='true' h='13667' id='53' type-v2='text' w='14357' x='63286' y='45667'>
+                  <formatted-text>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='44'>36.4</run>
+                  </formatted-text>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone forceUpdate='true' h='3778' id='61' type-v2='text' w='36143' x='63286' y='62889'>
+                  <formatted-text>
+                    <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='16'>CONDITIONAL HIT RATES</run>
+                  </formatted-text>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='259' h='29667' id='42' is-fixed='true' name='Hit Rate Summary (2)' show-title='false' w='18000' x='63286' y='66667'>
+                  <layout-cache fixed-size-h='259' fixed-size-w='239' type-h='fixed' type-w='fixed' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='259' h='29667' id='43' is-fixed='true' name='Hit Rate Summary (3)' show-title='false' w='18143' x='81286' y='66667'>
+                  <layout-cache fixed-size-h='259' fixed-size-w='245' type-h='fixed' type-w='fixed' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+              </zone>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='8' />
+                <format attr='background-color' value='#aabcef' />
+              </zone-style>
+            </zone>
+          </zones>
+        </devicelayout>
+      </devicelayouts>
+      <simple-id uuid='{D30AEC31-720D-445A-BFE3-2964DDD5F35E}' />
+    </dashboard>
+    <dashboard enable-sort-zone-taborder='true' name='Dashboard 2'>
+      <style />
+      <size maxheight='900' maxwidth='1400' minheight='900' minwidth='1400' sizing-mode='fixed' />
+      <zones>
+        <zone h='100000' id='4' type-v2='layout-basic' w='100000' x='0' y='0'>
+          <zone h='82222' id='6' param='vert' type-v2='layout-flow' w='76215' x='571' y='16889'>
+            <zone fixed-size='649' h='73000' id='9' is-fixed='true' name='Player Scoring' w='76215' x='571' y='16889'>
+              <layout-cache cell-count-w='26' minheight='144' non-cell-size-w='53' type-h='scalable' type-w='cell' />
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+            <zone h='7333' id='12' param='vert' type-v2='layout-flow' w='76215' x='571' y='89889'>
+              <zone h='7333' id='5' param='horz' type-v2='layout-flow' w='76215' x='571' y='89889'>
+                <zone h='7333' id='10' name='Player Scoring' pane-specification-id='4' param='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[none:Calculation_1701109140836354:nk]' type-v2='color' w='12000' x='571' y='89889'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                  </zone-style>
+                </zone>
+                <zone h='7333' id='11' name='Player Scoring' pane-specification-id='5' param='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[:Measure Names]' type-v2='color' w='12000' x='12571' y='89889'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                  </zone-style>
+                </zone>
+              </zone>
+            </zone>
+          </zone>
+          <zone h='6889' id='7' param='horz' type-v2='layout-flow' w='98858' x='571' y='889'>
+            <zone fixed-size='774' forceUpdate='true' h='6889' id='8' is-fixed='true' type-v2='text' w='55857' x='571' y='889'>
+              <formatted-text>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontname='Big Caslon' fontsize='20'>LOS ANGELES LAKERS @ NEW ORLEANS PELICANS</run>
+                <run fontalignment='1'>Æ&#10;</run>
+              </formatted-text>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+            <zone h='6889' id='14' param='horz' type-v2='layout-flow' w='43001' x='56428' y='889' />
+          </zone>
+          <zone h='82222' id='13' param='horz' type-v2='layout-flow' w='22643' x='76786' y='16889' />
+          <zone h='9111' id='15' param='vert' type-v2='layout-flow' w='49429' x='50000' y='7778' />
+          <zone h='4000' id='16' param='horz' type-v2='layout-flow' w='21643' x='16000' y='12889' />
+          <zone h='9111' id='17' param='horz' type-v2='layout-flow' w='15429' x='571' y='7778'>
+            <zone forceUpdate='true' h='9111' id='20' type-v2='text' w='15429' x='571' y='7778'>
+              <formatted-text>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>SZN(20-13)</run>
+                <run fontalignment='1'>Æ&#10;</run>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>L5(3-2)</run>
+                <run fontalignment='1'>Æ&#10;</run>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>L10(6-4)</run>
+              </formatted-text>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+          </zone>
+          <zone h='9111' id='18' param='horz' type-v2='layout-flow' w='12357' x='37643' y='7778'>
+            <zone h='9111' id='21' type-v2='text' w='12357' x='37643' y='7778'>
+              <formatted-text>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>SZN(20-13)</run>
+                <run fontalignment='1'>Æ&#10;</run>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>L5(3-2)</run>
+                <run fontalignment='1'>Æ&#10;</run>
+                <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>L10(6-4)</run>
+              </formatted-text>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+          </zone>
+          <zone h='5111' id='19' type-v2='text' w='21643' x='16000' y='7778'>
+            <formatted-text>
+              <run bold='true' fontalignment='1' fontcolor='#000000' fontsize='12'>Tuesday, January 6th, 2026</run>
+            </formatted-text>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='8' />
+          </zone-style>
+        </zone>
+      </zones>
+      <devicelayouts>
+        <devicelayout auto-generated='true' name='Phone'>
+          <size maxheight='700' minheight='700' sizing-mode='vscroll' />
+          <zones>
+            <zone h='100000' id='2' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='84000' id='1' param='vert' type-v2='layout-flow' w='84000' x='8000' y='8000' />
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='8' />
+              </zone-style>
+            </zone>
+          </zones>
+        </devicelayout>
+      </devicelayouts>
+      <simple-id uuid='{DA13C6A2-343E-434B-ADD3-D7B17F8EFE7F}' />
+    </dashboard>
+  </dashboards>
+  <windows source-height='114'>
+    <window class='worksheet' name='Player Scoring'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='4' param='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[none:Calculation_1701109140836354:nk]' type='color' />
+            <card pane-specification-id='5' param='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[:Measure Names]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{084973DF-3642-4597-A8D4-95C16D37A5F2}' />
+    </window>
+    <window class='worksheet' name='Player Scoring w/ Def Rank Line'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card param='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[:Measure Names]' show-morefewerbutton='false' type='filter' />
+            <card pane-specification-id='4' param='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[:Measure Names]' type='color' />
+            <card pane-specification-id='3' param='[federated.1rbuunv1x1kc0b13dfx881r4knu8].[none:Calculation_1701109140836354:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{61668ABF-9A1F-466D-9F31-7CD1082BDB3D}' />
+    </window>
+    <window class='dashboard' name='Dashboard 1'>
+      <viewpoints>
+        <viewpoint name='Game Scoring Environment' />
+        <viewpoint name='Hit Rate Summary (2)' />
+        <viewpoint name='Hit Rate Summary (3)' />
+        <viewpoint name='Last 5 Scoring Performances'>
+          <zoom type='fit-width' />
+          <floating-toolbar-visibility value='1' />
+        </viewpoint>
+        <viewpoint name='Player Scoring w/ Def Rank Line'>
+          <zoom type='entire-view' />
+        </viewpoint>
+      </viewpoints>
+      <active id='-1' />
+      <simple-id uuid='{F12F01D0-B936-4DE7-9145-0F3A0484608D}' />
+    </window>
+    <window class='worksheet' name='Hit Rate Summary'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{D989D15C-01F7-4C82-AE8D-B643DF8E7C03}' />
+    </window>
+    <window class='worksheet' name='Hit Rate Summary (2)'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{3BF07F46-DDA8-49AC-AFD9-2DF15CA97C24}' />
+    </window>
+    <window class='worksheet' name='Hit Rate Summary (3)'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{28D46859-C572-48D5-91EA-60A9516E64B8}' />
+    </window>
+    <window class='worksheet' name='Game Scoring Environment'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.1jzz6ea0ypdqfd1ds6xfe1fju2o8].[:Measure Names]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{C327FBAC-BF1C-45DA-A259-05D3424DFA22}' />
+    </window>
+    <window class='worksheet' name='Last 5 Scoring Performances'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='77'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <floating-toolbar-visibility value='1' />
+      </viewpoint>
+      <simple-id uuid='{E5630B1E-6537-44AE-80BC-EBBC87CD2A7E}' />
+    </window>
+    <window class='dashboard' maximized='true' name='Dashboard 2'>
+      <viewpoints>
+        <viewpoint name='Player Scoring'>
+          <zoom type='entire-view' />
+          <floating-toolbar-visibility value='1' />
+        </viewpoint>
+      </viewpoints>
+      <active id='-1' />
+      <simple-id uuid='{1604D14E-0B40-4EFB-9198-5BFD75B85A72}' />
+    </window>
+  </windows>
+</workbook>

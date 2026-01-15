@@ -7,6 +7,24 @@ from data import load_process_pbs, load_process_tbs, build_ranks
 from plots.player import plot_player_scoring, plot_player_scoring_by_def_bucket
 from tables import player_hit_rate_summary
 
+import os
+import streamlit as st
+from sqlalchemy import create_engine
+
+@st.cache_resource
+def get_engine():
+    return create_engine(
+        os.environ["DATABASE_URL"],
+        pool_pre_ping=True
+    )
+
+engine = get_engine()
+
+import pandas as pd
+
+test_df = pd.read_sql("SELECT 1 AS ok", engine)
+st.write(test_df)
+
 st.set_page_config(
     page_title="NBA Player Prop Dashboard",
     layout="wide"

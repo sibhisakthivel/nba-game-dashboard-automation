@@ -18,6 +18,8 @@ def get_engine():
         pool_pre_ping=True
     )
 
+st.write(os.environ["DATABASE_URL"])
+
 engine = get_engine()
 
 import pandas as pd

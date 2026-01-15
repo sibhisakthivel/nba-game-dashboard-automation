@@ -31,11 +31,6 @@ def get_engine():
 
 engine = get_engine()
 
-import pandas as pd
-
-test_df = pd.read_sql("SELECT 1 AS ok", engine)
-st.write(test_df)
-
 st.set_page_config(
     page_title="NBA Player Prop Dashboard",
     layout="wide"

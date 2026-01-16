@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-def player_hit_rate_summary(player_id, prop_line, pbs, tbs, daily_ranks, teammates=None):
+def player_hit_rate_summary(player_id, prop_line, pbs, tbs, daily_ranks, teammates=None, matchup_home_away=None, matchup_opp_def_bucket=None):
     """
     Generate a hit rate summary table for a player across various game categories.
     
@@ -19,6 +19,10 @@ def player_hit_rate_summary(player_id, prop_line, pbs, tbs, daily_ranks, teammat
         Daily team rankings dataframe with defensive ranks
     teammates : list, optional
         List of teammate identifiers (personId int or familyName str) to track absence
+    matchup_home_away : str, optional
+        Home/away status for the current matchup ("HOME" or "AWAY")
+    matchup_opp_def_bucket : str, optional
+        Opponent defensive bucket for the current matchup (e.g., "Top 10 Defense")
         
     Returns:
     --------
@@ -241,6 +245,15 @@ def player_hit_rate_summary(player_id, prop_line, pbs, tbs, daily_ranks, teammat
         player_df[player_df["team_pts"] >= 120],
         "Team ≥120 Points"
     ))
+    
+    # Matchup-specific row: Home/Away AND Opponent Defensive Bucket
+    if matchup_home_away is not None and matchup_opp_def_bucket is not None:
+        matchup_mask = (
+            (player_df["HOME_AWAY"] == matchup_home_away) & 
+            (player_df["def_bucket"] == matchup_opp_def_bucket)
+        )
+        matchup_label = f"{matchup_home_away} vs {matchup_opp_def_bucket}"
+        rows.append(hit_row(player_df[matchup_mask], matchup_label))
     
     summary_table = pd.DataFrame(rows)
     

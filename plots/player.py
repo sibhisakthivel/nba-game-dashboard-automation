@@ -127,7 +127,7 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
     ax.axhline(
         prop_line,
         linestyle="--",
-        linewidth=4,
+        linewidth=6,
         color="black",
         alpha=0.9,
         label=f"Prop Line ({prop_line})"
@@ -144,8 +144,8 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
         plot_df.loc[low_min_mask, "points"] + 1,
         marker="x",
         color="black",
-        s=60,
-        linewidths=2,
+        s=150,
+        linewidths=4,
         label="≤30 Minutes"
     )
 
@@ -273,10 +273,10 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
     legend_elements = [
         Line2D([0], [0], linestyle=':', linewidth=3, color='gray', label="Rolling 10 Avg PPG"),
         Line2D([0], [0], linestyle='--', linewidth=1.8, alpha=0.7, color='orange', label="Season Avg PPG"),
-        Line2D([0], [0], linestyle=':', linewidth=2, color="black", alpha=0.8, label=f"Prop Line ({prop_line})"),
+        Line2D([0], [0], linestyle='--', linewidth=6, color="black", alpha=0.9, label=f"Prop Line ({prop_line})"),
         Patch(facecolor='tab:green', alpha=0.75, label="Over prop line"),
         Patch(facecolor='tab:red', alpha=0.75, label="Under prop line"),
-        Line2D([0], [0], marker='x', color='black', linestyle='None', markersize=8, markeredgewidth=2, label="≤30 Minutes")
+        Line2D([0], [0], marker='x', color='black', linestyle='None', markersize=12, markeredgewidth=4, label="≤30 Minutes")
     ]
     
     # Add teammate markers if applicable

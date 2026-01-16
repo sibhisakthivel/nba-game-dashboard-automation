@@ -244,4 +244,9 @@ def player_hit_rate_summary(player_id, prop_line, pbs, tbs, daily_ranks, teammat
     
     summary_table = pd.DataFrame(rows)
     
+    # Filter out rows with no data (Games = 0 or Hit Rate is None)
+    summary_table = summary_table[
+        (summary_table["Games"] > 0) & (summary_table["Hit Rate (%)"].notna())
+    ].copy()
+    
     return summary_table

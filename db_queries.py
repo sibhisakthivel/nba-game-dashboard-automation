@@ -3,9 +3,15 @@ import pandas as pd
 import numpy as np
 from sqlalchemy import text
 
-def get_all_teams(engine):
+@st.cache_data(ttl=3600)  # Cache for 1 hour
+def get_all_teams(_engine):
     """
     Query all unique teams from the league game log.
+    
+    Parameters:
+    -----------
+    _engine : sqlalchemy.engine
+        Database connection engine (prefixed with _ to skip hashing)
     
     Returns:
     --------
@@ -20,7 +26,7 @@ def get_all_teams(engine):
         ORDER BY team_abbreviation
     """)
     
-    df = pd.read_sql(query, engine)
+    df = pd.read_sql(query, _engine)
     return df
 
 def get_players_by_team(engine, team_abbrev):

@@ -126,10 +126,10 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
 
     ax.axhline(
         prop_line,
-        linestyle=":",
-        linewidth=2,
+        linestyle="--",
+        linewidth=4,
         color="black",
-        alpha=0.8,
+        alpha=0.9,
         label=f"Prop Line ({prop_line})"
     )
 
@@ -255,11 +255,14 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
 
     ax.set_ylim(10, plot_df["points"].max() + 5)
     ax.set_ylabel("Points", fontsize=22, fontweight="bold")
-    ax.set_xlabel("Game Number", fontsize=22, fontweight="bold")
-    ax.set_title(f"{player_name} — Scoring Outcomes vs Baselines", fontsize=24, fontweight="bold", pad=25)
-
-    ax.set_xticks(x[::5])
-    ax.set_xticklabels(plot_df["game_number"][::5], fontsize=16)
+    # Remove x-axis label and ticks - not needed
+    ax.set_xlabel("")  # Empty label
+    
+    # Hide x-axis
+    ax.set_xticks([])
+    ax.set_xticklabels([])
+    ax.spines['bottom'].set_visible(False)
+    
     ax.tick_params(axis="y", labelsize=16)
 
     ax.grid(axis="y", alpha=0.25)

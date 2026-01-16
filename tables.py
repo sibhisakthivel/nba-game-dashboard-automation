@@ -228,6 +228,20 @@ def player_hit_rate_summary(player_id, prop_line, pbs, tbs, daily_ranks, teammat
         "Bottom 10 Defense"
     ))
     
+    # Team points threshold rows
+    rows.append(hit_row(
+        player_df[player_df["team_pts"] >= 100],
+        "Team ≥100 Points"
+    ))
+    rows.append(hit_row(
+        player_df[player_df["team_pts"] >= 110],
+        "Team ≥110 Points"
+    ))
+    rows.append(hit_row(
+        player_df[player_df["team_pts"] >= 120],
+        "Team ≥120 Points"
+    ))
+    
     summary_table = pd.DataFrame(rows)
     
     return summary_table

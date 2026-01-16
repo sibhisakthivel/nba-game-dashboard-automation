@@ -3,8 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Commented out old CSV-based imports
-# from data import load_process_pbs, load_process_tbs, build_ranks
 from plots.player import plot_player_scoring  # , plot_player_scoring_by_def_bucket
 from tables import player_hit_rate_summary
 
@@ -92,134 +90,13 @@ def get_team_full_name(abbrev):
     return TEAM_NAMES.get(abbrev, abbrev)
 
 # =========================================================
-# COMMENTED OUT: Old render_game_dashboard function
-# (Keeping for reference, will uncomment when needed)
-# =========================================================
-if False:  # This block will never execute, ensuring commented code doesn't display
-    def render_game_dashboard(player_id, prop_line, away_team, home_team, opp_def_bucket, pbs, tbs, daily_ranks, teammate_ids=None):
-        # Render the complete game dashboard with 4-section layout.
-        # Parameters:
-        #   player_id: int - Player personId to analyze
-        #   prop_line: float - Prop line threshold
-        #   away_team: str - Away team abbreviation (e.g., "LAL")
-        #   home_team: str - Home team abbreviation (e.g., "NOP")
-        #   opp_def_bucket: str - Opponent defensive bucket (e.g., "top10", "middle10", "bottom10")
-        #   pbs: pd.DataFrame - Player box scores
-        #   tbs: pd.DataFrame - Team box scores
-        #   daily_ranks: pd.DataFrame - Daily rankings
-        #   teammate_ids: list, optional - Teammate identifiers for tracking
-        
-        # Get player info
-        player_info = pbs[pbs["personId"] == player_id].iloc[0]
-        
-        # Get full team names
-        away_team_name = get_team_full_name(away_team)
-        home_team_name = get_team_full_name(home_team)
-        
-        # =========================================================
-        # 2-COLUMN LAYOUT: Left (bigger) and Right (smaller)
-        # =========================================================
-        
-        # Left column is bigger to accommodate the large player scoring plot
-        col_left, col_right = st.columns([4, 2.5])
-        
-        # =========================================================
-        # LEFT COLUMN: Top (Game Header) + Bottom (Player Scoring Plot)
-        # =========================================================
-        
-        with col_left:
-            # Top: Game Header - Centered matchup text at top
-            st.markdown(f"<h2 style='text-align: center; margin-bottom: 0.5rem;'>{away_team_name} @ {home_team_name}</h2>", unsafe_allow_html=True)
-            
-            # Header with three sub-columns: away team (right-aligned), center (spread/total), home team (left-aligned)
-            header_col1, header_col2, header_col3 = st.columns([2, 1, 2])
-            
-            with header_col1:
-                # Away team lineup - centered
-                st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
-                # Starting lineup placeholder (5 lines) - directly under team name
-                for i in range(5):
-                    st.markdown(f"<div style='text-align: center;'>Player {i+1}</div>", unsafe_allow_html=True)
-                # Injuries placeholder (1 line, multiple players on same line) - centered
-                st.markdown("<small style='text-align: center;'>Injuries: Player A, Player B</small>", unsafe_allow_html=True)
-                st.markdown("</div>", unsafe_allow_html=True)
-            
-            with header_col2:
-                # Center: Game spread and total placeholder - centered under '@'
-                st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
-                st.markdown("**Total:** TBD")
-                st.markdown("**Spread:** TBD")
-                st.markdown("</div>", unsafe_allow_html=True)
-            
-            with header_col3:
-                # Home team lineup - centered
-                st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
-                # Starting lineup placeholder (5 lines) - directly under team name
-                for i in range(5):
-                    st.markdown(f"<div style='text-align: center;'>Player {i+1}</div>", unsafe_allow_html=True)
-                # Injuries placeholder (1 line, multiple players on same line) - centered
-                st.markdown("<small style='text-align: center;'>Injuries: Player C</small>", unsafe_allow_html=True)
-                st.markdown("</div>", unsafe_allow_html=True)
-            
-            # Bottom: Player Scoring Plot (expanded to fill entire screen)
-            player_scoring_fig, _ = plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_ids)
-            # Use very large size to maximize screen usage
-            player_scoring_fig.set_size_inches(28, 13)
-            player_scoring_fig.tight_layout()
-            st.pyplot(player_scoring_fig, use_container_width=True)
-            plt.close(player_scoring_fig)
-        
-        # =========================================================
-        # RIGHT COLUMN: Top (Opp Def Bucket Plot) + Bottom (Hit Rate Summary Table)
-        # =========================================================
-        
-        with col_right:
-            # Top: Opp Def Bucket Scoring Plot (expanded to fill screen)
-            opp_bucket_fig, _ = plot_player_scoring_by_def_bucket(
-                player_id, prop_line, pbs, tbs, daily_ranks, opp_def_bucket, teammate_ids
-            )
-            # Use larger size to maximize screen usage
-            opp_bucket_fig.set_size_inches(20, 7)
-            opp_bucket_fig.tight_layout()
-            st.pyplot(opp_bucket_fig, use_container_width=True)
-            plt.close(opp_bucket_fig)
-            
-            # Bottom: Hit Rate Summary Table (expanded to fill remaining space)
-            summary_table = player_hit_rate_summary(player_id, prop_line, pbs, tbs, daily_ranks, teammates=teammate_ids)
-            # Use height parameter to show all rows and fill remaining space
-            st.dataframe(
-                summary_table, 
-                use_container_width=True, 
-                hide_index=True,
-                height=(len(summary_table) + 1) * 42 + 3  # Larger row height to fill space
-            )
-
-# =========================================================
 # MAIN APP
 # =========================================================
-
-# Commented out old CSV-based data loading
-# pbs = load_process_pbs()
-# tbs = load_process_tbs()
-# daily_ranks = build_ranks(tbs)
-
-# Commented out old example usage
-# render_game_dashboard(
-#     player_id=1629029,
-#     prop_line=29.5,
-#     away_team="LAL",
-#     home_team="NOP",
-#     opp_def_bucket="top10",  # Opponent defensive bucket
-#     pbs=pbs,
-#     tbs=tbs,
-#     daily_ranks=daily_ranks,
-#     teammate_ids=[1630559, 2544]  # Reaves and LeBron
-# )
-
-# =========================================================
+    
+    # =========================================================
 # NEW: Cascading Dropdown Selections
-# =========================================================
-
+    # =========================================================
+    
 # Initialize session state for selections
 if "selected_team" not in st.session_state:
     st.session_state.selected_team = None
@@ -231,6 +108,10 @@ if "prop_line" not in st.session_state:
     st.session_state.prop_line = None
 if "prev_team" not in st.session_state:
     st.session_state.prev_team = None
+if "player_team_home_away" not in st.session_state:
+    st.session_state.player_team_home_away = None  # "home" or "away"
+if "opponent_team_home_away" not in st.session_state:
+    st.session_state.opponent_team_home_away = None  # "home" or "away"
 
 # Track team changes to reset player selection
 if st.session_state.prev_team != st.session_state.selected_team:
@@ -238,12 +119,41 @@ if st.session_state.prev_team != st.session_state.selected_team:
         st.session_state.selected_player_id = None
     st.session_state.prev_team = st.session_state.selected_team
 
-# Get all teams for dropdowns
-teams_df = get_all_teams(engine)
-team_options = teams_df["team_abbreviation"].tolist()
+# Get all teams for dropdowns - with error handling
+try:
+    teams_df = get_all_teams(engine)
+    team_options = teams_df["team_abbreviation"].tolist()
+except Exception as e:
+    st.error(f"Database connection error: {str(e)}")
+    st.info("Please check your database connection and try again.")
+    team_options = []  # Provide empty list as fallback
+    st.stop()  # Stop execution if we can't get teams
 
 # Dropdown 1: Player Team Selection (always visible)
-st.markdown("### Select Player Team")
+col_team_title, col_team_buttons = st.columns([3, 1])
+with col_team_title:
+    st.markdown("### Select Player Team")
+with col_team_buttons:
+    # Home/Away buttons for player team
+    if st.session_state.selected_team is not None:
+        col_home, col_away = st.columns(2)
+        with col_home:
+            home_selected = st.button("Home", key="player_team_home_btn", 
+                                    type="primary" if st.session_state.player_team_home_away == "home" else "secondary",
+                                    use_container_width=True)
+            if home_selected:
+                st.session_state.player_team_home_away = "home"
+                st.session_state.opponent_team_home_away = "away"
+                st.rerun()
+        with col_away:
+            away_selected = st.button("Away", key="player_team_away_btn",
+                                    type="primary" if st.session_state.player_team_home_away == "away" else "secondary",
+                                    use_container_width=True)
+            if away_selected:
+                st.session_state.player_team_home_away = "away"
+                st.session_state.opponent_team_home_away = "home"
+                st.rerun()
+
 # Calculate index for current selection
 team_index = 0
 if st.session_state.selected_team is not None and st.session_state.selected_team in team_options:
@@ -278,12 +188,18 @@ if st.session_state.selected_team is not None:
         st.markdown("### Select Player")
         
         # Find current selection index
+        # Reset to None if the selected player doesn't exist in the new team
+        player_found = False
         current_idx = 0
         if st.session_state.selected_player_id is not None:
             for idx, (pid, _) in enumerate(player_options):
                 if pid == st.session_state.selected_player_id:
                     current_idx = idx
+                    player_found = True
                     break
+            # If player not found in new team, reset selection
+            if not player_found:
+                st.session_state.selected_player_id = None
         
         selected_player_option = st.selectbox(
             "Player",
@@ -303,7 +219,29 @@ if st.session_state.selected_team is not None:
             # Get opponent teams (exclude selected team)
             opponent_options = [opt for opt in team_options if opt != st.session_state.selected_team]
             
-            st.markdown("### Select Opponent Team")
+            col_opp_title, col_opp_buttons = st.columns([3, 1])
+            with col_opp_title:
+                st.markdown("### Select Opponent Team")
+            with col_opp_buttons:
+                # Home/Away buttons for opponent team
+                if st.session_state.selected_opponent is not None:
+                    col_home, col_away = st.columns(2)
+                    with col_home:
+                        home_selected = st.button("Home", key="opponent_team_home_btn",
+                                                type="primary" if st.session_state.opponent_team_home_away == "home" else "secondary",
+                                                use_container_width=True)
+                        if home_selected:
+                            st.session_state.opponent_team_home_away = "home"
+                            st.session_state.player_team_home_away = "away"
+                            st.rerun()
+                    with col_away:
+                        away_selected = st.button("Away", key="opponent_team_away_btn",
+                                                type="primary" if st.session_state.opponent_team_home_away == "away" else "secondary",
+                                                use_container_width=True)
+                        if away_selected:
+                            st.session_state.opponent_team_home_away = "away"
+                            st.session_state.player_team_home_away = "home"
+                            st.rerun()
             
             # Find current selection index
             current_opp_idx = 0
@@ -343,10 +281,95 @@ if st.session_state.selected_team is not None:
                     pbs = load_process_pbs_from_db(engine, person_id=st.session_state.selected_player_id)
                     tbs = load_process_tbs_from_db(engine)
                     daily_ranks = build_ranks(tbs)
+
+                    # Get team records and ranks for matchup header
+                    # Get most recent daily_ranks for current records
+                    latest_ranks = daily_ranks[daily_ranks["game_date"] == daily_ranks["game_date"].max()]
+                    
+                    # Get player team stats
+                    player_team_stats = latest_ranks[latest_ranks["TEAM_ABBREVIATION"] == st.session_state.selected_team]
+                    player_team_record = tbs[tbs["TEAM_ABBREVIATION"] == st.session_state.selected_team].sort_values("GAME_DATE")
+                    player_wins = len(player_team_record[player_team_record["WL"] == "W"])
+                    player_losses = len(player_team_record[player_team_record["WL"] == "L"])
+                    player_l10_record = player_team_record.tail(10)
+                    player_l10_wins = len(player_l10_record[player_l10_record["WL"] == "W"])
+                    player_l10_losses = len(player_l10_record[player_l10_record["WL"] == "L"])
+                    player_off_rank = int(player_team_stats["off_rank"].iloc[0]) if len(player_team_stats) > 0 else None
+                    
+                    # Get opponent team stats
+                    opp_team_stats = latest_ranks[latest_ranks["TEAM_ABBREVIATION"] == st.session_state.selected_opponent]
+                    opp_team_record = tbs[tbs["TEAM_ABBREVIATION"] == st.session_state.selected_opponent].sort_values("GAME_DATE")
+                    opp_wins = len(opp_team_record[opp_team_record["WL"] == "W"])
+                    opp_losses = len(opp_team_record[opp_team_record["WL"] == "L"])
+                    opp_l10_record = opp_team_record.tail(10)
+                    opp_l10_wins = len(opp_l10_record[opp_l10_record["WL"] == "W"])
+                    opp_l10_losses = len(opp_l10_record[opp_l10_record["WL"] == "L"])
+                    opp_def_rank = int(opp_team_stats["def_rank"].iloc[0]) if len(opp_team_stats) > 0 else None
+                    
+                    # Get team full names
+                    player_team_name = get_team_full_name(st.session_state.selected_team)
+                    opp_team_name = get_team_full_name(st.session_state.selected_opponent)
+                    
+                    # Determine home/away based on selection or default
+                    if st.session_state.player_team_home_away == "home":
+                        away_team = st.session_state.selected_opponent
+                        home_team = st.session_state.selected_team
+                        away_name = opp_team_name
+                        home_name = player_team_name
+                    elif st.session_state.opponent_team_home_away == "home":
+                        away_team = st.session_state.selected_team
+                        home_team = st.session_state.selected_opponent
+                        away_name = player_team_name
+                        home_name = opp_team_name
+                    else:
+                        # Default: player team at home
+                        away_team = st.session_state.selected_opponent
+                        home_team = st.session_state.selected_team
+                        away_name = opp_team_name
+                        home_name = player_team_name
+                    
+                    # Determine records based on which team is away/home
+                    if away_team == st.session_state.selected_opponent:
+                        away_record_szn = f"{opp_wins}-{opp_losses}"
+                        away_record_l10 = f"{opp_l10_wins}-{opp_l10_losses}"
+                        home_record_szn = f"{player_wins}-{player_losses}"
+                        home_record_l10 = f"{player_l10_wins}-{player_l10_losses}"
+                    else:
+                        away_record_szn = f"{player_wins}-{player_losses}"
+                        away_record_l10 = f"{player_l10_wins}-{player_l10_losses}"
+                        home_record_szn = f"{opp_wins}-{opp_losses}"
+                        home_record_l10 = f"{opp_l10_wins}-{opp_l10_losses}"
+                    
+                    # Render matchup header
+                    st.markdown("---")
+                    matchup_html = f"""
+                    <div style='text-align: center; padding: 1rem; background-color: rgba(0,0,0,0.1); border-radius: 10px; margin: 1rem 0;'>
+                        <h2 style='margin-bottom: 1rem;'>{away_name} @ {home_name}</h2>
+                        <div style='display: flex; justify-content: center; gap: 4rem;'>
+                            <div style='text-align: center; flex: 1;'>
+                                <div style='margin-bottom: 0.5rem;'>{away_record_szn} (L10: {away_record_l10})</div>
+                                <div>Def Rank #{opp_def_rank if opp_def_rank else 'N/A'}</div>
+                            </div>
+                            <div style='text-align: center; flex: 1;'>
+                                <div style='margin-bottom: 0.5rem;'>{home_record_szn} (L10: {home_record_l10})</div>
+                                <div>Off Rank #{player_off_rank if player_off_rank else 'N/A'}</div>
+                            </div>
+                        </div>
+                    </div>
+                    """
+                    st.markdown(matchup_html, unsafe_allow_html=True)
+                    
+                    # Get player name for header
+                    player_name_row = (
+                        pbs[pbs["personId"] == st.session_state.selected_player_id]
+                        [["firstName", "familyName"]]
+                        .drop_duplicates()
+                        .iloc[0]
+                    )
+                    player_display_name = f"{player_name_row['firstName']} {player_name_row['familyName']}"
                     
                     # Render player scoring plot and hit rate table
-                    st.markdown("---")
-                    st.markdown("## Player Scoring Analysis")
+                    st.markdown(f"<h2 style='text-align: center;'>{player_display_name} - Over {st.session_state.prop_line} Points</h2>", unsafe_allow_html=True)
                     
                     # Render player scoring plot (full width)
                     player_scoring_fig, _ = plot_player_scoring(
@@ -375,12 +398,19 @@ if st.session_state.selected_team is not None:
                         teammates=None  # Can add teammate selection later
                     )
                     
-                    # Display table with proper height
-                    st.dataframe(
-                        summary_table,
-                        use_container_width=True,
-                        hide_index=True,
-                        height=(len(summary_table) + 1) * 42 + 3  # Larger row height to fill space
-                    )
+                    # Filter out rows with no data (Games = 0 or Hit Rate is None)
+                    summary_table_filtered = summary_table[
+                        (summary_table["Games"] > 0) & (summary_table["Hit Rate (%)"].notna())
+                    ].copy()
+                    
+                    # Display table with narrower width (centered)
+                    col_table_left, col_table_mid, col_table_right = st.columns([1, 2, 1])
+                    with col_table_mid:
+                        st.dataframe(
+                            summary_table_filtered,
+                            use_container_width=True,
+                            hide_index=True,
+                            height=(len(summary_table_filtered) + 1) * 42 + 3  # Larger row height to fill space
+                        )
     else:
         st.warning(f"No players found for team {st.session_state.selected_team}")

@@ -418,6 +418,9 @@ if st.session_state.selected_team is not None:
                     st.pyplot(player_scoring_fig, use_container_width=True)
                     plt.close(player_scoring_fig)
                     
+                    # Add spacing between player scoring plot and bottom section
+                    st.markdown("<div style='height: 2rem;'></div>", unsafe_allow_html=True)
+                    
                     # Render hit rate summary table and team matchup comparison side by side
                     # Condensed table (30%) and expanded plot (70%)
                     col_table, col_plot = st.columns([0.3, 0.7])
@@ -461,8 +464,8 @@ if st.session_state.selected_team is not None:
                         ].copy()
                         
                         # Calculate table height with increased row height to fill available space
-                        # Increase per-row height to make table fill more space
-                        table_height = (len(summary_table_filtered) + 1) * 50 + 10  # Increased row height from 42 to 50
+                        # Increase per-row height to make table fill more space - expanded to fill empty space
+                        table_height = (len(summary_table_filtered) + 1) * 65 + 50  # Increased row height to fill more space
                         
                         st.dataframe(
                             summary_table_filtered,
@@ -495,9 +498,6 @@ if st.session_state.selected_team is not None:
     tbs=tbs,
                             daily_ranks=daily_ranks
                         )
-                        
-                        # Add title above plot
-                        st.markdown(f"<h2 style='text-align: center; margin-bottom: 1rem; font-size: 24px;'>{away_team} @ {home_team}<br>Points Scored vs Points Allowed by Condition</h2>", unsafe_allow_html=True)
                         
                         matchup_fig, matchup_df_returned = plot_team_matchup_comparison(
                             matchup_df=matchup_df,
@@ -618,7 +618,7 @@ if st.session_state.selected_team is not None:
                         # Adjust padding-top to center container with plot's y-axis
                         label_container_height = plot_height_inches * 80  # Approximate conversion
                         # Adjust padding-top to align labels with bars - centered with plot (much larger for visible effect)
-                        label_html = f'<div style="display: flex; flex-direction: column; justify-content: flex-start; height: {label_container_height}px; padding-right: 15px; padding-top: 40px;">{label_divs}</div>'
+                        label_html = f'<div style="display: flex; flex-direction: column; justify-content: flex-start; height: {label_container_height}px; padding-right: 15px; padding-top: 135px;">{label_divs}</div>'
                         
                         # Display labels and plot side by side
                         label_col, plot_col = st.columns([0.35, 0.65])
@@ -627,6 +627,8 @@ if st.session_state.selected_team is not None:
                             st.markdown(label_html, unsafe_allow_html=True)
                         
                         with plot_col:
+                            # Add title above plot only (centered over plot, not over plot + labels)
+                            st.markdown(f"<h2 style='text-align: center; margin-bottom: 1rem; font-size: 24px;'>{away_team} @ {home_team}<br>Points Scored vs Points Allowed by Condition</h2>", unsafe_allow_html=True)
                             st.pyplot(matchup_fig, use_container_width=True)
                         
                         plt.close(matchup_fig)

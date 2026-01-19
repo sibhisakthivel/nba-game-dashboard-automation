@@ -70,7 +70,7 @@ def player_hit_rate_summary(player_id, prop_line, pbs, tbs, daily_ranks, teammat
     
     # Home / Away
     player_df["HOME_AWAY"] = player_df["MATCHUP"].apply(
-        lambda x: "AWAY" if "@" in x else "HOME"
+        lambda x: "AWAY" if pd.notna(x) and "@" in str(x) else "HOME" if pd.notna(x) else None
     )
     
     # =========================================================
@@ -198,13 +198,20 @@ def player_hit_rate_summary(player_id, prop_line, pbs, tbs, daily_ranks, teammat
     # =========================================================
     
     rows.append(hit_row(player_df, "Season (All Games)"))
-    rows.append(hit_row(player_df.tail(10), "Last 10 Games"))
     
     rows.append(hit_row(player_df[player_df["WL"] == "W"], "Wins"))
     rows.append(hit_row(player_df[player_df["WL"] == "L"], "Losses"))
     
-    rows.append(hit_row(player_df[player_df["HOME_AWAY"] == "HOME"], "Home"))
-    rows.append(hit_row(player_df[player_df["HOME_AWAY"] == "AWAY"], "Away"))
+    # Only include Home or Away row based on matchup_home_away
+    if matchup_home_away is not None:
+        if matchup_home_away == "HOME":
+            rows.append(hit_row(player_df[player_df["HOME_AWAY"] == "HOME"], "Home"))
+        elif matchup_home_away == "AWAY":
+            rows.append(hit_row(player_df[player_df["HOME_AWAY"] == "AWAY"], "Away"))
+    else:
+        # Default: show both if no matchup specified
+        rows.append(hit_row(player_df[player_df["HOME_AWAY"] == "HOME"], "Home"))
+        rows.append(hit_row(player_df[player_df["HOME_AWAY"] == "AWAY"], "Away"))
     
     # Teammate absence rows
     for i, (out_col, teammate_name) in enumerate(zip(teammate_out_cols, teammate_names)):

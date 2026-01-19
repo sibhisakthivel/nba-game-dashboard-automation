@@ -61,6 +61,43 @@ st.markdown("""
         margin-bottom: 0;
         height: 100%;
     }
+    /* Increase dataframe font sizes globally - very aggressive selectors */
+    [data-testid="stDataFrame"],
+    [data-testid="stDataFrame"] *,
+    [data-testid="stDataFrame"] table,
+    [data-testid="stDataFrame"] table *,
+    [data-testid="stDataFrame"] tbody,
+    [data-testid="stDataFrame"] thead,
+    [data-testid="stDataFrame"] tr,
+    [data-testid="stDataFrame"] td,
+    [data-testid="stDataFrame"] th,
+    .stDataFrame,
+    .stDataFrame *,
+    .stDataFrame table,
+    .stDataFrame table *,
+    .stDataFrame tbody,
+    .stDataFrame thead,
+    .stDataFrame tr,
+    .stDataFrame td,
+    .stDataFrame th,
+    /* Try targeting by streamlit's internal classes */
+    div[data-baseweb="data-table"],
+    div[data-baseweb="data-table"] *,
+    div[data-baseweb="data-table"] table,
+    div[data-baseweb="data-table"] table *,
+    /* Generic table selectors within dataframe containers */
+    [data-testid="stDataFrame"] > div table,
+    [data-testid="stDataFrame"] > div table * {
+        font-size: 22px !important;
+    }
+    /* Headers specifically */
+    [data-testid="stDataFrame"] table th,
+    .stDataFrame table th,
+    [data-testid="stDataFrame"] thead th,
+    .stDataFrame thead th {
+        font-size: 24px !important;
+        font-weight: bold !important;
+    }
     .element-container {
         margin-bottom: 0.1rem;
     }
@@ -422,8 +459,8 @@ if st.session_state.selected_team is not None:
                     st.markdown("<div style='height: 2rem;'></div>", unsafe_allow_html=True)
                     
                     # Render hit rate summary table and team matchup comparison side by side
-                    # Condensed table (30%) and expanded plot (70%)
-                    col_table, col_plot = st.columns([0.3, 0.7])
+                    # Condensed table (35%) and expanded plot (65%)
+                    col_table, col_plot = st.columns([0.35, 0.65])
                     
                     with col_table:
                         st.markdown("<h3 style='text-align: center; margin-bottom: 1rem;'>Hit Rate Summary</h3>", unsafe_allow_html=True)
@@ -467,12 +504,28 @@ if st.session_state.selected_team is not None:
                         # Increase per-row height to make table fill more space - expanded to fill empty space
                         table_height = (len(summary_table_filtered) + 1) * 65 + 50  # Increased row height to fill more space
                         
-                        st.dataframe(
-                            summary_table_filtered,
-                            use_container_width=True,
-                            hide_index=True,
-                            height=table_height
-                        )
+                        # Render as HTML table for better font size control
+                        html_table = '<table style="width: 100%; border-collapse: collapse; font-size: 20px;">'
+                        html_table += '<thead><tr style="background-color: rgba(49, 51, 63, 0.6);">'
+                        for col in summary_table_filtered.columns:
+                            html_table += f'<th style="padding: 12px; text-align: left; font-size: 22px; font-weight: bold; border-bottom: 2px solid rgba(250, 250, 250, 0.2);">{col}</th>'
+                        html_table += '</tr></thead><tbody>'
+                        for idx, row in summary_table_filtered.iterrows():
+                            html_table += '<tr>'
+                            for col in summary_table_filtered.columns:
+                                html_table += f'<td style="padding: 12px; border-bottom: 1px solid rgba(250, 250, 250, 0.1); font-size: 17px;">{row[col]}</td>'
+                            html_table += '</tr>'
+                        html_table += '</tbody></table>'
+                        
+                        st.markdown(html_table, unsafe_allow_html=True)
+                        
+                        # Keep original dataframe as fallback (commented out)
+                        # st.dataframe(
+                        #     summary_table_filtered,
+                        #     use_container_width=True,
+                        #     hide_index=True,
+                        #     height=table_height
+                        # )
                     
                     with col_plot:
                         # Get team abbreviations from session state
@@ -511,8 +564,8 @@ if st.session_state.selected_team is not None:
                         # With expanded plot (70% width), we can make it taller to reduce empty space
                         table_height = (len(summary_table_filtered) + 1) * 42 + 3
                         # Convert pixels to inches - make plot significantly taller to reduce gap
-                        plot_height_inches = max(14, table_height / 30)  # Much taller plot
-                        matchup_fig.set_size_inches(25, plot_height_inches)
+                        plot_height_inches = max(34, table_height / 12)  # Decreased height
+                        matchup_fig.set_size_inches(60, plot_height_inches)  # Reasonable width (85 was too large, causing PIL error)
                         matchup_fig.tight_layout()
                         
                         # Create custom layout with labels on left and plot on right
@@ -553,7 +606,7 @@ if st.session_state.selected_team is not None:
                             
                             if condition == "Season Averages":
                                 # Single line centered for Season Averages
-                                label_divs += f'<div style="font-size: 15px; font-weight: bold; padding: 2px 0; line-height: 1.2; text-align: right; height: {bar_width * 2 * 60}px; display: flex; align-items: center; justify-content: flex-end; margin: 0;">{condition}</div>'
+                                label_divs += f'<div style="font-size: 20px; font-weight: bold; padding: 2px 0; line-height: 1.2; text-align: right; height: {bar_width * 2 * 60}px; display: flex; align-items: center; justify-content: flex-end; margin: 0;">{condition}</div>'
                                 # Add spacing after Season Averages
                                 label_divs += '<div style="height: 55px;"></div>'
                                 prev_was_bucket_pair = False
@@ -563,9 +616,9 @@ if st.session_state.selected_team is not None:
                                 condition1 = condition
                                 condition2 = matchup_df_returned.iloc[i+1]["condition"]
                                 # Top label (orange bar)
-                                label_divs += f'<div style="font-size: 15px; font-weight: bold; padding: 0; line-height: 1.2; text-align: right; height: {bar_width * 60}px; display: flex; align-items: flex-end; justify-content: flex-end; margin: 0;">{condition1}</div>'
+                                label_divs += f'<div style="font-size: 20px; font-weight: bold; padding: 0; line-height: 1.2; text-align: right; height: {bar_width * 60}px; display: flex; align-items: flex-end; justify-content: flex-end; margin: 0;">{condition1}</div>'
                                 # Bottom label (blue bar) - tight against top
-                                label_divs += f'<div style="font-size: 15px; font-weight: bold; padding: 0; line-height: 1.2; text-align: right; height: {bar_width * 60}px; display: flex; align-items: flex-start; justify-content: flex-end; margin: 0;">{condition2}</div>'
+                                label_divs += f'<div style="font-size: 20px; font-weight: bold; padding: 0; line-height: 1.2; text-align: right; height: {bar_width * 60}px; display: flex; align-items: flex-start; justify-content: flex-end; margin: 0;">{condition2}</div>'
                                 # Add spacing after bucket pair
                                 label_divs += '<div style="height: 55px;"></div>'
                                 prev_was_bucket_pair = True
@@ -573,11 +626,11 @@ if st.session_state.selected_team is not None:
                             elif is_bucket_single:
                                 # Standalone bucket average (shouldn't happen, but handle it)
                                 if has_off:
-                                    label_divs += f'<div style="font-size: 15px; font-weight: bold; padding: 0; line-height: 1.2; text-align: right; height: {bar_width * 60}px; display: flex; align-items: flex-end; justify-content: flex-end; margin: 0;">{condition}</div>'
+                                    label_divs += f'<div style="font-size: 20px; font-weight: bold; padding: 0; line-height: 1.2; text-align: right; height: {bar_width * 60}px; display: flex; align-items: flex-end; justify-content: flex-end; margin: 0;">{condition}</div>'
                                     label_divs += f'<div style="height: {bar_width * 60}px; margin: 0;"></div>'
                                 else:
                                     label_divs += f'<div style="height: {bar_width * 60}px; margin: 0;"></div>'
-                                    label_divs += f'<div style="font-size: 15px; font-weight: bold; padding: 0; line-height: 1.2; text-align: right; height: {bar_width * 60}px; display: flex; align-items: flex-start; justify-content: flex-end; margin: 0;">{condition}</div>'
+                                    label_divs += f'<div style="font-size: 20px; font-weight: bold; padding: 0; line-height: 1.2; text-align: right; height: {bar_width * 60}px; display: flex; align-items: flex-start; justify-content: flex-end; margin: 0;">{condition}</div>'
                                 # Add spacing after standalone bucket
                                 label_divs += '<div style="height: 55px;"></div>'
                                 prev_was_bucket_pair = False
@@ -601,12 +654,12 @@ if st.session_state.selected_team is not None:
                                 # Create two divs aligned with each bar - tight together
                                 # Top bar (orange) - aligned with orange bar
                                 if line1:
-                                    label_divs += f'<div style="font-size: 15px; font-weight: bold; padding: 0; line-height: 1.2; text-align: right; height: {bar_width * 60}px; display: flex; align-items: flex-end; justify-content: flex-end; margin: 0;">{line1}</div>'
+                                    label_divs += f'<div style="font-size: 20px; font-weight: bold; padding: 0; line-height: 1.2; text-align: right; height: {bar_width * 60}px; display: flex; align-items: flex-end; justify-content: flex-end; margin: 0;">{line1}</div>'
                                 else:
                                     label_divs += f'<div style="height: {bar_width * 60}px; margin: 0;"></div>'
                                 # Bottom bar (blue) - aligned with blue bar, tight against top
                                 if line2:
-                                    label_divs += f'<div style="font-size: 15px; font-weight: bold; padding: 0; line-height: 1.2; text-align: right; height: {bar_width * 60}px; display: flex; align-items: flex-start; justify-content: flex-end; margin: 0;">{line2}</div>'
+                                    label_divs += f'<div style="font-size: 20px; font-weight: bold; padding: 0; line-height: 1.2; text-align: right; height: {bar_width * 60}px; display: flex; align-items: flex-start; justify-content: flex-end; margin: 0;">{line2}</div>'
                                 else:
                                     label_divs += f'<div style="height: {bar_width * 60}px; margin: 0;"></div>'
                                 # Add spacing after regular condition pair
@@ -618,10 +671,10 @@ if st.session_state.selected_team is not None:
                         # Adjust padding-top to center container with plot's y-axis
                         label_container_height = plot_height_inches * 80  # Approximate conversion
                         # Adjust padding-top to align labels with bars - centered with plot (much larger for visible effect)
-                        label_html = f'<div style="display: flex; flex-direction: column; justify-content: flex-start; height: {label_container_height}px; padding-right: 15px; padding-top: 135px;">{label_divs}</div>'
+                        label_html = f'<div style="display: flex; flex-direction: column; justify-content: flex-start; height: {label_container_height}px; padding-right: 15px; padding-top: 162px;">{label_divs}</div>'
                         
                         # Display labels and plot side by side
-                        label_col, plot_col = st.columns([0.35, 0.65])
+                        label_col, plot_col = st.columns([0.23, 0.77])  # Moved labels slightly left by reducing their width
                         
                         with label_col:
                             st.markdown(label_html, unsafe_allow_html=True)

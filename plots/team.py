@@ -651,10 +651,10 @@ def plot_team_matchup_comparison(matchup_df, off_team, def_team, home_team, away
     ax.spines['right'].set_visible(False)
     
     # Set x-axis label and start from 100
-    ax.set_xlabel("Points", fontsize=25, fontweight="bold")
+    ax.set_xlabel("Points", fontsize=66, fontweight="bold")
     ax.set_xlim(left=100)
     # Increase x-axis tick label font size
-    ax.tick_params(axis='x', labelsize=16)
+    ax.tick_params(axis='x', labelsize=56)
     
     # Remove plot title (will be added separately above)
     ax.set_title("")
@@ -673,7 +673,7 @@ def plot_team_matchup_comparison(matchup_df, off_team, def_team, home_team, away
                 f'{width:.1f}',
                 ha="left",
                 va="center",
-                fontsize=20,
+                fontsize=54,
                 fontweight="bold"
             )
     
@@ -687,7 +687,7 @@ def plot_team_matchup_comparison(matchup_df, off_team, def_team, home_team, away
                 f'{width:.1f}',
                 ha="left",
                 va="center",
-                fontsize=20,
+                fontsize=54,
                 fontweight="bold"
             )
     
@@ -698,7 +698,7 @@ def plot_team_matchup_comparison(matchup_df, off_team, def_team, home_team, away
     # Add legend
     ax.legend(
         loc="lower right",
-        fontsize=24,
+        fontsize=62,
         framealpha=0.9
     )
     

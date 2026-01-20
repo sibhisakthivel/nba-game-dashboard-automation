@@ -1,7 +1,12 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib
 import numpy as np
+
+# Set consistent DPI for matplotlib to ensure visual consistency across local and Streamlit Cloud
+matplotlib.rcParams['figure.dpi'] = 100
+matplotlib.rcParams['savefig.dpi'] = 100
 
 from plots.player import plot_player_scoring  # , plot_player_scoring_by_def_bucket
 from tables import player_hit_rate_summary
@@ -451,6 +456,7 @@ if st.session_state.selected_team is not None:
                     
                     # Use larger size for the plot
                     player_scoring_fig.set_size_inches(32, 15)
+                    player_scoring_fig.set_dpi(100)  # Ensure consistent DPI across environments
                     player_scoring_fig.tight_layout()
                     st.pyplot(player_scoring_fig, use_container_width=True)
                     plt.close(player_scoring_fig)
@@ -566,6 +572,7 @@ if st.session_state.selected_team is not None:
                         # Convert pixels to inches - make plot significantly taller to reduce gap
                         plot_height_inches = max(34, table_height / 12)  # Decreased height
                         matchup_fig.set_size_inches(60, plot_height_inches)  # Reasonable width (85 was too large, causing PIL error)
+                        matchup_fig.set_dpi(100)  # Ensure consistent DPI across environments
                         matchup_fig.tight_layout()
                         
                         # Create custom layout with labels on left and plot on right

@@ -95,7 +95,7 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
     # 5) Plot
     # =========================================================
 
-    fig, ax = plt.subplots(figsize=(15, 6))
+    fig, ax = plt.subplots(figsize=(15, 6), dpi=100)
 
     # Create bars with increased width
     bar_width = 0.8
@@ -486,7 +486,7 @@ def plot_player_scoring_by_def_bucket(player_id, prop_line, pbs, tbs, daily_rank
     # 6) Plot
     # =========================================================
 
-    fig, ax = plt.subplots(figsize=(15, 6))
+    fig, ax = plt.subplots(figsize=(15, 6), dpi=100)
 
     ax.bar(
         x,
@@ -831,7 +831,7 @@ def plot_player_team_points_overlap(player_id, pbs, tbs, daily_ranks, teammate_i
     
     x = np.arange(len(plot_df))
     
-    fig, ax = plt.subplots(figsize=(15, 6))
+    fig, ax = plt.subplots(figsize=(15, 6), dpi=100)
     
     # -----------------------------
     # Bars: TEAM points (background)
@@ -1108,7 +1108,7 @@ def plot_player_pct_team_points(player_id, pbs, tbs, daily_ranks, teammate_ids=N
     
     x = np.arange(len(plot_df))
     
-    fig, ax = plt.subplots(figsize=(15, 6))
+    fig, ax = plt.subplots(figsize=(15, 6), dpi=100)
     
     # -----------------------------
     # Bars: Player % of team points

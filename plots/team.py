@@ -84,7 +84,7 @@ def plot_team_points_allowed(team_abbreviation, tbs, daily_ranks):
     
     x = np.arange(len(team_games))
     
-    fig, ax = plt.subplots(figsize=(15, 6))
+    fig, ax = plt.subplots(figsize=(15, 6), dpi=100)
     
     # -----------------------------
     # Bars: points allowed
@@ -244,7 +244,7 @@ def plot_team_points_scored(team_abbreviation, tbs, daily_ranks):
     
     x = np.arange(len(team_games))
     
-    fig, ax = plt.subplots(figsize=(15, 6))
+    fig, ax = plt.subplots(figsize=(15, 6), dpi=100)
     
     # -----------------------------
     # Bars: points allowed
@@ -565,7 +565,7 @@ def plot_team_matchup_comparison(matchup_df, off_team, def_team, home_team, away
         The matplotlib Figure object
     """
     # Create figure and axis
-    fig, ax = plt.subplots(figsize=(12, 8))
+    fig, ax = plt.subplots(figsize=(12, 8), dpi=100)
     
     # Number of conditions
     n_conditions = len(matchup_df)

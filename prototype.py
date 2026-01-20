@@ -541,15 +541,23 @@ if st.session_state.selected_team is not None:
                         player_team_abbrev = st.session_state.selected_team
                         opponent_team_abbrev = st.session_state.selected_opponent
                         
-                        # Determine home/away based on session state
-                        if st.session_state.player_team_home_away == "Home":
+                        # Determine home/away based on session state assignments
+                        # Check which team is assigned as home/away from button clicks
+                        if st.session_state.player_team_home_away == "home":
                             home_team = player_team_abbrev
                             away_team = opponent_team_abbrev
-                        else:
+                        elif st.session_state.opponent_team_home_away == "home":
                             home_team = opponent_team_abbrev
                             away_team = player_team_abbrev
+                        else:
+                            # Default: player team at home if no assignment made
+                            home_team = player_team_abbrev
+                            away_team = opponent_team_abbrev
                         
                         # Build matchup stats and plot
+                        # off_team = player's team (always shows points scored)
+                        # def_team = opponent team (always shows points allowed)
+                        # home_team/away_team determine which filtered stats to use
                         from plots.team import build_team_matchup_stats, plot_team_matchup_comparison_with_labels
                         
                         matchup_df = build_team_matchup_stats(
@@ -557,7 +565,7 @@ if st.session_state.selected_team is not None:
                             def_team=opponent_team_abbrev,
                             home_team=home_team,
                             away_team=away_team,
-    tbs=tbs,
+                            tbs=tbs,
                             daily_ranks=daily_ranks
                         )
                         
@@ -584,6 +592,7 @@ if st.session_state.selected_team is not None:
                         matchup_fig.subplots_adjust(left=0.20, top=0.90, bottom=0.14, right=0.95)
                         
                         # Display plot with title (labels are now integrated in matplotlib)
+                        # Title uses the home/away assignments to show correct matchup
                         st.markdown(f"<h2 style='text-align: center; margin-bottom: 1rem; font-size: 32px;'>{away_team} @ {home_team}<br>Points Scored vs Points Allowed by Condition</h2>", unsafe_allow_html=True)
                         st.pyplot(matchup_fig, use_container_width=False)  # Don't scale to container width
                         

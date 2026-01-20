@@ -422,12 +422,12 @@ if st.session_state.selected_team is not None:
                             <h2 style='margin: 0; font-size: 1.5em;'>@</h2>
                             <h2 style='margin: 0; flex: 1; text-align: left;'>{home_name}</h2>
                         </div>
-                        <div style='display: flex; justify-content: center; gap: 1rem;'>
-                            <div style='text-align: center;'>
+                        <div style='display: flex; justify-content: center; align-items: flex-start;'>
+                            <div style='text-align: center; margin-right: 6rem;'>
                                 <div style='margin-bottom: 0.5rem; font-size: 16px; font-weight: bold;'>{left_record_szn} (L10: {left_record_l10})</div>
                                 <div style='font-size: 16px; font-weight: bold;'>{left_rank_label} #{left_rank_value if left_rank_value else 'N/A'}</div>
                             </div>
-                            <div style='text-align: center;'>
+                            <div style='text-align: center; margin-left: 2rem;'>
                                 <div style='margin-bottom: 0.5rem; font-size: 16px; font-weight: bold;'>{right_record_szn} (L10: {right_record_l10})</div>
                                 <div style='font-size: 16px; font-weight: bold;'>{right_rank_label} #{right_rank_value if right_rank_value else 'N/A'}</div>
                             </div>

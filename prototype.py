@@ -8,6 +8,17 @@ import numpy as np
 matplotlib.rcParams['figure.dpi'] = 100
 matplotlib.rcParams['savefig.dpi'] = 100
 
+# Additional normalization settings for consistent rendering across environments
+matplotlib.rcParams['font.family'] = 'sans-serif'  # Use consistent font family
+matplotlib.rcParams['font.sans-serif'] = ['Arial', 'DejaVu Sans', 'Liberation Sans', 'Helvetica', 'sans-serif']
+matplotlib.rcParams['axes.unicode_minus'] = False  # Prevent minus sign rendering issues
+matplotlib.rcParams['figure.facecolor'] = 'white'  # Consistent background
+matplotlib.rcParams['axes.facecolor'] = 'white'  # Consistent axes background
+matplotlib.rcParams['savefig.facecolor'] = 'white'  # Consistent saved figure background
+matplotlib.rcParams['savefig.bbox'] = 'tight'  # Consistent bounding box
+matplotlib.rcParams['figure.constrained_layout.use'] = False  # Disable constrained layout (we use subplots_adjust)
+matplotlib.rcParams['font.size'] = 10  # Base font size (individual elements override this)
+
 from plots.player import plot_player_scoring  # , plot_player_scoring_by_def_bucket
 from tables import player_hit_rate_summary
 
@@ -51,6 +62,19 @@ st.set_page_config(
 # Custom CSS to maximize screen usage and reduce spacing
 st.markdown("""
     <style>
+    /* Normalize font rendering across browsers */
+    * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+    }
+    
+    /* Ensure consistent table rendering */
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+    
     .main .block-container {
         padding-top: 0.25rem;
         padding-bottom: 0.25rem;
@@ -458,6 +482,7 @@ if st.session_state.selected_team is not None:
                     player_scoring_fig.set_size_inches(32, 15)
                     player_scoring_fig.set_dpi(100)  # Ensure consistent DPI across environments
                     player_scoring_fig.tight_layout()
+                    player_scoring_fig.canvas.draw()  # Force rendering before display for consistency
                     st.pyplot(player_scoring_fig, use_container_width=True)
                     plt.close(player_scoring_fig)
                     
@@ -582,6 +607,7 @@ if st.session_state.selected_team is not None:
                         matchup_fig.set_dpi(100)  # Ensure consistent DPI across environments
                         # Reapply subplots_adjust after resizing - further condensed margins
                         matchup_fig.subplots_adjust(left=0.20, top=0.90, bottom=0.14, right=0.95)
+                        matchup_fig.canvas.draw()  # Force rendering before display for consistency
                         
                         # Display plot with title (labels are now integrated in matplotlib)
                         st.markdown(f"<h2 style='text-align: center; margin-bottom: 1rem; font-size: 32px;'>{away_team} @ {home_team}<br>Points Scored vs Points Allowed by Condition</h2>", unsafe_allow_html=True)

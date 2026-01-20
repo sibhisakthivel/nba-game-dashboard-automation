@@ -8,13 +8,6 @@ import numpy as np
 matplotlib.rcParams['figure.dpi'] = 100
 matplotlib.rcParams['savefig.dpi'] = 100
 
-# Additional normalization settings for consistent rendering
-matplotlib.rcParams['font.family'] = 'sans-serif'
-matplotlib.rcParams['font.sans-serif'] = ['Arial', 'DejaVu Sans', 'Liberation Sans', 'Helvetica', 'sans-serif']
-matplotlib.rcParams['figure.facecolor'] = 'white'
-matplotlib.rcParams['axes.facecolor'] = 'white'
-matplotlib.rcParams['savefig.facecolor'] = 'white'
-
 from plots.player import plot_player_scoring  # , plot_player_scoring_by_def_bucket
 from tables import player_hit_rate_summary
 
@@ -58,24 +51,6 @@ st.set_page_config(
 # Custom CSS to maximize screen usage and reduce spacing
 st.markdown("""
     <style>
-    /* Set base font size to normalize across environments */
-    html, body {
-        font-size: 16px !important;
-    }
-    
-    /* Normalize font rendering across browsers */
-    * {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-rendering: optimizeLegibility;
-    }
-    
-    /* Ensure consistent table rendering */
-    table {
-        border-collapse: collapse;
-        border-spacing: 0;
-    }
-    
     .main .block-container {
         padding-top: 0.25rem;
         padding-bottom: 0.25rem;
@@ -86,34 +61,6 @@ st.markdown("""
     h2, h3 {
         margin-top: 0.1rem;
         margin-bottom: 0.1rem;
-    }
-    
-    /* Increase font size for dropdown selection section - drastically increased for testing */
-    h3 {
-        font-size: 48px !important;
-    }
-    
-    /* Increase font size for Streamlit selectbox and input widgets - drastically increased */
-    [data-testid="stSelectbox"] label,
-    [data-testid="stSelectbox"] div,
-    [data-testid="stSelectbox"] *,
-    [data-testid="stNumberInput"] label,
-    [data-testid="stNumberInput"] div,
-    [data-testid="stNumberInput"] *,
-    .stSelectbox label,
-    .stSelectbox div,
-    .stSelectbox *,
-    .stNumberInput label,
-    .stNumberInput div,
-    .stNumberInput * {
-        font-size: 40px !important;
-    }
-    
-    /* Increase font size for buttons - drastically increased */
-    button[kind],
-    [data-testid="baseButton-secondary"],
-    [data-testid="baseButton-primary"] {
-        font-size: 36px !important;
     }
     .stDataFrame {
         margin-bottom: 0;

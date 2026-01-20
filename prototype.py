@@ -417,13 +417,17 @@ if st.session_state.selected_team is not None:
                     st.markdown("---")
                     matchup_html = f"""
                     <div style='text-align: center; padding: 1rem; background-color: rgba(0,0,0,0.1); border-radius: 10px; margin: 1rem 0;'>
-                        <h2 style='margin-bottom: 1rem;'>{away_name} @ {home_name}</h2>
+                        <div style='display: flex; justify-content: center; align-items: center; gap: 1rem; margin-bottom: 1rem;'>
+                            <h2 style='margin: 0; flex: 1; text-align: right;'>{away_name}</h2>
+                            <h2 style='margin: 0; font-size: 1.5em;'>@</h2>
+                            <h2 style='margin: 0; flex: 1; text-align: left;'>{home_name}</h2>
+                        </div>
                         <div style='display: flex; justify-content: center; gap: 1rem;'>
-                            <div style='text-align: center; flex: 1;'>
+                            <div style='text-align: center;'>
                                 <div style='margin-bottom: 0.5rem; font-size: 16px; font-weight: bold;'>{left_record_szn} (L10: {left_record_l10})</div>
                                 <div style='font-size: 16px; font-weight: bold;'>{left_rank_label} #{left_rank_value if left_rank_value else 'N/A'}</div>
                             </div>
-                            <div style='text-align: center; flex: 1;'>
+                            <div style='text-align: center;'>
                                 <div style='margin-bottom: 0.5rem; font-size: 16px; font-weight: bold;'>{right_record_szn} (L10: {right_record_l10})</div>
                                 <div style='font-size: 16px; font-weight: bold;'>{right_rank_label} #{right_rank_value if right_rank_value else 'N/A'}</div>
                             </div>
@@ -442,7 +446,7 @@ if st.session_state.selected_team is not None:
                     player_display_name = f"{player_name_row['firstName']} {player_name_row['familyName']}"
                     
                     # Render player scoring plot and hit rate table
-                    st.markdown(f"<h2 style='text-align: center;'>{player_display_name} - Over {st.session_state.prop_line} Points</h2>", unsafe_allow_html=True)
+                    st.markdown(f"<h2 style='text-align: center;'>{player_display_name} - Over {st.session_state.prop_line} Points<br></h2>", unsafe_allow_html=True)
                     
                     # Render player scoring plot (full width)
                     player_scoring_fig, _ = plot_player_scoring(
@@ -565,7 +569,7 @@ if st.session_state.selected_team is not None:
                             def_team=opponent_team_abbrev,
                             home_team=home_team,
                             away_team=away_team,
-                            tbs=tbs,
+    tbs=tbs,
                             daily_ranks=daily_ranks
                         )
                         

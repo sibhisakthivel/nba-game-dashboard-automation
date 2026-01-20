@@ -88,12 +88,12 @@ st.markdown("""
         margin-bottom: 0.1rem;
     }
     
-    /* Increase font size for dropdown selection section */
+    /* Increase font size for dropdown selection section - drastically increased for testing */
     h3 {
-        font-size: 24px !important;
+        font-size: 48px !important;
     }
     
-    /* Increase font size for Streamlit selectbox and input widgets */
+    /* Increase font size for Streamlit selectbox and input widgets - drastically increased */
     [data-testid="stSelectbox"] label,
     [data-testid="stSelectbox"] div,
     [data-testid="stSelectbox"] *,
@@ -106,14 +106,14 @@ st.markdown("""
     .stNumberInput label,
     .stNumberInput div,
     .stNumberInput * {
-        font-size: 20px !important;
+        font-size: 40px !important;
     }
     
-    /* Increase font size for buttons */
+    /* Increase font size for buttons - drastically increased */
     button[kind],
     [data-testid="baseButton-secondary"],
     [data-testid="baseButton-primary"] {
-        font-size: 18px !important;
+        font-size: 36px !important;
     }
     .stDataFrame {
         margin-bottom: 0;

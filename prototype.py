@@ -547,7 +547,7 @@ if st.session_state.selected_team is not None:
                             away_team = player_team_abbrev
                         
                         # Build matchup stats and plot
-                        from plots.team import build_team_matchup_stats, plot_team_matchup_comparison
+                        from plots.team import build_team_matchup_stats, plot_team_matchup_comparison_with_labels
                         
                         matchup_df = build_team_matchup_stats(
                             off_team=player_team_abbrev,
@@ -558,7 +558,7 @@ if st.session_state.selected_team is not None:
                             daily_ranks=daily_ranks
                         )
                         
-                        matchup_fig, matchup_df_returned = plot_team_matchup_comparison(
+                        matchup_fig, matchup_df_returned = plot_team_matchup_comparison_with_labels(
                             matchup_df=matchup_df,
                             off_team=player_team_abbrev,
                             def_team=opponent_team_abbrev,
@@ -566,130 +566,23 @@ if st.session_state.selected_team is not None:
                             away_team=away_team
                         )
                         
-                        # Calculate plot height to match hit rate table
-                        # With expanded plot (70% width), we can make it taller to reduce empty space
-                        table_height = (len(summary_table_filtered) + 1) * 42 + 3
-                        # Convert pixels to inches - make plot significantly taller to reduce gap
-                        plot_height_inches = max(34, table_height / 12)  # Decreased height
-                        matchup_fig.set_size_inches(60, plot_height_inches)  # Reasonable width (85 was too large, causing PIL error)
+                        # Calculate plot height to match hit rate table height exactly
+                        # Use the same table_height calculation as in col_table block
+                        # table_height is in pixels: (len(summary_table_filtered) + 1) * 65 + 50
+                        table_height_pixels = (len(summary_table_filtered) + 1) * 65 + 50
+                        # Convert pixels to inches: use conversion factor to match table height visually
+                        plot_height_inches = table_height_pixels / 80  # Conversion factor to match table height visually
+                        # Cap at reasonable min/max values
+                        plot_height_inches = max(6, min(12, plot_height_inches))
+                        
+                        matchup_fig.set_size_inches(12, plot_height_inches)  # Width 12 inches, height matches table
                         matchup_fig.set_dpi(100)  # Ensure consistent DPI across environments
-                        matchup_fig.tight_layout()
+                        # Reapply subplots_adjust after resizing to preserve label space
+                        matchup_fig.subplots_adjust(left=0.25, top=0.98, bottom=0.08, right=0.95)
                         
-                        # Create custom layout with labels on left and plot on right
-                        n_conditions = len(matchup_df_returned)
-                        bar_width = 0.35
-                        
-                        # Create HTML with labels split into two lines (except Season Averages)
-                        # Each condition gets two label divs aligned with each bar
-                        # Group conditions to add spacing between categories
-                        label_divs = ""
-                        prev_was_bucket_pair = False
-                        
-                        i = 0
-                        while i < len(matchup_df_returned["condition"]):
-                            condition = matchup_df_returned.iloc[i]["condition"]
-                            
-                            # Check if this is a bucket average single-row condition
-                            is_bucket_single = " vs " in condition and " / " not in condition and condition != "Season Averages"
-                            has_off = pd.notna(matchup_df_returned.iloc[i]["off_team_pts_scored"])
-                            has_def = pd.notna(matchup_df_returned.iloc[i]["def_team_pts_allowed"])
-                            is_bucket_first = is_bucket_single and ((has_off and not has_def) or (not has_off and has_def))
-                            
-                            # Check if next row is the matching bucket average
-                            is_bucket_pair = False
-                            if is_bucket_first and i < len(matchup_df_returned) - 1:
-                                next_condition = matchup_df_returned.iloc[i+1]["condition"]
-                                next_has_off = pd.notna(matchup_df_returned.iloc[i+1]["off_team_pts_scored"])
-                                next_has_def = pd.notna(matchup_df_returned.iloc[i+1]["def_team_pts_allowed"])
-                                if (" vs " in next_condition and " / " not in next_condition and
-                                    next_condition != "Season Averages" and
-                                    ((next_has_off and not next_has_def) or (not next_has_off and next_has_def))):
-                                    is_bucket_pair = True
-                            
-                            # Add spacing between condition categories (but not between bucket pair rows)
-                            if i > 0 and not prev_was_bucket_pair and not is_bucket_pair:
-                                # Add margin between different condition categories
-                                label_divs += '<div style="height: 10px;"></div>'  # Spacing between categories
-                            
-                            if condition == "Season Averages":
-                                # Single line centered for Season Averages
-                                label_divs += f'<div style="font-size: 20px; font-weight: bold; padding: 2px 0; line-height: 1.2; text-align: right; height: {bar_width * 2 * 60}px; display: flex; align-items: center; justify-content: flex-end; margin: 0;">{condition}</div>'
-                                # Add spacing after Season Averages
-                                label_divs += '<div style="height: 55px;"></div>'
-                                prev_was_bucket_pair = False
-                                i += 1
-                            elif is_bucket_pair:
-                                # Bucket average pair - both labels share the same visual space
-                                condition1 = condition
-                                condition2 = matchup_df_returned.iloc[i+1]["condition"]
-                                # Top label (orange bar)
-                                label_divs += f'<div style="font-size: 20px; font-weight: bold; padding: 0; line-height: 1.2; text-align: right; height: {bar_width * 60}px; display: flex; align-items: flex-end; justify-content: flex-end; margin: 0;">{condition1}</div>'
-                                # Bottom label (blue bar) - tight against top
-                                label_divs += f'<div style="font-size: 20px; font-weight: bold; padding: 0; line-height: 1.2; text-align: right; height: {bar_width * 60}px; display: flex; align-items: flex-start; justify-content: flex-end; margin: 0;">{condition2}</div>'
-                                # Add spacing after bucket pair
-                                label_divs += '<div style="height: 55px;"></div>'
-                                prev_was_bucket_pair = True
-                                i += 2  # Skip both rows
-                            elif is_bucket_single:
-                                # Standalone bucket average (shouldn't happen, but handle it)
-                                if has_off:
-                                    label_divs += f'<div style="font-size: 20px; font-weight: bold; padding: 0; line-height: 1.2; text-align: right; height: {bar_width * 60}px; display: flex; align-items: flex-end; justify-content: flex-end; margin: 0;">{condition}</div>'
-                                    label_divs += f'<div style="height: {bar_width * 60}px; margin: 0;"></div>'
-                                else:
-                                    label_divs += f'<div style="height: {bar_width * 60}px; margin: 0;"></div>'
-                                    label_divs += f'<div style="font-size: 20px; font-weight: bold; padding: 0; line-height: 1.2; text-align: right; height: {bar_width * 60}px; display: flex; align-items: flex-start; justify-content: flex-end; margin: 0;">{condition}</div>'
-                                # Add spacing after standalone bucket
-                                label_divs += '<div style="height: 55px;"></div>'
-                                prev_was_bucket_pair = False
-                                i += 1
-                            else:
-                                # Regular condition with " / " - split into two lines
-                                if " / " in condition:
-                                    parts = condition.split(" / ", 1)
-                                    line1 = parts[0].strip()
-                                    line2 = parts[1].strip()
-                                else:
-                                    # Try to split at comma
-                                    if ", " in condition:
-                                        parts = condition.split(", ", 1)
-                                        line1 = parts[0].strip()
-                                        line2 = parts[1].strip()
-                                    else:
-                                        line1 = condition
-                                        line2 = ""
-                                
-                                # Create two divs aligned with each bar - tight together
-                                # Top bar (orange) - aligned with orange bar
-                                if line1:
-                                    label_divs += f'<div style="font-size: 20px; font-weight: bold; padding: 0; line-height: 1.2; text-align: right; height: {bar_width * 60}px; display: flex; align-items: flex-end; justify-content: flex-end; margin: 0;">{line1}</div>'
-                                else:
-                                    label_divs += f'<div style="height: {bar_width * 60}px; margin: 0;"></div>'
-                                # Bottom bar (blue) - aligned with blue bar, tight against top
-                                if line2:
-                                    label_divs += f'<div style="font-size: 20px; font-weight: bold; padding: 0; line-height: 1.2; text-align: right; height: {bar_width * 60}px; display: flex; align-items: flex-start; justify-content: flex-end; margin: 0;">{line2}</div>'
-                                else:
-                                    label_divs += f'<div style="height: {bar_width * 60}px; margin: 0;"></div>'
-                                # Add spacing after regular condition pair
-                                label_divs += '<div style="height: 55px;"></div>'
-                                prev_was_bucket_pair = False
-                                i += 1
-                        
-                        # Calculate total height for label container to match plot
-                        # Adjust padding-top to center container with plot's y-axis
-                        label_container_height = plot_height_inches * 80  # Approximate conversion
-                        # Adjust padding-top to align labels with bars - centered with plot (much larger for visible effect)
-                        label_html = f'<div style="display: flex; flex-direction: column; justify-content: flex-start; height: {label_container_height}px; padding-right: 15px; padding-top: 162px;">{label_divs}</div>'
-                        
-                        # Display labels and plot side by side
-                        label_col, plot_col = st.columns([0.23, 0.77])  # Moved labels slightly left by reducing their width
-                        
-                        with label_col:
-                            st.markdown(label_html, unsafe_allow_html=True)
-                        
-                        with plot_col:
-                            # Add title above plot only (centered over plot, not over plot + labels)
-                            st.markdown(f"<h2 style='text-align: center; margin-bottom: 1rem; font-size: 24px;'>{away_team} @ {home_team}<br>Points Scored vs Points Allowed by Condition</h2>", unsafe_allow_html=True)
-                            st.pyplot(matchup_fig, use_container_width=True)
+                        # Display plot with title (labels are now integrated in matplotlib)
+                        st.markdown(f"<h2 style='text-align: center; margin-bottom: 1rem; font-size: 24px;'>{away_team} @ {home_team}<br>Points Scored vs Points Allowed by Condition</h2>", unsafe_allow_html=True)
+                        st.pyplot(matchup_fig, use_container_width=False)  # Don't scale to container width
                         
                         plt.close(matchup_fig)
     else:

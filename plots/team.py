@@ -673,7 +673,7 @@ def plot_team_matchup_comparison(matchup_df, off_team, def_team, home_team, away
                 f'{width:.1f}',
                 ha="left",
                 va="center",
-                fontsize=54,
+                fontsize=12,
                 fontweight="bold"
             )
     
@@ -687,7 +687,7 @@ def plot_team_matchup_comparison(matchup_df, off_team, def_team, home_team, away
                 f'{width:.1f}',
                 ha="left",
                 va="center",
-                fontsize=54,
+                fontsize=12,
                 fontweight="bold"
             )
     
@@ -709,5 +709,286 @@ def plot_team_matchup_comparison(matchup_df, off_team, def_team, home_team, away
     # Adjust left margin to leave space for labels, and adjust top/bottom margins for better label alignment
     # Reduce top margin to minimize gap between labels and bars
     fig.subplots_adjust(left=0.40, top=0.98, bottom=0.08)
+    
+    return fig, matchup_df
+
+def plot_team_matchup_comparison_with_labels(matchup_df, off_team, def_team, home_team, away_team):
+    """
+    Create a horizontal bar graph with pairs of adjacent bars representing team points scored 
+    and opponent points allowed across various conditions.
+    Labels are included directly in matplotlib instead of external HTML/CSS.
+    
+    Parameters:
+    -----------
+    matchup_df : pd.DataFrame
+        DataFrame with columns: condition, off_team_pts_scored, def_team_pts_allowed
+        (output from build_team_matchup_stats)
+    off_team : str
+        Offensive team abbreviation (e.g., "LAL")
+    def_team : str
+        Defensive team abbreviation (e.g., "NOP")
+    home_team : str
+        Home team abbreviation (e.g., "NOP")
+    away_team : str
+        Away team abbreviation (e.g., "LAL")
+    
+    Returns:
+    --------
+    tuple: (matplotlib.figure.Figure, pd.DataFrame)
+        The matplotlib Figure object and the matchup_df
+    """
+    # Create figure and axis
+    # Calculate figure height based on number of conditions to prevent compression
+    n_conditions = len(matchup_df)
+    base_height = max(8, n_conditions * 1.2)  # At least 1.2 inches per condition
+    fig, ax = plt.subplots(figsize=(12, base_height), dpi=100)
+    
+    # Adjust y-positions to handle bucket averages that are split into two rows
+    # We want consistent spacing: each condition category should have the same vertical space
+    # Bucket averages use 2 rows but should share the same y-position (like regular conditions)
+    y_pos = []
+    current_y = 0
+    i = 0
+    while i < n_conditions:
+        condition = matchup_df.iloc[i]["condition"]
+        # Check if this is a bucket average row (single team vs bucket)
+        if " vs " in condition and " / " not in condition and condition != "Season Averages":
+            # Check if this row has only one value (part of a bucket average pair)
+            has_off = pd.notna(matchup_df.iloc[i]["off_team_pts_scored"])
+            has_def = pd.notna(matchup_df.iloc[i]["def_team_pts_allowed"])
+            # If this row has only one value, check if next row is the matching pair
+            if (has_off and not has_def) or (not has_off and has_def):
+                if i < n_conditions - 1:
+                    next_condition = matchup_df.iloc[i+1]["condition"]
+                    next_has_off = pd.notna(matchup_df.iloc[i+1]["off_team_pts_scored"])
+                    next_has_def = pd.notna(matchup_df.iloc[i+1]["def_team_pts_allowed"])
+                    # If next row is also a bucket average with the complementary value, they're a pair
+                    if (" vs " in next_condition and " / " not in next_condition and 
+                        next_condition != "Season Averages" and
+                        ((next_has_off and not next_has_def) or (not next_has_off and next_has_def))):
+                        # These are a pair - they share the same y-position
+                        y_pos.append(current_y)  # First row of pair
+                        y_pos.append(current_y)  # Second row of pair (same y-position)
+                        current_y += 1
+                        i += 2  # Skip both rows
+                        continue
+        # Regular condition (including Season Averages and conditions with " / ")
+        y_pos.append(current_y)
+        current_y += 1
+        i += 1
+    
+    y_pos = np.array(y_pos)
+    
+    # Bar width - reduced for smaller plot contents
+    bar_width = 0.3
+    
+    # Plot bars with brighter colors (handle NaN values)
+    # Filter out NaN values for plotting
+    off_pts = matchup_df["off_team_pts_scored"].fillna(0)
+    def_pts_allowed = matchup_df["def_team_pts_allowed"].fillna(0)
+    
+    bars1 = ax.barh(
+        y_pos - bar_width/2,
+        off_pts,
+        bar_width,
+        label=f"{off_team} Points Scored",
+        color="orange",
+        alpha=0.9
+    )
+    
+    bars2 = ax.barh(
+        y_pos + bar_width/2,
+        def_pts_allowed,
+        bar_width,
+        label=f"{def_team} Points Allowed",
+        color="blue",
+        alpha=0.9
+    )
+    
+    # Hide bars where values are NaN (width = 0)
+    for i, (bar, val) in enumerate(zip(bars1, matchup_df["off_team_pts_scored"])):
+        if pd.isna(val) or val == 0:
+            bar.set_width(0.01)  # Tiny width to make it invisible
+            bar.set_visible(False)
+    
+    for i, (bar, val) in enumerate(zip(bars2, matchup_df["def_team_pts_allowed"])):
+        if pd.isna(val) or val == 0:
+            bar.set_width(0.01)  # Tiny width to make it invisible
+            bar.set_visible(False)
+    
+    # Add condition labels directly in matplotlib (on the left side)
+    # Build labels for each bar position
+    label_y_idx = 0
+    i = 0
+    
+    while i < len(matchup_df):
+        condition = matchup_df.iloc[i]["condition"]
+        has_off = pd.notna(matchup_df.iloc[i]["off_team_pts_scored"])
+        has_def = pd.notna(matchup_df.iloc[i]["def_team_pts_allowed"])
+        
+        # Check if this is a bucket pair
+        is_bucket_pair = False
+        if " vs " in condition and " / " not in condition and condition != "Season Averages":
+            if (has_off and not has_def) or (not has_off and has_def):
+                if i < len(matchup_df) - 1:
+                    next_condition = matchup_df.iloc[i+1]["condition"]
+                    if (" vs " in next_condition and " / " not in next_condition and 
+                        next_condition != "Season Averages"):
+                        is_bucket_pair = True
+        
+        if condition == "Season Averages":
+            # Single label centered
+            y_pos_for_label = y_pos[label_y_idx]
+            ax.text(
+                -0.15,  # Position in axes coordinates (negative = left of plot area)
+                y_pos_for_label,
+                condition,
+                ha="right",
+                va="center",
+                fontsize=12,
+                fontweight="bold",
+                transform=ax.get_yaxis_transform()  # Use axes coordinates for x, data for y
+            )
+            label_y_idx += 1
+            i += 1
+        elif is_bucket_pair:
+            # Two labels for the pair
+            y_pos_for_label = y_pos[label_y_idx]
+            # Top label (for orange bar)
+            if has_off:
+                ax.text(
+                    -0.15,  # Position in axes coordinates (negative = left of plot area)
+                    y_pos_for_label - bar_width/2,
+                    condition,
+                    ha="right",
+                    va="center",
+                    fontsize=12,
+                    fontweight="bold",
+                    transform=ax.get_yaxis_transform()  # Use axes coordinates for x, data for y
+                )
+            # Bottom label (for blue bar)
+            next_condition = matchup_df.iloc[i+1]["condition"]
+            if pd.notna(matchup_df.iloc[i+1]["def_team_pts_allowed"]):
+                ax.text(
+                    -0.15,  # Position in axes coordinates (negative = left of plot area)
+                    y_pos_for_label + bar_width/2,
+                    next_condition,
+                    ha="right",
+                    va="center",
+                    fontsize=12,
+                    fontweight="bold",
+                    transform=ax.get_yaxis_transform()  # Use axes coordinates for x, data for y
+                )
+            label_y_idx += 2
+            i += 2
+        else:
+            # Regular condition - split by " / " if present
+            y_pos_for_label = y_pos[label_y_idx]
+            if " / " in condition:
+                parts = condition.split(" / ", 1)
+                # Top label (orange bar)
+                ax.text(
+                    -0.15,  # Position in axes coordinates (negative = left of plot area)
+                    y_pos_for_label - bar_width/2,
+                    parts[0].strip(),
+                    ha="right",
+                    va="center",
+                    fontsize=12,
+                    fontweight="bold",
+                    transform=ax.get_yaxis_transform()  # Use axes coordinates for x, data for y
+                )
+                # Bottom label (blue bar)
+                ax.text(
+                    -0.15,  # Position in axes coordinates (negative = left of plot area)
+                    y_pos_for_label + bar_width/2,
+                    parts[1].strip(),
+                    ha="right",
+                    va="center",
+                    fontsize=12,
+                    fontweight="bold",
+                    transform=ax.get_yaxis_transform()  # Use axes coordinates for x, data for y
+                )
+            else:
+                # Single label
+                ax.text(
+                    -0.15,  # Position in axes coordinates (negative = left of plot area)
+                    y_pos_for_label,
+                    condition,
+                    ha="right",
+                    va="center",
+                    fontsize=12,
+                    fontweight="bold",
+                    transform=ax.get_yaxis_transform()  # Use axes coordinates for x, data for y
+                )
+            label_y_idx += 1
+            i += 1
+    
+    # Hide y-axis spine but keep space
+    ax.set_yticks([])
+    ax.set_yticklabels([])
+    ax.spines['left'].set_visible(False)
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    
+    # Set x-axis label with normal range (labels use axes coordinates, not data coordinates)
+    ax.set_xlabel("Points", fontsize=16, fontweight="bold")
+    # Normal x-axis range - labels are positioned using axes coordinates, not data coordinates
+    ax.set_xlim(left=95, right=130)
+    # X-axis tick label font size
+    ax.tick_params(axis='x', labelsize=12)
+    
+    # Remove plot title (will be added separately above)
+    ax.set_title("")
+    
+    # Add vertical margin for labels - increased for better spacing
+    ax.margins(y=0.15)
+    
+    # Add value labels on each individual bar (only for visible bars)
+    for i, bar in enumerate(bars1):
+        width = bar.get_width()
+        val = matchup_df["off_team_pts_scored"].iloc[i]
+        if not pd.isna(val) and val != 0 and width > 0.01:
+            ax.text(
+                width + 0.5,
+                bar.get_y() + bar.get_height() / 2,
+                f'{width:.1f}',
+                ha="left",
+                va="center",
+                fontsize=12,
+                fontweight="bold"
+            )
+    
+    for i, bar in enumerate(bars2):
+        width = bar.get_width()
+        val = matchup_df["def_team_pts_allowed"].iloc[i]
+        if not pd.isna(val) and val != 0 and width > 0.01:
+            ax.text(
+                width + 0.5,
+                bar.get_y() + bar.get_height() / 2,
+                f'{width:.1f}',
+                ha="left",
+                va="center",
+                fontsize=12,
+                fontweight="bold"
+            )
+    
+    # Add grid for readability
+    ax.grid(axis="x", alpha=0.3, linestyle="--", zorder=0)
+    ax.set_axisbelow(True)
+    
+    # Add legend
+    ax.legend(
+        loc="lower right",
+        fontsize=12,
+        framealpha=0.9
+    )
+    
+    # Invert y-axis so top condition is at top
+    ax.invert_yaxis()
+    
+    # Don't use tight_layout as it conflicts with our manual margin adjustments
+    # Adjust left margin to leave space for labels (positioned at -0.15 in axes coordinates)
+    # Smaller margin needed since labels use axes coordinates, not data coordinates
+    fig.subplots_adjust(left=0.25, top=0.98, bottom=0.08, right=0.95)
     
     return fig, matchup_df

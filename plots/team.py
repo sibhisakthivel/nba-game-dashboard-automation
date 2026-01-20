@@ -738,9 +738,9 @@ def plot_team_matchup_comparison_with_labels(matchup_df, off_team, def_team, hom
         The matplotlib Figure object and the matchup_df
     """
     # Create figure and axis
-    # Calculate figure height based on number of conditions to prevent compression
+    # Calculate figure height based on number of conditions - even more condensed spacing
     n_conditions = len(matchup_df)
-    base_height = max(8, n_conditions * 1.2)  # At least 1.2 inches per condition
+    base_height = max(4, n_conditions * 0.5)  # Further reduced from 0.6 to 0.5 inches per condition
     fig, ax = plt.subplots(figsize=(12, base_height), dpi=100)
     
     # Adjust y-positions to handle bucket averages that are split into two rows
@@ -840,7 +840,7 @@ def plot_team_matchup_comparison_with_labels(matchup_df, off_team, def_team, hom
             # Single label centered
             y_pos_for_label = y_pos[label_y_idx]
             ax.text(
-                -0.15,  # Position in axes coordinates (negative = left of plot area)
+                -0.05,  # Position closer to bars (reduced from -0.15 to -0.05)
                 y_pos_for_label,
                 condition,
                 ha="right",
@@ -857,7 +857,7 @@ def plot_team_matchup_comparison_with_labels(matchup_df, off_team, def_team, hom
             # Top label (for orange bar)
             if has_off:
                 ax.text(
-                    -0.15,  # Position in axes coordinates (negative = left of plot area)
+                    -0.05,  # Position closer to bars (reduced from -0.15 to -0.05)
                     y_pos_for_label - bar_width/2,
                     condition,
                     ha="right",
@@ -870,7 +870,7 @@ def plot_team_matchup_comparison_with_labels(matchup_df, off_team, def_team, hom
             next_condition = matchup_df.iloc[i+1]["condition"]
             if pd.notna(matchup_df.iloc[i+1]["def_team_pts_allowed"]):
                 ax.text(
-                    -0.15,  # Position in axes coordinates (negative = left of plot area)
+                    -0.05,  # Position closer to bars (reduced from -0.15 to -0.05)
                     y_pos_for_label + bar_width/2,
                     next_condition,
                     ha="right",
@@ -888,7 +888,7 @@ def plot_team_matchup_comparison_with_labels(matchup_df, off_team, def_team, hom
                 parts = condition.split(" / ", 1)
                 # Top label (orange bar)
                 ax.text(
-                    -0.15,  # Position in axes coordinates (negative = left of plot area)
+                    -0.05,  # Position closer to bars (reduced from -0.15 to -0.05)
                     y_pos_for_label - bar_width/2,
                     parts[0].strip(),
                     ha="right",
@@ -899,7 +899,7 @@ def plot_team_matchup_comparison_with_labels(matchup_df, off_team, def_team, hom
                 )
                 # Bottom label (blue bar)
                 ax.text(
-                    -0.15,  # Position in axes coordinates (negative = left of plot area)
+                    -0.05,  # Position closer to bars (reduced from -0.15 to -0.05)
                     y_pos_for_label + bar_width/2,
                     parts[1].strip(),
                     ha="right",
@@ -911,7 +911,7 @@ def plot_team_matchup_comparison_with_labels(matchup_df, off_team, def_team, hom
             else:
                 # Single label
                 ax.text(
-                    -0.15,  # Position in axes coordinates (negative = left of plot area)
+                    -0.05,  # Position closer to bars (reduced from -0.15 to -0.05)
                     y_pos_for_label,
                     condition,
                     ha="right",
@@ -940,8 +940,8 @@ def plot_team_matchup_comparison_with_labels(matchup_df, off_team, def_team, hom
     # Remove plot title (will be added separately above)
     ax.set_title("")
     
-    # Add vertical margin for labels - increased for better spacing
-    ax.margins(y=0.15)
+    # Add vertical margin for labels - minimal margin to condense plot
+    ax.margins(y=0.01)
     
     # Add value labels on each individual bar (only for visible bars)
     for i, bar in enumerate(bars1):
@@ -976,19 +976,19 @@ def plot_team_matchup_comparison_with_labels(matchup_df, off_team, def_team, hom
     ax.grid(axis="x", alpha=0.3, linestyle="--", zorder=0)
     ax.set_axisbelow(True)
     
-    # Add legend
+    # Add legend - smaller to avoid overlapping with bars
     ax.legend(
         loc="lower right",
-        fontsize=12,
-        framealpha=0.9
+        fontsize=9,
+        framealpha=0.9,
+        prop={'size': 9}  # Additional size control
     )
     
     # Invert y-axis so top condition is at top
     ax.invert_yaxis()
     
     # Don't use tight_layout as it conflicts with our manual margin adjustments
-    # Adjust left margin to leave space for labels (positioned at -0.15 in axes coordinates)
-    # Smaller margin needed since labels use axes coordinates, not data coordinates
-    fig.subplots_adjust(left=0.25, top=0.98, bottom=0.08, right=0.95)
+    # Adjust margins - further condensed top/bottom margins
+    fig.subplots_adjust(left=0.20, top=0.90, bottom=0.14, right=0.95)
     
     return fig, matchup_df

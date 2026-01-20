@@ -469,7 +469,7 @@ if st.session_state.selected_team is not None:
                     col_table, col_plot = st.columns([0.35, 0.65])
                     
                     with col_table:
-                        st.markdown("<h3 style='text-align: center; margin-bottom: 1rem;'>Hit Rate Summary</h3>", unsafe_allow_html=True)
+                        st.markdown("<h2 style='text-align: center; margin-bottom: 1rem; font-size: 32px;'>Hit Rate Summary<br></h2>", unsafe_allow_html=True)
                         
                         # Determine player's home/away status for this matchup
                         if home_team == st.session_state.selected_team:
@@ -519,11 +519,14 @@ if st.session_state.selected_team is not None:
                         for idx, row in summary_table_filtered.iterrows():
                             html_table += '<tr>'
                             for col in summary_table_filtered.columns:
-                                html_table += f'<td style="padding: 12px; border-bottom: 1px solid rgba(250, 250, 250, 0.1); font-size: 17px;">{row[col]}</td>'
+                                html_table += f'<td style="padding: 12px; border-bottom: 1px solid rgba(250, 250, 250, 0.1); font-size: 19px;">{row[col]}</td>'
                             html_table += '</tr>'
                         html_table += '</tbody></table>'
                         
                         st.markdown(html_table, unsafe_allow_html=True)
+                        
+                        # Add spacing to align table and plot tops
+                        st.markdown("<div style='height: 2rem;'></div>", unsafe_allow_html=True)
                         
                         # Keep original dataframe as fallback (commented out)
                         # st.dataframe(
@@ -566,22 +569,22 @@ if st.session_state.selected_team is not None:
                             away_team=away_team
                         )
                         
-                        # Calculate plot height to match hit rate table height exactly
+                        # Calculate plot height to match hit rate table height - even more condensed
                         # Use the same table_height calculation as in col_table block
                         # table_height is in pixels: (len(summary_table_filtered) + 1) * 65 + 50
                         table_height_pixels = (len(summary_table_filtered) + 1) * 65 + 50
-                        # Convert pixels to inches: use conversion factor to match table height visually
-                        plot_height_inches = table_height_pixels / 80  # Conversion factor to match table height visually
-                        # Cap at reasonable min/max values
-                        plot_height_inches = max(6, min(12, plot_height_inches))
+                        # Convert pixels to inches: use even larger conversion factor to further condense plot
+                        plot_height_inches = table_height_pixels / 140  # Increased from 120 to 140 to further condense
+                        # Cap at reasonable min/max values - further reduced max
+                        plot_height_inches = max(3.5, min(7, plot_height_inches))
                         
-                        matchup_fig.set_size_inches(12, plot_height_inches)  # Width 12 inches, height matches table
+                        matchup_fig.set_size_inches(9, plot_height_inches)  # Further reduced width from 10 to 9 inches
                         matchup_fig.set_dpi(100)  # Ensure consistent DPI across environments
-                        # Reapply subplots_adjust after resizing to preserve label space
-                        matchup_fig.subplots_adjust(left=0.25, top=0.98, bottom=0.08, right=0.95)
+                        # Reapply subplots_adjust after resizing - further condensed margins
+                        matchup_fig.subplots_adjust(left=0.20, top=0.90, bottom=0.14, right=0.95)
                         
                         # Display plot with title (labels are now integrated in matplotlib)
-                        st.markdown(f"<h2 style='text-align: center; margin-bottom: 1rem; font-size: 24px;'>{away_team} @ {home_team}<br>Points Scored vs Points Allowed by Condition</h2>", unsafe_allow_html=True)
+                        st.markdown(f"<h2 style='text-align: center; margin-bottom: 1rem; font-size: 32px;'>{away_team} @ {home_team}<br>Points Scored vs Points Allowed by Condition</h2>", unsafe_allow_html=True)
                         st.pyplot(matchup_fig, use_container_width=False)  # Don't scale to container width
                         
                         plt.close(matchup_fig)

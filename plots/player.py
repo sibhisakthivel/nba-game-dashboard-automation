@@ -225,19 +225,19 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
         if not pd.isna(row["opp_def_rank"]):
             ax.text(
                 i,
-                10.2,
+                -1.5,
                 f'{row["OPP_TEAM"]}',
                 ha="center",
-                va="bottom",
+                va="top",
                 fontsize=16,
                 alpha=0.85
             )
             ax.text(
                 i,
-                11.2,
+                -2.5,
                 f'#{int(row["opp_def_rank"])}',
                 ha="center",
-                va="bottom",
+                va="top",
                 fontsize=18,
                 fontweight="bold",
                 alpha=0.9
@@ -256,7 +256,7 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
     )
     player_name = f"{player_name_row['firstName']} {player_name_row['familyName']}"
 
-    ax.set_ylim(0, plot_df["points"].max() + 5)
+    ax.set_ylim(-4, plot_df["points"].max() + 5)
     ax.set_ylabel("Points", fontsize=22, fontweight="bold")
     # Remove x-axis label and ticks - not needed
     ax.set_xlabel("")  # Empty label
@@ -617,19 +617,19 @@ def plot_player_scoring_by_def_bucket(player_id, prop_line, pbs, tbs, daily_rank
         if not pd.isna(row["opp_def_rank"]):
             ax.text(
                 i,
-                10.2,
+                -1.5,
                 f'{row["OPP_TEAM"]}',
                 ha="center",
-                va="bottom",
+                va="top",
                 fontsize=8,
                 alpha=0.85
             )
             ax.text(
                 i,
-                11.2,
+                -2.5,
                 f'#{int(row["opp_def_rank"])}',
                 ha="center",
-                va="bottom",
+                va="top",
                 fontsize=9,
                 fontweight="bold",
                 alpha=0.9
@@ -648,7 +648,7 @@ def plot_player_scoring_by_def_bucket(player_id, prop_line, pbs, tbs, daily_rank
     )
     player_name = f"{player_name_row['firstName']} {player_name_row['familyName']}"
 
-    ax.set_ylim(0, plot_df["points"].max() + 5)
+    ax.set_ylim(-4, plot_df["points"].max() + 5)
     ax.set_ylabel("Points")
     ax.set_xlabel("Game Number")
     ax.set_title(f"{player_name} — Scoring Outcomes vs Baselines ({bucket_label})")

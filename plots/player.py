@@ -9,6 +9,9 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
     # =========================================================
 
     plot_df = pbs[pbs["personId"] == player_id]
+    plot_df = plot_df[plot_df["minutes"].notna() & (plot_df["minutes"] > 0)].copy()
+    if len(plot_df) == 0:
+        raise ValueError("No games with minutes > 0 for this player.")
 
     plot_df = (
         plot_df
@@ -253,7 +256,7 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
     )
     player_name = f"{player_name_row['firstName']} {player_name_row['familyName']}"
 
-    ax.set_ylim(10, plot_df["points"].max() + 5)
+    ax.set_ylim(0, plot_df["points"].max() + 5)
     ax.set_ylabel("Points", fontsize=22, fontweight="bold")
     # Remove x-axis label and ticks - not needed
     ax.set_xlabel("")  # Empty label
@@ -361,6 +364,9 @@ def plot_player_scoring_by_def_bucket(player_id, prop_line, pbs, tbs, daily_rank
     # =========================================================
 
     plot_df = pbs[pbs["personId"] == player_id]
+    plot_df = plot_df[plot_df["minutes"].notna() & (plot_df["minutes"] > 0)].copy()
+    if len(plot_df) == 0:
+        raise ValueError("No games with minutes > 0 for this player.")
 
     plot_df = (
         plot_df
@@ -642,7 +648,7 @@ def plot_player_scoring_by_def_bucket(player_id, prop_line, pbs, tbs, daily_rank
     )
     player_name = f"{player_name_row['firstName']} {player_name_row['familyName']}"
 
-    ax.set_ylim(10, plot_df["points"].max() + 5)
+    ax.set_ylim(0, plot_df["points"].max() + 5)
     ax.set_ylabel("Points")
     ax.set_xlabel("Game Number")
     ax.set_title(f"{player_name} — Scoring Outcomes vs Baselines ({bucket_label})")

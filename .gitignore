@@ -5,4 +5,4 @@ __pycache__/
 explore.ipynb
 
 # Streamlit config (local / secrets)
-.streamlit/secrets.toml
+.streamlit/

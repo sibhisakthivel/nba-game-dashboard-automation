@@ -6,3 +6,5 @@ explore.ipynb
 
 # Streamlit config (local / secrets)
 .streamlit/
+
+.DS_Store/

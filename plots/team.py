@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from config import DEF_BUCKET_TOP, DEF_BUCKET_MIDDLE
 
 def plot_team_points_allowed(team_abbreviation, tbs, daily_ranks):
     """
@@ -137,11 +138,12 @@ def plot_team_points_allowed(team_abbreviation, tbs, daily_ranks):
     # -----------------------------
     # Bottom labels: opponent + off rank
     # -----------------------------
+    _label_y = max(80, team_games["PTS_ALLOWED"].min() - 10) + 2
     for i, row in team_games.iterrows():
         if pd.notna(row["off_rank"]):
             ax.text(
                 i,
-                97,
+                _label_y,
                 f'{row["OPP_TEAM"]}\n#{int(row["off_rank"])}',
                 ha="center",
                 va="bottom",
@@ -149,20 +151,16 @@ def plot_team_points_allowed(team_abbreviation, tbs, daily_ranks):
                 color="black",
                 alpha=0.85
             )
-    
+
     # -----------------------------
     # Formatting
     # -----------------------------
     ax.set_title(f"{team_abbreviation} — Points Allowed by Game (Opponent Offensive Rank)")
     ax.set_ylabel("Points Allowed")
     ax.set_xlabel("Game Number")
-    
-    # ax.set_ylim(80, team_games["PTS_ALLOWED"].max() + 5)
-    ax.set_ylim(95, 145)
-    
-    # ax.set_xticks(x[::5])
-    # ax.set_xticklabels(x[::5] + 1)
-    
+    y_min = max(80, team_games["PTS_ALLOWED"].min() - 10)
+    y_max = team_games["PTS_ALLOWED"].max() + 5
+    ax.set_ylim(y_min, y_max)
     ax.grid(axis="y", alpha=0.25)
     ax.legend(
         loc="upper left",
@@ -297,11 +295,12 @@ def plot_team_points_scored(team_abbreviation, tbs, daily_ranks):
     # -----------------------------
     # Bottom labels: opponent + off rank
     # -----------------------------
+    _label_y = max(80, team_games["PTS"].min() - 10) + 2
     for i, row in team_games.iterrows():
         if pd.notna(row["def_rank"]):
             ax.text(
                 i,
-                97,
+                _label_y,
                 f'{row["OPP_TEAM"]}\n#{int(row["def_rank"])}',
                 ha="center",
                 va="bottom",
@@ -309,20 +308,16 @@ def plot_team_points_scored(team_abbreviation, tbs, daily_ranks):
                 color="black",
                 alpha=0.85
             )
-    
+
     # -----------------------------
     # Formatting
     # -----------------------------
     ax.set_title(f"{team_abbreviation} — Points Scored by Game (Opponent Defensive Rank)")
     ax.set_ylabel("Points")
     ax.set_xlabel("Game Number")
-    
-    # ax.set_ylim(80, team_games["PTS_ALLOWED"].max() + 5)
-    ax.set_ylim(95, 145)
-    
-    # ax.set_xticks(x[::5])
-    # ax.set_xticklabels(x[::5] + 1)
-    
+    y_min = max(80, team_games["PTS"].min() - 10)
+    y_max = team_games["PTS"].max() + 5
+    ax.set_ylim(y_min, y_max)
     ax.grid(axis="y", alpha=0.25)
     ax.legend(
         loc="upper left",
@@ -359,26 +354,22 @@ def build_team_matchup_stats(off_team: str, def_team: str, home_team: str, away_
     pd.DataFrame
         DataFrame with columns: condition, off_team_pts_scored, def_team_pts_allowed
     """
-    # Helper function to determine defensive bucket
     def def_bucket(rank):
-        """Determine defensive bucket from rank."""
         if pd.isna(rank):
             return None
-        if rank <= 10:
+        if rank <= DEF_BUCKET_TOP:
             return "Top 10 Defense"
-        elif rank <= 20:
+        elif rank <= DEF_BUCKET_MIDDLE:
             return "Middle 10 Defense"
         else:
             return "Bottom 10 Defense"
-    
-    # Helper function to determine offensive bucket
+
     def off_bucket(rank):
-        """Determine offensive bucket from rank."""
         if pd.isna(rank):
             return None
-        if rank <= 10:
+        if rank <= DEF_BUCKET_TOP:
             return "Top 10 Offense"
-        elif rank <= 20:
+        elif rank <= DEF_BUCKET_MIDDLE:
             return "Middle 10 Offense"
         else:
             return "Bottom 10 Offense"
@@ -930,11 +921,15 @@ def plot_team_matchup_comparison_with_labels(matchup_df, off_team, def_team, hom
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     
-    # Set x-axis label with normal range (labels use axes coordinates, not data coordinates)
+    # Set x-axis label with data-driven range
     ax.set_xlabel("Points", fontsize=16, fontweight="bold")
-    # Normal x-axis range - labels are positioned using axes coordinates, not data coordinates
-    ax.set_xlim(left=95, right=130)
-    # X-axis tick label font size
+    valid_pts = pd.concat([
+        matchup_df["off_team_pts_scored"].dropna(),
+        matchup_df["def_team_pts_allowed"].dropna()
+    ])
+    x_left = max(85, valid_pts.min() - 5)
+    x_right = valid_pts.max() + 8  # room for value labels
+    ax.set_xlim(left=x_left, right=x_right)
     ax.tick_params(axis='x', labelsize=12)
     
     # Remove plot title (will be added separately above)

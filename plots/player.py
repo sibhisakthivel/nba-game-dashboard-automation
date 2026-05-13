@@ -1,8 +1,11 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.patches import Patch
+from matplotlib.lines import Line2D
+from config import STATS
 
-def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_ids=None):
+def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_ids=None, game_ids_filter=None, show_legend=True, stat="points"):
 
     # =========================================================
     # 1) Prepare player plotting dataframe
@@ -13,6 +16,12 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
     if len(plot_df) == 0:
         raise ValueError("No games with minutes > 0 for this player.")
 
+    # Apply game_ids filter if provided (for filtered teammate plots)
+    if game_ids_filter is not None:
+        plot_df = plot_df[plot_df["game_id"].isin(game_ids_filter)].copy()
+        if len(plot_df) == 0:
+            raise ValueError("No games match the filter criteria.")
+
     plot_df = (
         plot_df
         .sort_values(["game_date", "game_id"])
@@ -22,7 +31,25 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
     plot_df["game_number"] = np.arange(1, len(plot_df) + 1)
     x = np.arange(len(plot_df))
 
-    plot_df["game_date_dt"] = pd.to_datetime(plot_df["game_date"])
+    plot_df["game_date_dt"] = plot_df["game_date"]
+
+    is_filtered_plot = game_ids_filter is not None
+
+    stat_short = STATS[stat]["short"]
+    stat_label = STATS[stat]["label"]
+
+    # Compute stat-specific averages (shift by 1 to avoid leakage)
+    if is_filtered_plot:
+        # Filtered plots: compute on the filtered game set only
+        r10_avg = plot_df[stat].shift(1).rolling(10, min_periods=1).mean()
+        szn_avg = plot_df[stat].shift(1).expanding().mean()
+    elif stat == "points":
+        # Non-filtered points: use precomputed columns (exact backward compat)
+        r10_avg = plot_df["r10_avg_ppg"]
+        szn_avg = plot_df["szn_avg_ppg"]
+    else:
+        r10_avg = plot_df[stat].shift(1).rolling(10, min_periods=1).mean()
+        szn_avg = plot_df[stat].shift(1).expanding().mean()
 
     # =========================================================
     # 2) Build opponent lookup from TEAM box scores
@@ -89,7 +116,7 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
     # =========================================================
 
     bar_colors = np.where(
-        plot_df["points"] >= prop_line,
+        plot_df[stat] >= prop_line,
         "tab:green",
         "tab:red"
     )
@@ -104,27 +131,30 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
     bar_width = 0.8
     ax.bar(
         x,
-        plot_df["points"],
+        plot_df[stat],
         width=bar_width,
         color=bar_colors,
         alpha=0.75
     )
 
+    # Determine label suffix for filtered plots
+    avg_label_suffix = " (in filtered games)" if is_filtered_plot else ""
+
     ax.plot(
         x,
-        plot_df["r10_avg_ppg"],
+        r10_avg,
         linestyle=":",
         linewidth=3,
-        label="Rolling 10 Avg PPG"
+        label=f"Rolling 10 Avg {stat_short}{avg_label_suffix}"
     )
 
     ax.plot(
         x,
-        plot_df["szn_avg_ppg"],
+        szn_avg,
         linestyle="--",
         linewidth=1.8,
         alpha=0.7,
-        label="Season Avg PPG"
+        label=f"Season Avg {stat_short}{avg_label_suffix}"
     )
 
     ax.axhline(
@@ -133,7 +163,7 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
         linewidth=6,
         color="black",
         alpha=0.9,
-        label=f"Prop Line ({prop_line})"
+        label=f"{stat_label} Prop Line ({prop_line})"
     )
 
     # =========================================================
@@ -144,7 +174,7 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
 
     ax.scatter(
         x[low_min_mask],
-        plot_df.loc[low_min_mask, "points"] + 1,
+        plot_df.loc[low_min_mask, stat] + 1,
         marker="x",
         color="black",
         s=150,
@@ -160,7 +190,11 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
     pbs_names["firstName"] = pbs_names["firstName"].str.lower()
     pbs_names["familyName"] = pbs_names["familyName"].str.lower()
 
-    player_game_ids = set(plot_df["game_id"])
+    # Get all player game IDs from full dataset (not filtered) for teammate lookup
+    player_all_game_ids = set(pbs[pbs["personId"] == player_id]["game_id"])
+
+    # Get player's team for teammate filtering
+    player_team = plot_df["teamTricode"].iloc[0] if len(plot_df) > 0 else None
 
     # Visual config (cycled if 2 teammates)
     markers = ["^", "s"]
@@ -171,55 +205,92 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
         for i, teammate_id in enumerate(teammate_ids):
             if isinstance(teammate_id, str):
                 # Name-based identification (e.g., "reaves")
-                teammate_games = set(
-                    pbs_names[
+                teammate_df_with_team = pbs_names[
+                    (pbs_names["familyName"] == teammate_id.lower()) &
+                    (pbs_names["game_id"].isin(player_all_game_ids))
+                ]
+                if player_team and len(teammate_df_with_team) > 0:
+                    teammate_df_with_team = teammate_df_with_team[
+                        teammate_df_with_team["teamTricode"] == player_team
+                    ]
+
+                if len(teammate_df_with_team) > 0:
+                    teammate_df = teammate_df_with_team
+                else:
+                    teammate_df = pbs_names[
                         (pbs_names["familyName"] == teammate_id.lower()) &
-                        (pbs_names["game_id"].isin(player_game_ids))
-                    ]["game_id"]
-                )
-                out_col = f"teammate_{i}_out"
-                plot_df[out_col] = ~plot_df["game_id"].isin(teammate_games)
-                
-                # Get teammate name for legend
-                name_row = (
-                    pbs_names[pbs_names["familyName"] == teammate_id.lower()]
-                    [["firstName", "familyName"]]
-                    .drop_duplicates()
-                    .iloc[0]
-                )
-                teammate_name = f"{name_row['familyName'].title()}"
+                        (pbs_names["game_id"].isin(player_all_game_ids))
+                    ]
+
+                teammate_games_played = set(teammate_df["game_id"].unique())
+
+                if len(teammate_df) > 0:
+                    name_df = teammate_df[["firstName", "familyName"]].drop_duplicates()
+                    if len(name_df) > 0:
+                        teammate_name = f"{name_df.iloc[0]['familyName'].title()}"
+                    else:
+                        teammate_name = teammate_id.title()
+                else:
+                    name_df_fallback = pbs_names[
+                        pbs_names["familyName"] == teammate_id.lower()
+                    ][["firstName", "familyName"]].drop_duplicates()
+                    if len(name_df_fallback) > 0:
+                        teammate_name = f"{name_df_fallback.iloc[0]['familyName'].title()}"
+                    else:
+                        teammate_name = teammate_id.title()
             else:
                 # personId-based identification
-                teammate_games = set(
-                    pbs_names[
-                        (pbs_names["personId"] == teammate_id) &
-                        (pbs_names["game_id"].isin(player_game_ids))
-                    ]["game_id"]
+                teammate_all_games_df = pbs_names[pbs_names["personId"] == teammate_id]
+                teammate_all_game_ids = set(teammate_all_games_df["game_id"].unique())
+                teammate_games_played = teammate_all_game_ids & player_all_game_ids
+
+                teammate_df = teammate_all_games_df[
+                    teammate_all_games_df["game_id"].isin(player_all_game_ids)
+                ]
+
+                if len(teammate_df) > 0:
+                    name_df = teammate_df[["firstName", "familyName"]].drop_duplicates()
+                    if len(name_df) > 0:
+                        teammate_name = f"{name_df.iloc[0]['firstName'].title()} {name_df.iloc[0]['familyName'].title()}"
+                    else:
+                        teammate_name = f"Teammate {i+1}"
+                else:
+                    name_df_fallback = pbs_names[
+                        pbs_names["personId"] == teammate_id
+                    ][["firstName", "familyName"]].drop_duplicates()
+                    if len(name_df_fallback) > 0:
+                        name_row = name_df_fallback.iloc[0]
+                        teammate_name = f"{name_row['firstName'].title()} {name_row['familyName'].title()}"
+                    else:
+                        teammate_name = f"Teammate {i+1}"
+
+            out_col = f"teammate_{i}_out"
+
+            if len(teammate_games_played) > 0:
+                plot_df[out_col] = plot_df["game_id"].apply(
+                    lambda gid: gid not in teammate_games_played
                 )
-                out_col = f"teammate_{i}_out"
-                plot_df[out_col] = ~plot_df["game_id"].isin(teammate_games)
-                
-                # Get teammate name for legend
-                name_row = (
-                    pbs_names[pbs_names["personId"] == teammate_id]
-                    [["firstName", "familyName"]]
-                    .drop_duplicates()
-                    .iloc[0]
+            else:
+                plot_df[out_col] = False
+
+            num_to_plot = plot_df[out_col].sum()
+
+            if num_to_plot > 0:
+                ax.scatter(
+                    x[plot_df[out_col]],
+                    plot_df.loc[plot_df[out_col], stat] + y_offsets[i],
+                    marker=markers[i],
+                    color=colors[i],
+                    s=80 if i == 0 else 70,
+                    label=f"{teammate_name} OUT"
                 )
-                teammate_name = f"{name_row['firstName'].title()} {name_row['familyName'].title()}"
-            
-            ax.scatter(
-                x[plot_df[out_col]],
-                plot_df.loc[plot_df[out_col], "points"] + y_offsets[i],
-                marker=markers[i],
-                color=colors[i],
-                s=80 if i == 0 else 70,
-                label=f"{teammate_name} OUT"
-            )
 
     # =========================================================
     # 8) Opponent team + defensive rank labels (BOTTOM)
     # =========================================================
+
+    opp_team_fontsize = 14 if is_filtered_plot else 16
+    opp_rank_fontsize = 16 if is_filtered_plot else 18
 
     for i, row in plot_df.iterrows():
         if not pd.isna(row["opp_def_rank"]):
@@ -229,7 +300,7 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
                 f'{row["OPP_TEAM"]}',
                 ha="center",
                 va="top",
-                fontsize=16,
+                fontsize=opp_team_fontsize,
                 alpha=0.85
             )
             ax.text(
@@ -238,7 +309,7 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
                 f'#{int(row["opp_def_rank"])}',
                 ha="center",
                 va="top",
-                fontsize=18,
+                fontsize=opp_rank_fontsize,
                 fontweight="bold",
                 alpha=0.9
             )
@@ -256,8 +327,8 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
     )
     player_name = f"{player_name_row['firstName']} {player_name_row['familyName']}"
 
-    ax.set_ylim(-4, plot_df["points"].max() + 5)
-    ax.set_ylabel("Points", fontsize=22, fontweight="bold")
+    ax.set_ylim(-4, plot_df[stat].max() + 5)
+    ax.set_ylabel(stat_short, fontsize=22, fontweight="bold")
     # Remove x-axis label and ticks - not needed
     ax.set_xlabel("")  # Empty label
     
@@ -266,17 +337,17 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
     ax.set_xticklabels([])
     ax.spines['bottom'].set_visible(False)
     
+    ax.set_title("", pad=20)
+    
     ax.tick_params(axis="y", labelsize=16)
 
     ax.grid(axis="y", alpha=0.25)
     
     # Create custom legend entries for prop line hits/misses
-    from matplotlib.patches import Patch
-    from matplotlib.lines import Line2D
     legend_elements = [
-        Line2D([0], [0], linestyle=':', linewidth=3, color='gray', label="Rolling 10 Avg PPG"),
-        Line2D([0], [0], linestyle='--', linewidth=1.8, alpha=0.7, color='orange', label="Season Avg PPG"),
-        Line2D([0], [0], linestyle='--', linewidth=6, color="black", alpha=0.9, label=f"Prop Line ({prop_line})"),
+        Line2D([0], [0], linestyle=':', linewidth=3, color='gray', label=f"Rolling 10 Avg {stat_short}{avg_label_suffix}"),
+        Line2D([0], [0], linestyle='--', linewidth=1.8, alpha=0.7, color='orange', label=f"Season Avg {stat_short}{avg_label_suffix}"),
+        Line2D([0], [0], linestyle='--', linewidth=6, color="black", alpha=0.9, label=f"{stat_label} Prop Line ({prop_line})"),
         Patch(facecolor='tab:green', alpha=0.75, label="Over prop line"),
         Patch(facecolor='tab:red', alpha=0.75, label="Under prop line"),
         Line2D([0], [0], marker='x', color='black', linestyle='None', markersize=12, markeredgewidth=4, label="≤30 Minutes")
@@ -287,42 +358,48 @@ def plot_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_id
         pbs_names = pbs.copy()
         pbs_names["firstName"] = pbs_names["firstName"].str.lower()
         pbs_names["familyName"] = pbs_names["familyName"].str.lower()
-        player_game_ids = set(plot_df["game_id"])
         
         markers = ["^", "s"]
         colors = ["tab:blue", "tab:purple"]
         
         for i, teammate_id in enumerate(teammate_ids):
             if isinstance(teammate_id, str):
-                name_row = (
+                name_rows = (
                     pbs_names[pbs_names["familyName"] == teammate_id.lower()]
                     [["firstName", "familyName"]]
                     .drop_duplicates()
-                    .iloc[0]
                 )
-                teammate_name = f"{name_row['familyName'].title()}"
+                if len(name_rows) > 0:
+                    name_row = name_rows.iloc[0]
+                    teammate_name = f"{name_row['familyName'].title()}"
+                else:
+                    teammate_name = teammate_id.title()
             else:
-                name_row = (
+                name_rows = (
                     pbs_names[pbs_names["personId"] == teammate_id]
                     [["firstName", "familyName"]]
                     .drop_duplicates()
-                    .iloc[0]
                 )
-                teammate_name = f"{name_row['firstName'].title()} {name_row['familyName'].title()}"
+                if len(name_rows) > 0:
+                    name_row = name_rows.iloc[0]
+                    teammate_name = f"{name_row['firstName'].title()} {name_row['familyName'].title()}"
+                else:
+                    teammate_name = f"Teammate {i+1}"
             
             legend_elements.append(
                 Line2D([0], [0], marker=markers[i], color=colors[i], linestyle='None', 
                       markersize=10 if i == 0 else 9, label=f"{teammate_name} OUT")
             )
     
-    ax.legend(
-        handles=legend_elements,
-        fontsize=18,
-        frameon=False,
-        labelspacing=0.6,
-        handlelength=2.0,
-        handletextpad=1.0
-    )
+    if show_legend:
+        ax.legend(
+            handles=legend_elements,
+            fontsize=18,
+            frameon=False,
+            labelspacing=0.6,
+            handlelength=2.0,
+            handletextpad=1.0
+        )
 
     plt.tight_layout()
 

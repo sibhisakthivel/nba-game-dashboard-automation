@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 from sqlalchemy import text
 
 @st.cache_data(ttl=3600)  # Cache for 1 hour
@@ -29,24 +28,25 @@ def get_all_teams(_engine):
     df = pd.read_sql(query, _engine)
     return df
 
-def get_players_by_team(engine, team_abbrev):
+@st.cache_data(ttl=3600)
+def get_players_by_team(_engine, team_abbrev):
     """
     Query all unique players for a given team, ordered by season average PPG.
-    
+
     Parameters:
     -----------
-    engine : sqlalchemy.engine
-        Database connection engine
+    _engine : sqlalchemy.engine
+        Database connection engine (prefixed with _ to skip hashing)
     team_abbrev : str
         Team abbreviation (e.g., "LAL", "NOP")
-    
+
     Returns:
     --------
     pd.DataFrame with columns: person_id, first_name, family_name, display_name, avg_ppg
     """
     query = text("""
         WITH player_stats AS (
-            SELECT 
+            SELECT
                 person_id,
                 first_name,
                 family_name,
@@ -57,7 +57,7 @@ def get_players_by_team(engine, team_abbrev):
                 AND points IS NOT NULL
             GROUP BY person_id, first_name, family_name
         )
-        SELECT 
+        SELECT
             person_id,
             first_name,
             family_name,
@@ -66,48 +66,33 @@ def get_players_by_team(engine, team_abbrev):
         FROM player_stats
         ORDER BY avg_ppg DESC, family_name, first_name
     """)
-    
-    df = pd.read_sql(query, engine, params={"team_abbrev": team_abbrev})
+
+    df = pd.read_sql(query, _engine, params={"team_abbrev": team_abbrev})
     return df
 
-@st.cache_data
-def load_process_pbs_from_db(_engine, person_id=None):
+@st.cache_data(ttl=3600)
+def load_process_pbs_from_db(_engine, person_id=None, team_abbrev=None):
     """
     Load and process player box scores from database.
     Equivalent to load_process_pbs() but from database.
-    
+
     Parameters:
     -----------
     _engine : sqlalchemy.engine
         Database connection engine (prefixed with _ to skip hashing)
     person_id : int, optional
         If provided, filter to this player only
-    
+    team_abbrev : str, optional
+        If provided, filter to this team only (e.g. "LAL")
+
     Returns:
     --------
     pd.DataFrame with processed player box scores
     """
-    # Base query - note: game_date might need to be cast from DATE to TIMESTAMP
-    # depending on how it's stored, but DATE should work fine with pandas
-    query = """
-        SELECT 
-            game_id,
-            person_id,
-            team_tricode,
-            first_name,
-            family_name,
-            minutes,
-            points
-        FROM raw.box_score_traditional_v3
-        WHERE person_id IS NOT NULL
-    """
-    
-    # Check if we need game_date from league_game_log instead
-    # Actually, let's check if box_score_traditional_v3 has game_date
-    # If not, we'll need to join with league_game_log
-    # For now, let's try joining to get game_date
+    team_filter = "\n                AND bs.team_tricode = :team_abbrev" if team_abbrev is not None else ""
+
     if person_id is not None:
-        query = """
+        query = f"""
             SELECT DISTINCT ON (bs.game_id, bs.person_id)
                 bs.game_id,
                 bs.person_id,
@@ -116,17 +101,25 @@ def load_process_pbs_from_db(_engine, person_id=None):
                 bs.family_name,
                 bs.minutes,
                 bs.points,
+                bs.rebounds_offensive,
+                bs.rebounds_defensive,
+                bs.rebounds_total,
+                bs.assists,
+                bs.three_pointers_made,
+                bs.steals,
+                bs.blocks,
+                bs.turnovers,
                 lgl.game_date
             FROM raw.box_score_traditional_v3 bs
-            INNER JOIN raw.league_game_log lgl 
-                ON bs.game_id = lgl.game_id 
+            INNER JOIN raw.league_game_log lgl
+                ON bs.game_id = lgl.game_id
                 AND bs.team_tricode = lgl.team_abbreviation
             WHERE bs.person_id = :person_id
-                AND bs.person_id IS NOT NULL
+                AND bs.person_id IS NOT NULL{team_filter}
             ORDER BY bs.game_id, bs.person_id, lgl.game_date
         """
     else:
-        query = """
+        query = f"""
             SELECT DISTINCT ON (bs.game_id, bs.person_id)
                 bs.game_id,
                 bs.person_id,
@@ -135,20 +128,30 @@ def load_process_pbs_from_db(_engine, person_id=None):
                 bs.family_name,
                 bs.minutes,
                 bs.points,
+                bs.rebounds_offensive,
+                bs.rebounds_defensive,
+                bs.rebounds_total,
+                bs.assists,
+                bs.three_pointers_made,
+                bs.steals,
+                bs.blocks,
+                bs.turnovers,
                 lgl.game_date
             FROM raw.box_score_traditional_v3 bs
-            INNER JOIN raw.league_game_log lgl 
-                ON bs.game_id = lgl.game_id 
+            INNER JOIN raw.league_game_log lgl
+                ON bs.game_id = lgl.game_id
                 AND bs.team_tricode = lgl.team_abbreviation
-            WHERE bs.person_id IS NOT NULL
+            WHERE bs.person_id IS NOT NULL{team_filter}
             ORDER BY bs.game_id, bs.person_id, lgl.game_date
         """
-    
+
     query = text(query)
-    
+
     params = {}
     if person_id is not None:
         params["person_id"] = person_id
+    if team_abbrev is not None:
+        params["team_abbrev"] = team_abbrev
     
     pbs = pd.read_sql(query, _engine, params=params)
     
@@ -182,20 +185,26 @@ def load_process_pbs_from_db(_engine, person_id=None):
         .sort_values(["personId", "game_date"])
         .reset_index(drop=True)
     )
-    
-    # Compute season and rolling 10-game point averages
+
+    # Compute combo stats (fill nulls only for involved columns, not globally)
+    pbs["pra"] = pbs["points"].fillna(0) + pbs["rebounds_total"].fillna(0) + pbs["assists"].fillna(0)
+    pbs["pr"]  = pbs["points"].fillna(0) + pbs["rebounds_total"].fillna(0)
+    pbs["pa"]  = pbs["points"].fillna(0) + pbs["assists"].fillna(0)
+    pbs["ra"]  = pbs["rebounds_total"].fillna(0) + pbs["assists"].fillna(0)
+
+    # Compute season and rolling 10-game point averages (kept for points backward compat)
     pbs["szn_avg_ppg"] = (
         pbs
         .groupby("personId")["points"]
         .transform(lambda s: s.shift(1).expanding().mean())
     )
-    
+
     pbs["r10_avg_ppg"] = (
         pbs
         .groupby("personId")["points"]
         .transform(lambda s: s.shift(1).rolling(10, min_periods=1).mean())
     )
-    
+
     return pbs
 
 @st.cache_data
@@ -271,6 +280,7 @@ def load_process_tbs_from_db(_engine):
     
     return tbs
 
+@st.cache_data(ttl=3600)
 def build_ranks(tbs):
     """
     Build daily defensive rankings from team box scores.

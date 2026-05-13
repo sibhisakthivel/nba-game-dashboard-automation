@@ -66,6 +66,8 @@ def export_player_scoring(player_id, prop_line, pbs, tbs, daily_ranks, teammate_
         .rename(columns={"team_opp": "OPP_TEAM"})
     )
 
+    if len(export_df) == 0:
+        return pd.DataFrame()
     team = export_df["teamTricode"].iloc[0]
 
     export_df = export_df.merge(

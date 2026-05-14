@@ -162,7 +162,8 @@ def render_teammate_filtered_plot_table(
     daily_ranks,
     matchup_home_away,
     matchup_opp_def_bucket,
-    stat="points"
+    stat="points",
+    opp_abbrev=None
 ):
     """
     Render a filtered teammate plot with its hit rate summary table side by side.
@@ -213,7 +214,8 @@ def render_teammate_filtered_plot_table(
             teammates=None,
             matchup_home_away=matchup_home_away,
             matchup_opp_def_bucket=matchup_opp_def_bucket,
-            stat=stat
+            stat=stat,
+            opp_abbrev=opp_abbrev
         )
         
         summary_table_filtered = summary_table[
@@ -701,7 +703,8 @@ if st.session_state.selected_team is not None:
                             teammates=st.session_state.selected_teammates,
                             matchup_home_away=player_home_away,
                             matchup_opp_def_bucket=matchup_opp_def_bucket,
-                            stat=st.session_state.selected_stat
+                            stat=st.session_state.selected_stat,
+                            opp_abbrev=st.session_state.selected_opponent
                         )
                         
                         # Filter out rows with no data (Games = 0 or Hit Rate is None, or empty categories)
@@ -841,7 +844,8 @@ if st.session_state.selected_team is not None:
                                 daily_ranks,
                                 player_home_away,
                                 matchup_opp_def_bucket,
-                                stat=st.session_state.selected_stat
+                                stat=st.session_state.selected_stat,
+                                opp_abbrev=st.session_state.selected_opponent
                             )
                         
                         # Plot 2: Games without teammate 2
@@ -862,7 +866,8 @@ if st.session_state.selected_team is not None:
                                 daily_ranks,
                                 player_home_away,
                                 matchup_opp_def_bucket,
-                                stat=st.session_state.selected_stat
+                                stat=st.session_state.selected_stat,
+                                opp_abbrev=st.session_state.selected_opponent
                             )
                         
                         # Plot 3: Games without both teammates (only if 2 selected)
@@ -883,7 +888,8 @@ if st.session_state.selected_team is not None:
                                 daily_ranks,
                                 player_home_away,
                                 matchup_opp_def_bucket,
-                                stat=st.session_state.selected_stat
+                                stat=st.session_state.selected_stat,
+                                opp_abbrev=st.session_state.selected_opponent
                             )
     else:
         st.warning(f"No players found for team {st.session_state.selected_team}")

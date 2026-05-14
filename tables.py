@@ -3,7 +3,7 @@ import pandas as pd
 from config import DEF_BUCKET_TOP, DEF_BUCKET_MIDDLE
 from utils import get_teammate_game_ids
 
-def player_hit_rate_summary(player_id, prop_line, pbs, tbs, daily_ranks, teammates=None, matchup_home_away=None, matchup_opp_def_bucket=None, stat="points"):
+def player_hit_rate_summary(player_id, prop_line, pbs, tbs, daily_ranks, teammates=None, matchup_home_away=None, matchup_opp_def_bucket=None, stat="points", opp_abbrev=None):
     """
     Generate a hit rate summary table for a player across various game categories.
     
@@ -202,6 +202,10 @@ def player_hit_rate_summary(player_id, prop_line, pbs, tbs, daily_ranks, teammat
     
     rows.append(hit_row(player_df, "Season (All Games)"))
 
+    # Opponent-specific row
+    if opp_abbrev is not None:
+        rows.append(hit_row(player_df[player_df["OPP_TEAM"] == opp_abbrev], f"vs {opp_abbrev}"))
+
     # Last-N rows (player_df is sorted by game_date ascending from merge_asof)
     for _n in [5, 10, 15, 20]:
         if len(player_df) >= _n:
@@ -222,6 +226,8 @@ def player_hit_rate_summary(player_id, prop_line, pbs, tbs, daily_ranks, teammat
         rows.append(hit_row(player_df[player_df["HOME_AWAY"] == "AWAY"], "Away"))
 
     rows.append(hit_row(player_df[player_df["is_b2b"]], "Back-to-Back"))
+    rows.append(hit_row(player_df[player_df["days_since_prev"] == 2], "2 Days Rest"))
+    rows.append(hit_row(player_df[player_df["days_since_prev"] >= 3], "3+ Days Rest"))
 
     # Teammate absence rows
     for i, (out_col, teammate_name) in enumerate(zip(teammate_out_cols, teammate_names)):
@@ -272,6 +278,18 @@ def player_hit_rate_summary(player_id, prop_line, pbs, tbs, daily_ranks, teammat
                 player_df[player_df["month"] == _month],
                 calendar.month_name[_month]
             ))
+
+    # Season segment rows (player_df already sorted ascending)
+    player_df["game_number"] = range(1, len(player_df) + 1)
+    if len(player_df) > 20:
+        rows.append(hit_row(player_df[player_df["game_number"] <= 20], "First 20 Games"))
+    if len(player_df) > 21:
+        rows.append(hit_row(
+            player_df[(player_df["game_number"] >= 21) & (player_df["game_number"] <= 60)],
+            "Games 21–60"
+        ))
+    if len(player_df) > 20:
+        rows.append(hit_row(player_df.tail(20), "Last 20 Games"))
 
     # Matchup-specific row: Home/Away AND Opponent Defensive Bucket
     if matchup_home_away is not None and matchup_opp_def_bucket is not None:

@@ -24,24 +24,27 @@ from sqlalchemy.engine import URL
 def _load_secrets() -> dict[str, str]:
     path = Path(__file__).parent / ".streamlit" / "secrets.toml"
     secrets: dict[str, str] = {}
-    try:
-        import tomllib  # py311+
-        with open(path, "rb") as f:
-            secrets = tomllib.load(f)
-    except ModuleNotFoundError:
-        # Minimal TOML key = "value" parser for older Python
+
+    # Local dev: load .streamlit/secrets.toml if it exists.
+    # Render/prod: this file won't exist, so skip it and use env vars below.
+    if path.exists():
         try:
+            import tomllib  # py311+
+            with open(path, "rb") as f:
+                secrets = tomllib.load(f)
+        except ModuleNotFoundError:
+            # Minimal TOML key = "value" parser for older Python
             for line in path.read_text().splitlines():
                 line = line.strip()
                 if "=" in line and not line.startswith("#"):
                     k, _, v = line.partition("=")
                     secrets[k.strip()] = v.strip().strip('"').strip("'")
-        except FileNotFoundError:
-            pass
-    # Env-var overrides
+
+    # Env-var overrides / production secrets
     for key in ("DB_HOST", "DB_PORT", "DB_NAME", "DB_USER", "DB_PASSWORD"):
         if os.getenv(key):
             secrets[key] = os.environ[key]
+
     return secrets
 
 
